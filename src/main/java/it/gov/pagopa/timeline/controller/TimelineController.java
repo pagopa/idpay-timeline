@@ -2,6 +2,7 @@ package it.gov.pagopa.timeline.controller;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.PutOperationDTO;
+import it.gov.pagopa.timeline.dto.TimelineDTO;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,18 @@ public interface TimelineController {
   ResponseEntity<DetailOperationDTO> getTimelineDetail(
       @PathVariable("initiativeId") String initiativeId,
       @PathVariable("operationId") String operationId,
+      @PathVariable("userId") String userId);
+
+  /**
+   * Returns the detail of an operation
+   *
+   * @param initiativeId
+   * @param userId
+   * @return
+   */
+  @GetMapping("/{initiativeId}/{userId}")
+  ResponseEntity<TimelineDTO> getTimeline(
+      @PathVariable("initiativeId") String initiativeId,
       @PathVariable("userId") String userId);
 
   /**

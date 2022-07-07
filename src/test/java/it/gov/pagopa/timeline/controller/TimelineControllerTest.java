@@ -8,8 +8,10 @@ import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.ErrorDTO;
 import it.gov.pagopa.timeline.dto.PutOperationDTO;
+import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.service.TimelineService;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -120,5 +122,43 @@ class TimelineControllerTest {
 
     assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
     assertTrue(error.getMessage().contains(TimelineConstants.ERROR_MANDATORY_FIELD));
+  }
+
+  @Test
+  void getTimeline_ok() throws Exception {
+
+    Mockito.when(timelineServiceMock.getTimeline(INITIATIVE_ID, USER_ID))
+        .thenReturn(new TimelineDTO("", new ArrayList<>()));
+
+    mvc.perform(
+            MockMvcRequestBuilders.get(BASE_URL + INITIATIVE_ID + "/" + USER_ID)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andReturn();
+  }
+
+  @Test
+  void getTimeline_not_found() throws Exception {
+
+    Mockito.doThrow(
+            new TimelineException(HttpStatus.NOT_FOUND.value(),
+                "No operations have been made on this initiative!"))
+        .when(timelineServiceMock)
+        .getTimeline(INITIATIVE_ID, USER_ID);
+
+    MvcResult res =
+        mvc.perform(
+                MockMvcRequestBuilders.get(
+                        BASE_URL + INITIATIVE_ID + "/" + USER_ID)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(MockMvcResultMatchers.status().isNotFound())
+            .andReturn();
+
+    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+
+    assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
+    assertEquals("No operations have been made on this initiative!", error.getMessage());
   }
 }
