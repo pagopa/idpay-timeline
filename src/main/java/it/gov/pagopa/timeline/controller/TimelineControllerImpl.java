@@ -1,6 +1,7 @@
 package it.gov.pagopa.timeline.controller;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
+import it.gov.pagopa.timeline.dto.PutOperationDTO;
 import it.gov.pagopa.timeline.service.TimelineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,4 +21,10 @@ public class TimelineControllerImpl implements TimelineController {
         userId);
     return new ResponseEntity<>(operationDTO, HttpStatus.OK);
   }
+  @Override
+  public ResponseEntity<Void> addOperation(PutOperationDTO body) {
+    timelineService.sendToQueue(body);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
 }

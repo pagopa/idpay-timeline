@@ -1,10 +1,13 @@
 package it.gov.pagopa.timeline.controller;
 
+import static com.mongodb.assertions.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.ErrorDTO;
+import it.gov.pagopa.timeline.dto.PutOperationDTO;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.service.TimelineService;
 import org.junit.jupiter.api.Test;
@@ -34,6 +37,11 @@ class TimelineControllerTest {
   private static final String OPERATION_ID = "TEST_OPERATION_ID";
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = new DetailOperationDTO();
+
+  private static final PutOperationDTO PUT_OPERATION_DTO = new PutOperationDTO(OPERATION_ID,
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", "", "", "", "", "");
+  private static final PutOperationDTO PUT_OPERATION_DTO_EMPTY = new PutOperationDTO("",
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", "", "", "", "", "");
 
   @MockBean
   TimelineService timelineServiceMock;
@@ -79,5 +87,38 @@ class TimelineControllerTest {
 
     assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
     assertEquals("Cannot find the requested operation!", error.getMessage());
+  }
+
+  @Test
+  void addOperation_ok() throws Exception {
+
+    Mockito.doNothing().when(timelineServiceMock).sendToQueue(PUT_OPERATION_DTO);
+
+    mvc.perform(
+            MockMvcRequestBuilders.put(BASE_URL)
+                .content(objectMapper.writeValueAsString(PUT_OPERATION_DTO))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andReturn();
+  }
+
+  @Test
+  void addOperation_ko_empty_fields() throws Exception {
+
+    Mockito.doNothing().when(timelineServiceMock).sendToQueue(PUT_OPERATION_DTO);
+
+    MvcResult res = mvc.perform(
+            MockMvcRequestBuilders.put(BASE_URL)
+                .content(objectMapper.writeValueAsString(PUT_OPERATION_DTO_EMPTY))
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andReturn();
+
+    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+
+    assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
+    assertTrue(error.getMessage().contains(TimelineConstants.ERROR_MANDATORY_FIELD));
   }
 }
