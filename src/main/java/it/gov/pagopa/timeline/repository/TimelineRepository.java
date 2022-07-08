@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TimelineRepository extends MongoRepository<Operation, String> {
   Optional<Operation> findByInitiativeIdAndOperationIdAndUserId(String initiativeId, String operationId, String userId);
-  List<Operation> findByInitiativeIdAndUserId(String initiativeId, String userId);
+  List<Operation> findByInitiativeIdAndUserIdOrderByOperationDateDesc(String initiativeId, String userId);
 }

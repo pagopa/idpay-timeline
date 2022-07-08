@@ -38,7 +38,7 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Override
   public TimelineDTO getTimeline(String initiativeId, String userId) {
-    List<Operation> timeline = timelineRepository.findByInitiativeIdAndUserId(initiativeId, userId);
+    List<Operation> timeline = timelineRepository.findByInitiativeIdAndUserIdOrderByOperationDateDesc(initiativeId, userId);
     List<OperationDTO> operationList = new ArrayList<>();
     if (timeline.isEmpty()) {
       throw new TimelineException(HttpStatus.NOT_FOUND.value(),
@@ -47,7 +47,7 @@ public class TimelineServiceImpl implements TimelineService {
     timeline.forEach(operation ->
         operationList.add(operationToOperationDto(operation))
     );
-    return new TimelineDTO("", operationList);
+    return new TimelineDTO(operationList.get(0).getOperationDate(), operationList);
   }
 
   @Override
