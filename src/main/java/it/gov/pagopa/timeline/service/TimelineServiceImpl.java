@@ -1,6 +1,8 @@
 package it.gov.pagopa.timeline.service;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
+import it.gov.pagopa.timeline.dto.PutOperationDTO;
+import it.gov.pagopa.timeline.event.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
@@ -16,6 +18,9 @@ public class TimelineServiceImpl implements TimelineService {
   @Autowired
   TimelineRepository timelineRepository;
 
+  @Autowired
+  TimelineProducer timelineProducer;
+
   @Override
   public DetailOperationDTO getTimelineDetail(String initiativeId, String operationId,
       String userId) {
@@ -25,6 +30,11 @@ public class TimelineServiceImpl implements TimelineService {
         () ->
             new TimelineException(
                 HttpStatus.NOT_FOUND.value(), "Cannot find the requested operation!"));
+  }
+
+  @Override
+  public void sendToQueue(PutOperationDTO putOperationDTO) {
+    timelineProducer.sendOperation(putOperationDTO);
   }
 
   private DetailOperationDTO operationToDetailDto(Operation operation) {

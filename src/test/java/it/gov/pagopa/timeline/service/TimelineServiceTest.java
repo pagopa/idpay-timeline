@@ -3,6 +3,8 @@ package it.gov.pagopa.timeline.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
+import it.gov.pagopa.timeline.dto.PutOperationDTO;
+import it.gov.pagopa.timeline.event.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
@@ -23,6 +25,9 @@ class TimelineServiceTest {
 
   @MockBean
   TimelineRepository timelineRepositoryMock;
+
+  @MockBean
+  TimelineProducer timelineProducer;
 
   @Autowired
   TimelineService timelineService;
