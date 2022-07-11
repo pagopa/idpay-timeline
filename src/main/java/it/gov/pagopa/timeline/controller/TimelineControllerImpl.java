@@ -25,7 +25,7 @@ public class TimelineControllerImpl implements TimelineController {
 
   @Override
   public ResponseEntity<TimelineDTO> getTimeline(String initiativeId, String userId,
-      String operationType, int page, int size) {
+      String operationType, Integer page, Integer size) {
     TimelineDTO timelineDTO = timelineService.getTimeline(initiativeId, userId, operationType, page,
         size);
     return new ResponseEntity<>(timelineDTO, HttpStatus.OK);

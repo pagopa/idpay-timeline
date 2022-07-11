@@ -40,6 +40,7 @@ class TimelineControllerTest {
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final int PAGE = 0;
   private static final int SIZE = 3;
+  private static final int SIZE_KO = 11;
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = new DetailOperationDTO();
 
   private static final PutOperationDTO PUT_OPERATION_DTO = new PutOperationDTO(OPERATION_ID,
@@ -168,5 +169,26 @@ class TimelineControllerTest {
 
     assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
     assertEquals("No operations have been made on this initiative!", error.getMessage());
+  }
+
+  @Test
+  void getTimeline_ko_max_size() throws Exception {
+
+    MvcResult res =
+        mvc.perform(
+                MockMvcRequestBuilders.get(
+                        BASE_URL + INITIATIVE_ID + "/" + USER_ID)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .param("operationType", OPERATION_TYPE)
+                    .param("page", String.valueOf(PAGE))
+                    .param("size", String.valueOf(SIZE_KO))
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest())
+            .andReturn();
+
+    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+
+    assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
+    assertTrue(error.getMessage().contains("10"));
   }
 }
