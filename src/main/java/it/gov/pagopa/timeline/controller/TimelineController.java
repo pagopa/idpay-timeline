@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,7 +32,7 @@ public interface TimelineController {
       @PathVariable("userId") String userId);
 
   /**
-   * Returns the detail of an operation
+   * Returns the list of operations over an initiative for a specific user
    *
    * @param initiativeId
    * @param userId
@@ -40,7 +41,8 @@ public interface TimelineController {
   @GetMapping("/{initiativeId}/{userId}")
   ResponseEntity<TimelineDTO> getTimeline(
       @PathVariable("initiativeId") String initiativeId,
-      @PathVariable("userId") String userId);
+      @PathVariable("userId") String userId, @RequestParam(required = false) String operationType,
+      @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size);
 
   /**
    * Add a new operation to the Timeline Queue

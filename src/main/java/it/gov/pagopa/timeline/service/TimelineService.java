@@ -8,7 +8,8 @@ public interface TimelineService {
 
   DetailOperationDTO getTimelineDetail(String initiativeId, String operationId, String userId);
 
-  TimelineDTO getTimeline(String initiativeId, String userId);
+  TimelineDTO getTimeline(String initiativeId, String userId, String operationType, int page,
+      int size);
 
   void sendToQueue(PutOperationDTO putOperationDTO);
 }

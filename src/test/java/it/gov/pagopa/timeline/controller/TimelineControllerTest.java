@@ -38,6 +38,8 @@ class TimelineControllerTest {
   private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
   private static final String OPERATION_ID = "TEST_OPERATION_ID";
   private static final String OPERATION_TYPE = "PAID_REFUND";
+  private static final int PAGE = 0;
+  private static final int SIZE = 3;
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = new DetailOperationDTO();
 
   private static final PutOperationDTO PUT_OPERATION_DTO = new PutOperationDTO(OPERATION_ID,
@@ -127,12 +129,15 @@ class TimelineControllerTest {
   @Test
   void getTimeline_ok() throws Exception {
 
-    Mockito.when(timelineServiceMock.getTimeline(INITIATIVE_ID, USER_ID))
+    Mockito.when(timelineServiceMock.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE))
         .thenReturn(new TimelineDTO("", new ArrayList<>()));
 
     mvc.perform(
             MockMvcRequestBuilders.get(BASE_URL + INITIATIVE_ID + "/" + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .param("operationType", OPERATION_TYPE)
+                .param("page", String.valueOf(PAGE))
+                .param("size", String.valueOf(SIZE))
                 .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andReturn();
@@ -145,13 +150,16 @@ class TimelineControllerTest {
             new TimelineException(HttpStatus.NOT_FOUND.value(),
                 "No operations have been made on this initiative!"))
         .when(timelineServiceMock)
-        .getTimeline(INITIATIVE_ID, USER_ID);
+        .getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE);
 
     MvcResult res =
         mvc.perform(
                 MockMvcRequestBuilders.get(
                         BASE_URL + INITIATIVE_ID + "/" + USER_ID)
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .param("operationType", OPERATION_TYPE)
+                    .param("page", String.valueOf(PAGE))
+                    .param("size", String.valueOf(SIZE))
                     .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(MockMvcResultMatchers.status().isNotFound())
             .andReturn();
