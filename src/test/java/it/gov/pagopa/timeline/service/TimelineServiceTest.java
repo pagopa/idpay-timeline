@@ -35,9 +35,6 @@ class TimelineServiceTest {
   @MockBean
   TimelineRepository timelineRepositoryMock;
 
-  @MockBean
-  TimelineProducer timelineProducer;
-
   @Autowired
   TimelineService timelineService;
 
