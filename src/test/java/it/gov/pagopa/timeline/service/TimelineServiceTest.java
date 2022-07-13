@@ -38,6 +38,9 @@ class TimelineServiceTest {
   @Autowired
   TimelineService timelineService;
 
+  @MockBean
+  TimelineProducer timelineProducer;
+
   private static final String USER_ID = "TEST_USER_ID";
   private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
   private static final String OPERATION_ID = "TEST_OPERATION_ID";
