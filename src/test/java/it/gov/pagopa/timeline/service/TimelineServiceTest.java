@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.OperationDTO;
+import it.gov.pagopa.timeline.dto.PutOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.event.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
@@ -52,6 +53,9 @@ class TimelineServiceTest {
   private static final Operation OPERATION = new Operation();
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final String CHANNEL = "APP_IO";
+
+  private static final PutOperationDTO PUT_OPERATION_DTO = new PutOperationDTO(OPERATION_ID,
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, null, null, null, null);
 
   static {
     OPERATION.setOperationId(OPERATION_ID);
@@ -127,5 +131,15 @@ class TimelineServiceTest {
       assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
       assertEquals("No operations have been made on this initiative!", e.getMessage());
     }
+  }
+
+  @Test
+  void sendToQueue() {
+    Mockito.doNothing().when(timelineProducer).sendOperation(PUT_OPERATION_DTO);
+
+    timelineService.sendToQueue(PUT_OPERATION_DTO);
+
+    Mockito.verify(timelineProducer, Mockito.times(1))
+        .sendOperation(PUT_OPERATION_DTO);
   }
 }

@@ -72,11 +72,11 @@ public class TimelineServiceImpl implements TimelineService {
 
   private DetailOperationDTO operationToDetailDto(Operation operation) {
     ModelMapper modelmapper = new ModelMapper();
-    return operation != null ? modelmapper.map(operation, DetailOperationDTO.class) : null;
+    return modelmapper.map(operation, DetailOperationDTO.class);
   }
 
   private OperationDTO operationToOperationDto(Operation operation) {
     ModelMapper modelmapper = new ModelMapper();
-    return operation != null ? modelmapper.map(operation, OperationDTO.class) : null;
+    return modelmapper.map(operation, OperationDTO.class);
   }
 }
