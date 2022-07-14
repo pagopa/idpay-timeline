@@ -189,6 +189,6 @@ class TimelineControllerTest {
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
     assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
-    assertTrue(error.getMessage().contains("10"));
+    assertTrue(error.getMessage().equals("Parameter [size] must be less than or equal to 10"));
   }
 }

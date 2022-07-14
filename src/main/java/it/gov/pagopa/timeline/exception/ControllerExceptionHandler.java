@@ -40,10 +40,9 @@ public class ControllerExceptionHandler {
       ConstraintViolationException ex) {
     List<String> errors = new ArrayList<>();
 
-    ex.getConstraintViolations().forEach(error -> {
-      String fieldName = error.getPropertyPath().toString();
-      errors.add(fieldName + " " + error.getMessage());
-    });
+    ex.getConstraintViolations().forEach(error ->
+      errors.add(error.getMessage())
+    );
     String message = String.join(" - ", errors);
     return new ResponseEntity<>(
         new ErrorDTO(HttpStatus.BAD_REQUEST.value(), message),

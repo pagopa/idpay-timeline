@@ -31,8 +31,7 @@ public interface TimelineController {
   @GetMapping("/{initiativeId}/{operationId}/{userId}")
   ResponseEntity<DetailOperationDTO> getTimelineDetail(
       @PathVariable("initiativeId") String initiativeId,
-      @PathVariable("operationId") String operationId,
-      @PathVariable("userId") String userId);
+      @PathVariable("operationId") String operationId, @PathVariable("userId") String userId);
 
   /**
    * Returns the list of operations over an initiative for a specific user
@@ -42,11 +41,10 @@ public interface TimelineController {
    * @return
    */
   @GetMapping("/{initiativeId}/{userId}")
-  ResponseEntity<TimelineDTO> getTimeline(
-      @PathVariable("initiativeId") String initiativeId,
+  ResponseEntity<TimelineDTO> getTimeline(@PathVariable("initiativeId") String initiativeId,
       @PathVariable("userId") String userId, @RequestParam(required = false) String operationType,
       @RequestParam(defaultValue = "0") Integer page,
-      @RequestParam(defaultValue = "3") @Max(10) Integer size);
+      @RequestParam(defaultValue = "3") @Max(value = 10, message = "Parameter [size] must be less than or equal to {value}") Integer size);
 
   /**
    * Add a new operation to the Timeline Queue
@@ -55,6 +53,5 @@ public interface TimelineController {
    * @return
    */
   @PutMapping("/")
-  ResponseEntity<Void> addOperation(
-      @Valid @RequestBody PutOperationDTO body);
+  ResponseEntity<Void> addOperation(@Valid @RequestBody PutOperationDTO body);
 }
