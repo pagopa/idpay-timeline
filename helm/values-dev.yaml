@@ -91,8 +91,8 @@ microservice-chart:
       JAVA_TOOL_OPTIONS: java_tool_options
     idpay-eventhub-00:
       KAFKA_BINDER_BROKER_ENDPOINT_LIST: kafka_broker
-      KAFKA_IBAN_SASL_MECHANISM: kafka_sasl_mechanism
-      KAFKA_IBAN_SECURITY_PROTOCOL: kafka_security_protocol
+      KAFKA_TIMELINE_SASL_MECHANISM: kafka_sasl_mechanism
+      KAFKA_TIMELINE_SECURITY_PROTOCOL: kafka_security_protocol
       KAFKA_TOPIC_TIMELINE: idpay_timeline_topic
 
   envSecret:
