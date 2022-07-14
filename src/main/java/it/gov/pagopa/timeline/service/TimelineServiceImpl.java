@@ -2,8 +2,9 @@ package it.gov.pagopa.timeline.service;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.OperationDTO;
-import it.gov.pagopa.timeline.dto.PutOperationDTO;
+import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
+import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
 import it.gov.pagopa.timeline.event.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
@@ -25,6 +26,9 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Autowired
   TimelineRepository timelineRepository;
+
+  @Autowired
+  OperationMapper operationMapper;
 
   @Autowired
   TimelineProducer timelineProducer;
@@ -66,8 +70,14 @@ public class TimelineServiceImpl implements TimelineService {
   }
 
   @Override
-  public void sendToQueue(PutOperationDTO putOperationDTO) {
-    timelineProducer.sendOperation(putOperationDTO);
+  public void sendToQueue(QueueOperationDTO queueOperationDTO) {
+    timelineProducer.sendOperation(queueOperationDTO);
+  }
+
+  @Override
+  public void saveOperation(QueueOperationDTO queueOperationDTO) {
+    Operation operation = operationMapper.map(queueOperationDTO);
+    timelineRepository.save(operation);
   }
 
   private DetailOperationDTO operationToDetailDto(Operation operation) {
