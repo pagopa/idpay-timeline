@@ -1,7 +1,7 @@
 package it.gov.pagopa.timeline.service;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
-import it.gov.pagopa.timeline.dto.PutOperationDTO;
+import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 
 public interface TimelineService {
@@ -11,5 +11,7 @@ public interface TimelineService {
   TimelineDTO getTimeline(String initiativeId, String userId, String operationType, int page,
       int size);
 
-  void sendToQueue(PutOperationDTO putOperationDTO);
+  void sendToQueue(QueueOperationDTO queueOperationDTO);
+
+  void saveOperation(QueueOperationDTO queueOperationDTO);
 }

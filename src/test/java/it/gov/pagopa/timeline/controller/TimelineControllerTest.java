@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.ErrorDTO;
-import it.gov.pagopa.timeline.dto.PutOperationDTO;
+import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.service.TimelineService;
@@ -43,9 +43,9 @@ class TimelineControllerTest {
   private static final int SIZE_KO = 11;
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = new DetailOperationDTO();
 
-  private static final PutOperationDTO PUT_OPERATION_DTO = new PutOperationDTO(OPERATION_ID,
+  private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(OPERATION_ID,
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", "", "", "", "", "");
-  private static final PutOperationDTO PUT_OPERATION_DTO_EMPTY = new PutOperationDTO("",
+  private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO("",
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", "", "", "", "", "");
 
   @MockBean

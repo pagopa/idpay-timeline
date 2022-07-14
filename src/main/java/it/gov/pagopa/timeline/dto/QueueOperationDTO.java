@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PutOperationDTO {
+public class QueueOperationDTO {
 
   @NotBlank(message = TimelineConstants.ERROR_MANDATORY_FIELD)
   private String operationId;

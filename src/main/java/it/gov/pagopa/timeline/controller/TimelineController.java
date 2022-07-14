@@ -1,7 +1,7 @@
 package it.gov.pagopa.timeline.controller;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
-import it.gov.pagopa.timeline.dto.PutOperationDTO;
+import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -53,5 +53,5 @@ public interface TimelineController {
    * @return
    */
   @PutMapping("/")
-  ResponseEntity<Void> addOperation(@Valid @RequestBody PutOperationDTO body);
+  ResponseEntity<Void> addOperation(@Valid @RequestBody QueueOperationDTO body);
 }
