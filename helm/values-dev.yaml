@@ -94,12 +94,13 @@ microservice-chart:
       KAFKA_TIMELINE_SASL_MECHANISM: kafka_sasl_mechanism
       KAFKA_TIMELINE_SECURITY_PROTOCOL: kafka_security_protocol
       KAFKA_TOPIC_TIMELINE: idpay_timeline_topic
+      KAFKA_GROUP_IN: idpay-timeline-consumer-group
 
   envSecret:
     aks-api-url: cstar-d-weu-dev01-aks-apiserver-url
     MONGODB_URI: mongodb-connection-string
-    KAFKA_TIMELINE_SASL_JAAS_CONFIG: evh-idpay-timeline-idpay-timeline-producer-jaas-config-idpay-00
-#   evh-idpay-timeline-idpay-timeline-consumer-jaas-config-idpay-00
+    KAFKA_TIMELINE_OUT_SASL_JAAS_CONFIG: evh-idpay-timeline-idpay-timeline-producer-jaas-config-idpay-00
+    KAFKA_TIMELINE_IN_SASL_JAAS_CONFIG: evh-idpay-timeline-idpay-timeline-consumer-jaas-config-idpay-00
 #   APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-instrumentation-key
 
   keyvault:
