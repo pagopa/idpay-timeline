@@ -58,11 +58,10 @@ class TimelineServiceTest {
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final String CHANNEL = "APP_IO";
 
-  private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(OPERATION_ID,
+  private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, null, null, null, null);
 
   static {
-    OPERATION.setOperationId(OPERATION_ID);
     OPERATION.setOperationType(OPERATION_TYPE);
     OPERATION.setInitiativeId(INITIATIVE_ID);
     OPERATION.setUserId(USER_ID);

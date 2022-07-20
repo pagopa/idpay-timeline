@@ -43,10 +43,10 @@ class TimelineControllerTest {
   private static final int SIZE_KO = 11;
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = new DetailOperationDTO();
 
-  private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(OPERATION_ID,
+  private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", "", "", "", "", "");
-  private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO("",
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", "", "", "", "", "");
+  private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
+      "", INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", "", "", "", "", "");
 
   @MockBean
   TimelineService timelineServiceMock;
@@ -111,8 +111,6 @@ class TimelineControllerTest {
   @Test
   void addOperation_ko_empty_fields() throws Exception {
 
-    Mockito.doNothing().when(timelineServiceMock).sendToQueue(PUT_OPERATION_DTO);
-
     MvcResult res = mvc.perform(
             MockMvcRequestBuilders.put(BASE_URL)
                 .content(objectMapper.writeValueAsString(PUT_OPERATION_DTO_EMPTY))
@@ -130,7 +128,8 @@ class TimelineControllerTest {
   @Test
   void getTimeline_ok() throws Exception {
 
-    Mockito.when(timelineServiceMock.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE))
+    Mockito.when(
+            timelineServiceMock.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE))
         .thenReturn(new TimelineDTO("", new ArrayList<>()));
 
     mvc.perform(
