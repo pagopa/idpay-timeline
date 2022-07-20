@@ -13,8 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Operation {
 
   @Id
-  private String id;
-
   private String operationId;
 
   private String userId;

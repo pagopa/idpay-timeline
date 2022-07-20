@@ -12,9 +12,6 @@ import lombok.Getter;
 public class QueueOperationDTO {
 
   @NotBlank(message = TimelineConstants.ERROR_MANDATORY_FIELD)
-  private String operationId;
-
-  @NotBlank(message = TimelineConstants.ERROR_MANDATORY_FIELD)
   private String userId;
 
   @NotBlank(message = TimelineConstants.ERROR_MANDATORY_FIELD)

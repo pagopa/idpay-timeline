@@ -13,7 +13,6 @@ public class OperationMapper {
 
     if(queueOperationDTO != null){
       operation = new Operation();
-      operation.setOperationId(queueOperationDTO.getOperationId());
       operation.setInitiativeId(queueOperationDTO.getInitiativeId());
       operation.setUserId(queueOperationDTO.getUserId());
       operation.setOperationType(queueOperationDTO.getOperationType());
