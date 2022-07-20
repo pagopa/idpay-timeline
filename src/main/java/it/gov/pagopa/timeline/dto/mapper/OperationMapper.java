@@ -3,7 +3,6 @@ package it.gov.pagopa.timeline.dto.mapper;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.model.Operation;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +19,7 @@ public class OperationMapper {
       operation.setCircuitType(queueOperationDTO.getCircuitType());
       operation.setIban(queueOperationDTO.getIban());
       operation.setChannel(queueOperationDTO.getChannel());
-      operation.setOperationDate(LocalDateTime.parse(queueOperationDTO.getOperationDate()));
+      operation.setOperationDate(queueOperationDTO.getOperationDate());
       if(queueOperationDTO.getAmount() != null) {
         operation.setAmount(new BigDecimal(queueOperationDTO.getAmount()));
       }

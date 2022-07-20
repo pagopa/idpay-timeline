@@ -21,7 +21,7 @@ class OperationMapperTest {
   private static final String USER_ID = "test_user";
   private static final String INITIATIVE_ID = "test_initiative";
   private static final String OPERATION_TYPE = "PAID_REFUND";
-  private static final String OPERATION_DATE = "2022-07-01T09:41:17.970";
+  private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, OPERATION_DATE, "0.00",
@@ -38,14 +38,14 @@ class OperationMapperTest {
     OPERATION.setUserId(USER_ID);
     OPERATION.setInitiativeId(INITIATIVE_ID);
     OPERATION.setOperationType(OPERATION_TYPE);
-    OPERATION.setOperationDate(LocalDateTime.parse(OPERATION_DATE));
+    OPERATION.setOperationDate(OPERATION_DATE);
     OPERATION.setAmount(new BigDecimal("0.00"));
     OPERATION.setAccrued(new BigDecimal("0.00"));
 
     OPERATION_NO_BD.setUserId(USER_ID);
     OPERATION_NO_BD.setInitiativeId(INITIATIVE_ID);
     OPERATION_NO_BD.setOperationType(OPERATION_TYPE);
-    OPERATION_NO_BD.setOperationDate(LocalDateTime.parse(OPERATION_DATE));
+    OPERATION_NO_BD.setOperationDate(OPERATION_DATE);
   }
 
   @Autowired

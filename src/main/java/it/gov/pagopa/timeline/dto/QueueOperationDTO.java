@@ -2,6 +2,7 @@ package it.gov.pagopa.timeline.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class QueueOperationDTO {
 
   private String channel;
 
-  private String operationDate;
+  private LocalDateTime operationDate;
 
   private String amount;
 

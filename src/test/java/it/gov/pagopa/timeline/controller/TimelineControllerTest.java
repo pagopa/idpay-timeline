@@ -11,6 +11,7 @@ import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.service.TimelineService;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,9 +45,9 @@ class TimelineControllerTest {
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = new DetailOperationDTO();
 
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", "", "", "", "", "");
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, "", "", "", "");
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
-      "", INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", "", "", "", "", "");
+      "", INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, "", "", "", "");
 
   @MockBean
   TimelineService timelineServiceMock;
