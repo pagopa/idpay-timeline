@@ -85,7 +85,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"operationId\": \"test_refund_operation\",\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"PAID_REFUND\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\",\r\n    \"amount\":\"35.69\"\r\n}",
+							"raw": "{\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"PAID_REFUND\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\",\r\n    \"amount\":\"35.69\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -126,7 +126,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"operationId\": \"test_add_iban_operation\",\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"ADD_IBAN\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\",\r\n    \"channel\": \"APP_IO\"\r\n}",
+							"raw": "{\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"ADD_IBAN\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\",\r\n    \"channel\": \"APP_IO\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -167,7 +167,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"operationId\": \"test_onboarding_operation\",\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"ONBOARDING\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\"\r\n}",
+							"raw": "{\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"ONBOARDING\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -214,7 +214,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"operationId\": \"test_fail_operation\",\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\"\r\n}",
+							"raw": "{\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -308,7 +308,7 @@
 									"\r",
 									"pm.test(\"GET Operation- Ok - TRANSACTION - DTO Test\", function () {\r",
 									"    let jsonResponse = pm.response.json()\r",
-									"        pm.expect(jsonResponse.operationId).equals(\"test_operation_detail_transaction\");\r",
+									"        pm.expect(jsonResponse.operationId).equals(\"62ceb8b85f6aaa68c6e1edec\");\r",
 									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-05T11:41:17.970\");\r",
 									"        pm.expect(jsonResponse.operationType).equals('TRANSACTION');\r",
 									"        pm.expect(jsonResponse.amount).equals(\"500.00\");\r",
@@ -329,7 +329,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/test_operation_detail_transaction/test_user",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/62ceb8b85f6aaa68c6e1edec/test_user",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -337,7 +337,7 @@
 								"idpay",
 								"timeline",
 								"test_initiative_detail",
-								"test_operation_detail_transaction",
+								"62ceb8b85f6aaa68c6e1edec",
 								"test_user"
 							]
 						}
@@ -357,7 +357,7 @@
 									"\r",
 									"pm.test(\"GET Operation- Ok - REVERSAL - DTO Test\", function () {\r",
 									"    let jsonResponse = pm.response.json()\r",
-									"        pm.expect(jsonResponse.operationId).equals(\"test_operation_detail_reversal\");\r",
+									"        pm.expect(jsonResponse.operationId).equals(\"62c45c7c7fb35fb95d7120b4\");\r",
 									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-01T11:41:17.970\");\r",
 									"        pm.expect(jsonResponse.operationType).equals('REVERSAL');\r",
 									"        pm.expect(jsonResponse.amount).equals(\"500.00\");\r",
@@ -378,7 +378,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/test_operation_detail_reversal/test_user",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/62c45c7c7fb35fb95d7120b4/test_user",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -386,7 +386,7 @@
 								"idpay",
 								"timeline",
 								"test_initiative_detail",
-								"test_operation_detail_reversal",
+								"62c45c7c7fb35fb95d7120b4",
 								"test_user"
 							]
 						}
@@ -406,7 +406,7 @@
 									"\r",
 									"pm.test(\"GET Operation- Ok - ONBOARDING - DTO Test\", function () {\r",
 									"    let jsonResponse = pm.response.json()\r",
-									"        pm.expect(jsonResponse.operationId).equals(\"test_operation_detail_onboarding\");\r",
+									"        pm.expect(jsonResponse.operationId).equals(\"62cec0985f6aaa68c6e1eded\");\r",
 									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-10T11:41:17.970\");\r",
 									"        pm.expect(jsonResponse.operationType).equals('ONBOARDING');\r",
 									"        pm.expect(jsonResponse.amount).to.be.undefined;\r",
@@ -427,7 +427,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/test_operation_detail_onboarding/test_user",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/62cec0985f6aaa68c6e1eded/test_user",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -435,7 +435,7 @@
 								"idpay",
 								"timeline",
 								"test_initiative_detail",
-								"test_operation_detail_onboarding",
+								"62cec0985f6aaa68c6e1eded",
 								"test_user"
 							]
 						}
