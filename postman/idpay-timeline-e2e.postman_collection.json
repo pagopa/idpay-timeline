@@ -7,433 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Queue Put",
-			"item": [
-				{
-					"name": "Generate Token IO",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Retrieve Token', () => {\r",
-									"    //verify response HTTP status \r",
-									"    pm.response.to.have.status(200);\r",
-									"    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "",
-								"type": "default"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "true",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode=test_user",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"bpd",
-								"pagopa",
-								"api",
-								"v1",
-								"login"
-							],
-							"query": [
-								{
-									"key": "fiscalCode",
-									"value": "test_user"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Empty",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Empty [404]\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Empty\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.code).equals(404);\r",
-									"    pm.expect(jsonResponse.message).to.not.be.empty;\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenIO}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_queue",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_queue"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0",
-									"disabled": true
-								},
-								{
-									"key": "operationType",
-									"value": "TRANSACTION",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "11",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Queue PUT - Ok [PAID_REFUND]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Queue PUT OK - PAID_REFUND\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {}
-					},
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"PAID_REFUND\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\",\r\n    \"amount\":\"35.69\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Queue PUT - Ok [ADD_IBAN]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Queue PUT OK - ADD_IBAN\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"ADD_IBAN\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\",\r\n    \"channel\": \"APP_IO\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Queue PUT - Ok [ONBOARDING]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Queue PUT OK - ONBOARDING\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"ONBOARDING\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Queue PUT - Ko [MANDATORY FIELD MISSING]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Queue PUT KO - Missing operationType [400]\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Queue PUT KO - Missing operationType - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.code).equals(400);\r",
-									"    pm.expect(jsonResponse.message).to.not.be.empty;\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"test_user\",\r\n    \"initiativeId\": \"test_initiative_queue\",\r\n    \"operationType\": \"\",\r\n    \"operationDate\": \"2022-07-01T09:41:17.970\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Full",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Full\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Full\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.operationList).to.not.be.empty;\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenIO}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_queue",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_queue"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0",
-									"disabled": true
-								},
-								{
-									"key": "operationType",
-									"value": "TRANSACTION",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "11",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Get Operation Detail",
 			"item": [
 				{
@@ -469,7 +42,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode=test_user",
+							"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode=AAAAAA00A00A000A",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -483,7 +56,7 @@
 							"query": [
 								{
 									"key": "fiscalCode",
-									"value": "test_user"
+									"value": "AAAAAA00A00A000A"
 								}
 							]
 						}
@@ -503,8 +76,8 @@
 									"\r",
 									"pm.test(\"GET Operation- Ok - TRANSACTION - DTO Test\", function () {\r",
 									"    let jsonResponse = pm.response.json()\r",
-									"        pm.expect(jsonResponse.operationId).equals(\"62ceb8b85f6aaa68c6e1edec\");\r",
-									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-05T11:41:17.970\");\r",
+									"        pm.expect(jsonResponse.operationId).equals(\"62e8d2e7d774adef371f26e7\");\r",
+									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-05T09:41:17.970\");\r",
 									"        pm.expect(jsonResponse.operationType).equals('TRANSACTION');\r",
 									"        pm.expect(jsonResponse.amount).equals(\"500.00\");\r",
 									"        pm.expect(jsonResponse.accrued).equals(\"0.00\");\r",
@@ -548,7 +121,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/62ceb8b85f6aaa68c6e1edec",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/62e8d2e7d774adef371f26e7",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -556,7 +129,7 @@
 								"idpay",
 								"timeline",
 								"test_initiative_detail",
-								"62ceb8b85f6aaa68c6e1edec"
+								"62e8d2e7d774adef371f26e7"
 							]
 						}
 					},
@@ -575,8 +148,8 @@
 									"\r",
 									"pm.test(\"GET Operation- Ok - REVERSAL - DTO Test\", function () {\r",
 									"    let jsonResponse = pm.response.json()\r",
-									"        pm.expect(jsonResponse.operationId).equals(\"62c45c7c7fb35fb95d7120b4\");\r",
-									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-01T11:41:17.970\");\r",
+									"        pm.expect(jsonResponse.operationId).equals(\"62e8d15dd774adef371f26e0\");\r",
+									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-01T09:41:17.970\");\r",
 									"        pm.expect(jsonResponse.operationType).equals('REVERSAL');\r",
 									"        pm.expect(jsonResponse.amount).equals(\"500.00\");\r",
 									"        pm.expect(jsonResponse.accrued).equals(\"0.00\");\r",
@@ -607,7 +180,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/62c45c7c7fb35fb95d7120b4",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/62e8d15dd774adef371f26e0",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -615,7 +188,7 @@
 								"idpay",
 								"timeline",
 								"test_initiative_detail",
-								"62c45c7c7fb35fb95d7120b4"
+								"62e8d15dd774adef371f26e0"
 							]
 						}
 					},
@@ -634,8 +207,8 @@
 									"\r",
 									"pm.test(\"GET Operation- Ok - ONBOARDING - DTO Test\", function () {\r",
 									"    let jsonResponse = pm.response.json()\r",
-									"        pm.expect(jsonResponse.operationId).equals(\"62cec0985f6aaa68c6e1eded\");\r",
-									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-10T11:41:17.970\");\r",
+									"        pm.expect(jsonResponse.operationId).equals(\"62e8d36cd774adef371f26e8\");\r",
+									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-29T15:13:04.469\");\r",
 									"        pm.expect(jsonResponse.operationType).equals('ONBOARDING');\r",
 									"        pm.expect(jsonResponse.amount).to.be.undefined;\r",
 									"        pm.expect(jsonResponse.accrued).to.be.undefined;\r",
@@ -676,7 +249,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/62cec0985f6aaa68c6e1eded",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail/62e8d36cd774adef371f26e8",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -684,7 +257,7 @@
 								"idpay",
 								"timeline",
 								"test_initiative_detail",
-								"62cec0985f6aaa68c6e1eded"
+								"62e8d36cd774adef371f26e8"
 							]
 						}
 					},
@@ -778,7 +351,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode=test_user",
+							"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode=AAAAAA00A00A000A",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -792,7 +365,7 @@
 							"query": [
 								{
 									"key": "fiscalCode",
-									"value": "test_user"
+									"value": "AAAAAA00A00A000A"
 								}
 							]
 						}
@@ -916,14 +489,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative?operationType=TRANSACTION",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail?operationType=TRANSACTION",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"idpay",
 								"timeline",
-								"test_initiative"
+								"test_initiative_detail"
 							],
 							"query": [
 								{
@@ -982,14 +555,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative?page=1&size=1",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail?page=1&size=1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"idpay",
 								"timeline",
-								"test_initiative"
+								"test_initiative_detail"
 							],
 							"query": [
 								{
@@ -1047,14 +620,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative?size=1",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail?size=1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"idpay",
 								"timeline",
-								"test_initiative"
+								"test_initiative_detail"
 							],
 							"query": [
 								{
@@ -1113,14 +686,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative?page=0&size=5",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail?page=0&size=5",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"idpay",
 								"timeline",
-								"test_initiative"
+								"test_initiative_detail"
 							],
 							"query": [
 								{
@@ -1177,14 +750,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative?page=1&size=5",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail?page=1&size=5",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"idpay",
 								"timeline",
-								"test_initiative"
+								"test_initiative_detail"
 							],
 							"query": [
 								{
@@ -1206,17 +779,17 @@
 					"response": []
 				},
 				{
-					"name": "GET Timeline - Ko - default size, default page, ONBOARDING filter [Empty List]",
+					"name": "GET Timeline - Ko - default size, default page, PAID_REFUND filter [Empty List]",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"GET Timeline - Ko - default size, default page, ONBOARDING filter [Empty List] [404]\", function () {\r",
+									"pm.test(\"GET Timeline - Ko - default size, default page, PAID_REFUND filter [Empty List] [404]\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"GET Timeline - Ko - default size, default page, ONBOARDING filter [Empty List] - DTO Test\", function () {\r",
+									"pm.test(\"GET Timeline - Ko - default size, default page, PAID_REFUND filter [Empty List] - DTO Test\", function () {\r",
 									"    let jsonResponse = pm.response.json()\r",
 									"    pm.expect(jsonResponse.code).equals(404);\r",
 									"    pm.expect(jsonResponse.message).equals(\"No operations have been made on this initiative!\");\r",
@@ -1241,14 +814,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative?operationType=ONBOARDING",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail?operationType=PAID_REFUND",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"idpay",
 								"timeline",
-								"test_initiative"
+								"test_initiative_detail"
 							],
 							"query": [
 								{
@@ -1258,7 +831,7 @@
 								},
 								{
 									"key": "operationType",
-									"value": "ONBOARDING"
+									"value": "PAID_REFUND"
 								},
 								{
 									"key": "size",
@@ -1372,14 +945,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative?page=0&operationType=TRANSACTION&size=11",
+							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_detail?page=0&operationType=TRANSACTION&size=11",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"idpay",
 								"timeline",
-								"test_initiative"
+								"test_initiative_detail"
 							],
 							"query": [
 								{
