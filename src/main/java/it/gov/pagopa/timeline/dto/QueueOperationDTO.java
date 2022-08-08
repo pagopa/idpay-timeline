@@ -29,6 +29,8 @@ public class QueueOperationDTO {
 
   private String channel;
 
+  private String email;
+
   private LocalDateTime operationDate;
 
   private String amount;

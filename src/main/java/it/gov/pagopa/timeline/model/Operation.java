@@ -29,6 +29,8 @@ public class Operation {
 
   private String channel;
 
+  private String email;
+
   private LocalDateTime operationDate;
 
   private BigDecimal amount;

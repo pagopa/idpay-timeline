@@ -21,11 +21,11 @@ class OperationMapperTest {
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, OPERATION_DATE, "0.00",
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, OPERATION_DATE, "0.00",
       "0.00", null, null);
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO_NO_BD = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, OPERATION_DATE, null,
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, OPERATION_DATE, null,
       null, null, null);
 
   private static final Operation OPERATION = new Operation();

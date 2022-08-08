@@ -61,7 +61,7 @@ class TimelineServiceTest {
   private static final String CHANNEL = "APP_IO";
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, null, null, null, null);
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, null, null, null, null, null);
 
   static {
     OPERATION.setOperationType(OPERATION_TYPE);
