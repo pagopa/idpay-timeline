@@ -21,6 +21,8 @@ public class DetailOperationDTO {
 
   private String channel;
 
+  private String email;
+
   private String operationDate;
 
   private String amount;
