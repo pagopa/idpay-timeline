@@ -1,11 +1,13 @@
 package it.gov.pagopa.timeline.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DetailOperationDTO {
 
@@ -21,11 +23,11 @@ public class DetailOperationDTO {
 
   private String channel;
 
-  private String operationDate;
+  private LocalDateTime operationDate;
 
-  private String amount;
+  private BigDecimal amount;
 
-  private String accrued;
+  private BigDecimal accrued;
 
   private String idTrxIssuer;
 

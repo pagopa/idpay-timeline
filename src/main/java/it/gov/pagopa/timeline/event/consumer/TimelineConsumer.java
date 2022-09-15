@@ -1,4 +1,4 @@
-package it.gov.pagopa.timeline.event;
+package it.gov.pagopa.timeline.event.consumer;
 
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.service.TimelineService;

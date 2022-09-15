@@ -8,7 +8,7 @@ import it.gov.pagopa.timeline.dto.OperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
-import it.gov.pagopa.timeline.event.TimelineProducer;
+import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
@@ -23,7 +23,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageImpl;
@@ -62,6 +61,7 @@ class TimelineServiceTest {
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, null, null, null, null, null);
+  private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
 
   static {
     OPERATION.setOperationType(OPERATION_TYPE);
@@ -73,6 +73,14 @@ class TimelineServiceTest {
     OPERATION.setAmount(AMOUNT);
     OPERATION.setCircuitType(CIRCUIT_TYPE);
     OPERATION.setChannel(CHANNEL);
+
+    OPERATION_DTO.setOperationType(OPERATION_TYPE);
+    OPERATION_DTO.setHpan(HPAN);
+    OPERATION_DTO.setIban(IBAN);
+    OPERATION_DTO.setOperationDate(OPERATION_DATE);
+    OPERATION_DTO.setAmount(AMOUNT);
+    OPERATION_DTO.setCircuitType(CIRCUIT_TYPE);
+    OPERATION_DTO.setChannel(CHANNEL);
   }
 
   @Test
@@ -112,6 +120,7 @@ class TimelineServiceTest {
     Mockito.when(
             timelineRepositoryMock.findAll(Mockito.any(Example.class), Mockito.any(Pageable.class)))
         .thenReturn(new PageImpl<>(operations));
+    Mockito.when(operationMapper.toOperationDTO(Mockito.any(Operation.class))).thenReturn(OPERATION_DTO);
     TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 0, 3);
     assertFalse(resDto.getOperationList().isEmpty());
     OperationDTO res = resDto.getOperationList().get(0);
@@ -120,8 +129,8 @@ class TimelineServiceTest {
     assertEquals(OPERATION.getHpan(), res.getHpan());
     assertEquals(OPERATION.getIban(), res.getIban());
     assertEquals(OPERATION.getCircuitType(), res.getCircuitType());
-    assertEquals(OPERATION.getOperationDate().toString(), res.getOperationDate());
-    assertEquals(OPERATION.getAmount().toString(), res.getAmount());
+    assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
+    assertEquals(OPERATION.getAmount(), res.getAmount());
     assertEquals(OPERATION.getChannel(), res.getChannel());
   }
 

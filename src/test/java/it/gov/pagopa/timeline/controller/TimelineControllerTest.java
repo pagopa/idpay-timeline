@@ -11,6 +11,7 @@ import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.service.TimelineService;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
@@ -42,12 +43,12 @@ class TimelineControllerTest {
   private static final int PAGE = 0;
   private static final int SIZE = 3;
   private static final int SIZE_KO = 11;
-  private static final DetailOperationDTO DETAIL_OPERATION_DTO = new DetailOperationDTO();
+  private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder().build();
 
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, null, "", "", "", "");
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, null, new BigDecimal(0), new BigDecimal(0), "", "");
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
-      "", INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, null, "", "", "", "");
+      "", INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, null, new BigDecimal(0), new BigDecimal(0), "", "");
 
   @MockBean
   TimelineService timelineServiceMock;
@@ -131,7 +132,7 @@ class TimelineControllerTest {
 
     Mockito.when(
             timelineServiceMock.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE))
-        .thenReturn(new TimelineDTO("", new ArrayList<>()));
+        .thenReturn(new TimelineDTO(LocalDateTime.now(), new ArrayList<>()));
 
     mvc.perform(
             MockMvcRequestBuilders.get(BASE_URL + INITIATIVE_ID + "/" + USER_ID)

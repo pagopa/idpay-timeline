@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: idpay-timeline
+  cloud:
+    stream:
+      function:
+        definition: consumerTimeline
+      binders:
+        kafka-in:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      configuration:
+                        sasl:
+                          jaas:
+                            config: ${KAFKA_TIMELINE_IN_SASL_JAAS_CONFIG:}
+        kafka-out:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      configuration:
+                        sasl:
+                          jaas:
+                            config: ${KAFKA_TIMELINE_OUT_SASL_JAAS_CONFIG:}
+      bindings:
+        consumerTimeline-in-0:
+          binder: kafka-in
+          content-type: ${KAFKA_CONTENT_TYPE:application/json}
+          destination: ${KAFKA_TOPIC_TIMELINE:}
+          group: ${KAFKA_GROUP_IN:}
+        consumerTimeline-out-0:
+          binder: kafka-out
+          content-type: ${KAFKA_CONTENT_TYPE:application/json}
+          destination: ${KAFKA_TOPIC_TIMELINE:}
+      kafka:
+        binder:
+          auto-create-topics: false
+          brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST:}
+          configuration:
+            heartbeat.interval.ms: ${KAFKA_CONFIG_HEARTBEAT_INTERVAL_MS:30000}
+            request.timeout.ms: ${KAFKA_CONFIG_REQUEST_TIMEOUT_MS:60000}
+            session.timeout.ms: ${KAFKA_CONFIG_SESSION_TIMEOUT_MS:60000}
+            sasl.mechanism: ${KAFKA_TIMELINE_SASL_MECHANISM:}
+            security.protocol: ${KAFKA_TIMELINE_SECURITY_PROTOCOL:}
+        bindings:
+          consumerTimeline-in-0:
+            consumer:
+              autoCommitOffset: ${KAFKA_TIMELINE_AUTO_COMMIT:${KAFKA_CONSUMER_CONFIG_AUTO_COMMIT:true}}
+              configuration:
+                connections.max.idle.ms: ${KAFKA_TIMELINE_REQUEST_CONNECTIONS_MAX_IDLE_MS:${KAFKA_CONSUMER_CONFIG_CONNECTIONS_MAX_IDLE_MS:300000}}
+                max.poll:
+                  interval.ms: ${KAFKA_TIMELINE_INTERVAL_TIMEOUT_MS:${KAFKA_CONFIG_MAX_POLL_INTERVAL_TIMEOUT_MS:300000}}
+                  records: ${KAFKA_TIMELINE_MAX_POLL_SIZE:${KAFKA_CONSUMER_CONFIG_MAX_POLL_SIZE:500}}
+                socket.connection.setup.timeout:
+                  max.ms: ${KAFKA_TIMELINE_REQUEST_CONNECTION_TIMEOUT_MAX_MS:${KAFKA_CONSUMER_CONFIG_CONNECTION_TIMEOUT_MAX_MS:200000}}
+                  ms: ${KAFKA_TIMELINE_REQUEST_CONNECTION_TIMEOUT_MS:${KAFKA_CONSUMER_CONFIG_CONNECTION_TIMEOUT_MS:100000}}
+              standardHeaders: ${KAFKA_TIMELINE_STANDARD_HEADERS:${KAFKA_CONSUMER_CONFIG_STANDARD_HEADERS:both}}
+              startOffset: ${KAFKA_TIMELINE_REQUEST_START_OFFSET:${KAFKA_CONSUMER_CONFIG_START_OFFSET:earliest}}
+  config:
+    activate:
+      on-profile: default
+  data:
+    mongodb:
+      database: ${MONGODB_DBNAME:}
+      uri: ${MONGODB_URI:}

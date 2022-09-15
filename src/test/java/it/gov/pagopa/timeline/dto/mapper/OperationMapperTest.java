@@ -2,6 +2,8 @@ package it.gov.pagopa.timeline.dto.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import it.gov.pagopa.timeline.dto.DetailOperationDTO;
+import it.gov.pagopa.timeline.dto.OperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.model.Operation;
 import java.math.BigDecimal;
@@ -21,15 +23,16 @@ class OperationMapperTest {
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, OPERATION_DATE, "0.00",
-      "0.00", null, null);
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, OPERATION_DATE, new BigDecimal("0.00"),
+      new BigDecimal("0.00"), null, null);
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO_NO_BD = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, OPERATION_DATE, null,
       null, null, null);
 
   private static final Operation OPERATION = new Operation();
-  private static final Operation OPERATION_NO_BD = new Operation();
+  private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
+  private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder().build();
 
   static{
     OPERATION.setUserId(USER_ID);
@@ -39,26 +42,39 @@ class OperationMapperTest {
     OPERATION.setAmount(new BigDecimal("0.00"));
     OPERATION.setAccrued(new BigDecimal("0.00"));
 
-    OPERATION_NO_BD.setUserId(USER_ID);
-    OPERATION_NO_BD.setInitiativeId(INITIATIVE_ID);
-    OPERATION_NO_BD.setOperationType(OPERATION_TYPE);
-    OPERATION_NO_BD.setOperationDate(OPERATION_DATE);
+    OPERATION_DTO.setOperationType(OPERATION_TYPE);
+    OPERATION_DTO.setOperationDate(OPERATION_DATE);
+    OPERATION_DTO.setAmount(new BigDecimal("0.00"));
+
+    DETAIL_OPERATION_DTO.setOperationType(OPERATION_TYPE);
+    DETAIL_OPERATION_DTO.setOperationDate(OPERATION_DATE);
+    DETAIL_OPERATION_DTO.setAmount(new BigDecimal("0.00"));
+    DETAIL_OPERATION_DTO.setAccrued(new BigDecimal("0.00"));
+
   }
 
   @Autowired
   OperationMapper operationMapper;
 
   @Test
-  void map() {
-    Operation actual = operationMapper.map(QUEUE_OPERATION_DTO);
+  void toOperation() {
+    Operation actual = operationMapper.toOperation(QUEUE_OPERATION_DTO);
 
     assertEquals(OPERATION, actual);
   }
 
   @Test
-  void map_no_big_decimal() {
-    Operation actual = operationMapper.map(QUEUE_OPERATION_DTO_NO_BD);
+  void toOperationDTO() {
+    OperationDTO actual = operationMapper.toOperationDTO(OPERATION);
 
-    assertEquals(OPERATION_NO_BD, actual);
+    assertEquals(OPERATION_DTO, actual);
   }
+
+  @Test
+  void toDetailOperationDTO() {
+    DetailOperationDTO actual = operationMapper.toDetailOperationDTO(OPERATION);
+
+    assertEquals(DETAIL_OPERATION_DTO, actual);
+  }
+
 }

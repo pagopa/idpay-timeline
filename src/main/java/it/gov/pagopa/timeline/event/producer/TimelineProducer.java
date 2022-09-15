@@ -1,4 +1,4 @@
-package it.gov.pagopa.timeline.event;
+package it.gov.pagopa.timeline.event.producer;
 
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class TimelineProducer {
 
-  @Value("${spring.cloud.stream.bindings.timelineQueue-out-0.binder}")
+  @Value("${spring.cloud.stream.bindings.consumerTimeline-out-0.binder}")
   private String binder;
 
   @Autowired
   StreamBridge streamBridge;
 
   public void sendOperation(QueueOperationDTO queueOperationDTO){
-    streamBridge.send("timelineQueue-out-0", binder, queueOperationDTO);
+    streamBridge.send("consumerTimeline-out-0", binder, queueOperationDTO);
   }
 
 }

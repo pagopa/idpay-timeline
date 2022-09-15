@@ -5,14 +5,12 @@ import it.gov.pagopa.timeline.dto.OperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
-import it.gov.pagopa.timeline.event.TimelineProducer;
+import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageRequest;
@@ -36,12 +34,12 @@ public class TimelineServiceImpl implements TimelineService {
   @Override
   public DetailOperationDTO getTimelineDetail(String initiativeId, String operationId,
       String userId) {
-    Optional<Operation> operation = timelineRepository.findByInitiativeIdAndOperationIdAndUserId(
-        initiativeId, operationId, userId);
-    return operation.map(this::operationToDetailDto).orElseThrow(
+    Operation operation = timelineRepository.findByInitiativeIdAndOperationIdAndUserId(
+        initiativeId, operationId, userId).orElseThrow(
         () ->
             new TimelineException(
                 HttpStatus.NOT_FOUND.value(), "Cannot find the requested operation!"));
+    return operationMapper.toDetailOperationDTO(operation);
   }
 
   @Override
@@ -64,7 +62,7 @@ public class TimelineServiceImpl implements TimelineService {
           "No operations have been made on this initiative!");
     }
     timeline.forEach(operation ->
-        operationList.add(operationToOperationDto(operation))
+        operationList.add(operationMapper.toOperationDTO(operation))
     );
     return new TimelineDTO(operationList.get(0).getOperationDate(), operationList);
   }
@@ -76,17 +74,8 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Override
   public void saveOperation(QueueOperationDTO queueOperationDTO) {
-    Operation operation = operationMapper.map(queueOperationDTO);
+    Operation operation = operationMapper.toOperation(queueOperationDTO);
     timelineRepository.save(operation);
   }
 
-  private DetailOperationDTO operationToDetailDto(Operation operation) {
-    ModelMapper modelmapper = new ModelMapper();
-    return modelmapper.map(operation, DetailOperationDTO.class);
-  }
-
-  private OperationDTO operationToOperationDto(Operation operation) {
-    ModelMapper modelmapper = new ModelMapper();
-    return modelmapper.map(operation, OperationDTO.class);
-  }
 }
