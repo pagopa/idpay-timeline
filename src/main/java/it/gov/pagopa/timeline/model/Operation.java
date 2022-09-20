@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document(collection = "timeline")
-@CompoundIndex(name = "timeline_unique_idx", def = "{'userId': 1, 'initiativeId': 1, 'operationId': 1}", unique = true)
+@CompoundIndex(name = "timeline_idx", def = "{'userId': 1, 'initiativeId': 1}")
 public class Operation {
 
   @Id
