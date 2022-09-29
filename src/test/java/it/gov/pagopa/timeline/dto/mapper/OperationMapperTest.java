@@ -24,11 +24,7 @@ class OperationMapperTest {
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, OPERATION_DATE, new BigDecimal("0.00"),
-      new BigDecimal("0.00"), null, null);
-
-  private static final QueueOperationDTO QUEUE_OPERATION_DTO_NO_BD = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, OPERATION_DATE, null,
-      null, null, null);
+      new BigDecimal("0.00"), new BigDecimal("0.00"), null, null);
 
   private static final Operation OPERATION = new Operation();
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
@@ -40,6 +36,7 @@ class OperationMapperTest {
     OPERATION.setOperationType(OPERATION_TYPE);
     OPERATION.setOperationDate(OPERATION_DATE);
     OPERATION.setAmount(new BigDecimal("0.00"));
+    OPERATION.setEffectiveAmount(new BigDecimal("0.00"));
     OPERATION.setAccrued(new BigDecimal("0.00"));
 
     OPERATION_DTO.setOperationType(OPERATION_TYPE);

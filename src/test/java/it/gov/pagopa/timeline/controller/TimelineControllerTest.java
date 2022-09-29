@@ -46,9 +46,9 @@ class TimelineControllerTest {
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder().build();
 
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, null, new BigDecimal(0), new BigDecimal(0), "", "");
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "");
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
-      "", INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, null, new BigDecimal(0), new BigDecimal(0), "", "");
+      "", INITIATIVE_ID, OPERATION_TYPE, "", "", "", "", null, null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "");
 
   @MockBean
   TimelineService timelineServiceMock;
