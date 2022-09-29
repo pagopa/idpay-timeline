@@ -35,6 +35,8 @@ public class Operation {
 
   private BigDecimal amount;
 
+  private BigDecimal effectiveAmount;
+
   private BigDecimal accrued;
 
   private String idTrxIssuer;

@@ -20,6 +20,7 @@ public class OperationMapper {
     operation.setChannel(queueOperationDTO.getChannel());
     operation.setOperationDate(queueOperationDTO.getOperationDate());
     operation.setAmount(queueOperationDTO.getAmount());
+    operation.setEffectiveAmount(queueOperationDTO.getEffectiveAmount());
     operation.setAccrued(queueOperationDTO.getAccrued());
     operation.setIdTrxIssuer(queueOperationDTO.getIdTrxIssuer());
     operation.setIdTrxAcquirer(queueOperationDTO.getIdTrxAcquirer());
