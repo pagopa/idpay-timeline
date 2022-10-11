@@ -21,7 +21,11 @@ public class Operation {
 
   private String operationType;
 
-  private String hpan;
+  private String brandLogo;
+
+  private String maskedPan;
+
+  private String instrumentId;
 
   private String circuitType;
 
