@@ -22,7 +22,11 @@ public class QueueOperationDTO {
   @NotBlank(message = TimelineConstants.ERROR_MANDATORY_FIELD)
   private String operationType;
 
-  private String hpan;
+  private String brandLogo;
+
+  private String maskedPan;
+
+  private String instrumentId;
 
   private String circuitType;
 
@@ -44,5 +48,6 @@ public class QueueOperationDTO {
 
   private String idTrxAcquirer;
 
+  private String application;
 }
 
