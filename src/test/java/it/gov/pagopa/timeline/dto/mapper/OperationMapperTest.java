@@ -21,14 +21,13 @@ class OperationMapperTest {
   private static final String INITIATIVE_ID = "test_initiative";
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
+  private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
+  private static final String MASKED_PAN = "MASKED_PAN";
+  private static final String BRAND_LOGO = "BAND_LOGO";
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, OPERATION_DATE, new BigDecimal("0.00"),
-      new BigDecimal("0.00"), null, null);
-
-  private static final QueueOperationDTO QUEUE_OPERATION_DTO_NO_BD = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, OPERATION_DATE, null,
-      null, null, null);
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, BRAND_LOGO,MASKED_PAN,INSTRUMENT_ID,null, null, null, null,  OPERATION_DATE, new BigDecimal("0.00"),
+      new BigDecimal("0.00"), new BigDecimal("0.00"), null, null,null);
 
   private static final Operation OPERATION = new Operation();
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
@@ -40,16 +39,26 @@ class OperationMapperTest {
     OPERATION.setOperationType(OPERATION_TYPE);
     OPERATION.setOperationDate(OPERATION_DATE);
     OPERATION.setAmount(new BigDecimal("0.00"));
+    OPERATION.setEffectiveAmount(new BigDecimal("0.00"));
     OPERATION.setAccrued(new BigDecimal("0.00"));
+    OPERATION.setInstrumentId(INSTRUMENT_ID);
+    OPERATION.setMaskedPan(MASKED_PAN);
+    OPERATION.setBrandLogo(BRAND_LOGO);
 
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
     OPERATION_DTO.setOperationDate(OPERATION_DATE);
     OPERATION_DTO.setAmount(new BigDecimal("0.00"));
+    OPERATION_DTO.setMaskedPan(MASKED_PAN);
+    OPERATION_DTO.setBrandLogo(BRAND_LOGO);
+    OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
 
     DETAIL_OPERATION_DTO.setOperationType(OPERATION_TYPE);
     DETAIL_OPERATION_DTO.setOperationDate(OPERATION_DATE);
     DETAIL_OPERATION_DTO.setAmount(new BigDecimal("0.00"));
     DETAIL_OPERATION_DTO.setAccrued(new BigDecimal("0.00"));
+    DETAIL_OPERATION_DTO.setMaskedPan(MASKED_PAN);
+    DETAIL_OPERATION_DTO.setBrandLogo(BRAND_LOGO);
+    DETAIL_OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
 
   }
 

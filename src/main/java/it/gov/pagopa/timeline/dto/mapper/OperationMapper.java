@@ -14,12 +14,15 @@ public class OperationMapper {
     operation.setInitiativeId(queueOperationDTO.getInitiativeId());
     operation.setUserId(queueOperationDTO.getUserId());
     operation.setOperationType(queueOperationDTO.getOperationType());
-    operation.setHpan(queueOperationDTO.getHpan());
+    operation.setMaskedPan(queueOperationDTO.getMaskedPan());
+    operation.setBrandLogo(queueOperationDTO.getBrandLogo());
+    operation.setInstrumentId(queueOperationDTO.getInstrumentId());
     operation.setCircuitType(queueOperationDTO.getCircuitType());
     operation.setIban(queueOperationDTO.getIban());
     operation.setChannel(queueOperationDTO.getChannel());
     operation.setOperationDate(queueOperationDTO.getOperationDate());
     operation.setAmount(queueOperationDTO.getAmount());
+    operation.setEffectiveAmount(queueOperationDTO.getEffectiveAmount());
     operation.setAccrued(queueOperationDTO.getAccrued());
     operation.setIdTrxIssuer(queueOperationDTO.getIdTrxIssuer());
     operation.setIdTrxAcquirer(queueOperationDTO.getIdTrxAcquirer());
@@ -35,7 +38,9 @@ public class OperationMapper {
         .amount(operation.getAmount())
         .channel(operation.getChannel())
         .circuitType(operation.getCircuitType())
-        .hpan(operation.getHpan())
+        .maskedPan(operation.getMaskedPan())
+        .instrumentId(operation.getInstrumentId())
+        .brandLogo(operation.getBrandLogo())
         .iban(operation.getIban())
         .build();
   }
@@ -49,7 +54,9 @@ public class OperationMapper {
         .accrued(operation.getAccrued())
         .channel(operation.getChannel())
         .circuitType(operation.getCircuitType())
-        .hpan(operation.getHpan())
+        .maskedPan(operation.getMaskedPan())
+        .instrumentId(operation.getInstrumentId())
+        .brandLogo(operation.getBrandLogo())
         .iban(operation.getIban())
         .idTrxAcquirer(operation.getIdTrxAcquirer())
         .idTrxIssuer(operation.getIdTrxIssuer())

@@ -2,6 +2,7 @@ package it.gov.pagopa.timeline.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.OperationDTO;
@@ -50,7 +51,6 @@ class TimelineServiceTest {
   private static final String USER_ID = "TEST_USER_ID";
   private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
   private static final String OPERATION_ID = "TEST_OPERATION_ID";
-  private static final String HPAN = "TEST_HPAN";
   private static final String IBAN = "TEST_IBAN";
   private static final String CIRCUIT_TYPE = "00";
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
@@ -58,16 +58,22 @@ class TimelineServiceTest {
   private static final Operation OPERATION = new Operation();
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final String CHANNEL = "APP_IO";
+  private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
+  private static final String MASKED_PAN = "MASKED_PAN";
+  private static final String BRAND_LOGO = "BAND_LOGO";
+
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, null, null, null, null, null);
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,null,null,null,null, null, null, null, null, null);
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
 
   static {
     OPERATION.setOperationType(OPERATION_TYPE);
     OPERATION.setInitiativeId(INITIATIVE_ID);
     OPERATION.setUserId(USER_ID);
-    OPERATION.setHpan(HPAN);
+    OPERATION.setMaskedPan(MASKED_PAN);
+    OPERATION.setBrandLogo(BRAND_LOGO);
+    OPERATION.setInstrumentId(INSTRUMENT_ID);
     OPERATION.setIban(IBAN);
     OPERATION.setOperationDate(OPERATION_DATE);
     OPERATION.setAmount(AMOUNT);
@@ -75,7 +81,9 @@ class TimelineServiceTest {
     OPERATION.setChannel(CHANNEL);
 
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
-    OPERATION_DTO.setHpan(HPAN);
+    OPERATION_DTO.setBrandLogo(BRAND_LOGO);
+    OPERATION_DTO.setMaskedPan(MASKED_PAN);
+    OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
     OPERATION_DTO.setIban(IBAN);
     OPERATION_DTO.setOperationDate(OPERATION_DATE);
     OPERATION_DTO.setAmount(AMOUNT);
@@ -92,6 +100,7 @@ class TimelineServiceTest {
     try {
       DetailOperationDTO actual = timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
+      assertNull(actual);
     } catch (TimelineException e) {
       Assertions.fail();
     }
@@ -126,7 +135,9 @@ class TimelineServiceTest {
     OperationDTO res = resDto.getOperationList().get(0);
     assertEquals(OPERATION.getOperationId(), res.getOperationId());
     assertEquals(OPERATION.getOperationType(), res.getOperationType());
-    assertEquals(OPERATION.getHpan(), res.getHpan());
+    assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
+    assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
+    assertEquals(OPERATION.getInstrumentId(), res.getInstrumentId());
     assertEquals(OPERATION.getIban(), res.getIban());
     assertEquals(OPERATION.getCircuitType(), res.getCircuitType());
     assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
