@@ -1,6 +1,6 @@
 microservice-chart:
   image:
-    repository: cstarucommonacr.azurecr.io/idpaytimeline
+    repository: cstarpcommonacr.azurecr.io/idpaytimeline
     tag: latest
     pullPolicy: Always
 

@@ -10,13 +10,14 @@ parameters:
 trigger:
   branches:
     include:
-      - release-dev
-      - release-uat
+      - release-*
       - main
   paths:
     include:
       - src/*
+      - helm/*
       - pom.xml
+      - Dockerfile
 
 pr: none
 
