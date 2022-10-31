@@ -2,6 +2,8 @@ package it.gov.pagopa.timeline.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +22,11 @@ public class QueueOperationDTO {
   @NotBlank(message = TimelineConstants.ERROR_MANDATORY_FIELD)
   private String operationType;
 
-  private String hpan;
+  private String brandLogo;
+
+  private String maskedPan;
+
+  private String instrumentId;
 
   private String circuitType;
 
@@ -28,15 +34,20 @@ public class QueueOperationDTO {
 
   private String channel;
 
-  private String operationDate;
+  private String email;
 
-  private String amount;
+  private LocalDateTime operationDate;
 
-  private String accrued;
+  private BigDecimal amount;
+
+  private BigDecimal effectiveAmount;
+
+  private BigDecimal accrued;
 
   private String idTrxIssuer;
 
   private String idTrxAcquirer;
 
+  private String application;
 }
 

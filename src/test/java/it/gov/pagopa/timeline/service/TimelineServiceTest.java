@@ -2,13 +2,14 @@ package it.gov.pagopa.timeline.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.OperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
-import it.gov.pagopa.timeline.event.TimelineProducer;
+import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
@@ -23,15 +24,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(MockitoExtension.class)
-@WebMvcTest(value = {TimelineService.class})
+@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@ContextConfiguration(classes = TimelineServiceImpl.class)
 class TimelineServiceTest {
 
   @MockBean
@@ -49,7 +51,6 @@ class TimelineServiceTest {
   private static final String USER_ID = "TEST_USER_ID";
   private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
   private static final String OPERATION_ID = "TEST_OPERATION_ID";
-  private static final String HPAN = "TEST_HPAN";
   private static final String IBAN = "TEST_IBAN";
   private static final String CIRCUIT_TYPE = "00";
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
@@ -57,20 +58,37 @@ class TimelineServiceTest {
   private static final Operation OPERATION = new Operation();
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final String CHANNEL = "APP_IO";
+  private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
+  private static final String MASKED_PAN = "MASKED_PAN";
+  private static final String BRAND_LOGO = "BAND_LOGO";
+
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, null, null, null, null, null, null, null, null);
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,null,null,null,null, null, null, null, null, null);
+  private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
 
   static {
     OPERATION.setOperationType(OPERATION_TYPE);
     OPERATION.setInitiativeId(INITIATIVE_ID);
     OPERATION.setUserId(USER_ID);
-    OPERATION.setHpan(HPAN);
+    OPERATION.setMaskedPan(MASKED_PAN);
+    OPERATION.setBrandLogo(BRAND_LOGO);
+    OPERATION.setInstrumentId(INSTRUMENT_ID);
     OPERATION.setIban(IBAN);
     OPERATION.setOperationDate(OPERATION_DATE);
     OPERATION.setAmount(AMOUNT);
     OPERATION.setCircuitType(CIRCUIT_TYPE);
     OPERATION.setChannel(CHANNEL);
+
+    OPERATION_DTO.setOperationType(OPERATION_TYPE);
+    OPERATION_DTO.setBrandLogo(BRAND_LOGO);
+    OPERATION_DTO.setMaskedPan(MASKED_PAN);
+    OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
+    OPERATION_DTO.setIban(IBAN);
+    OPERATION_DTO.setOperationDate(OPERATION_DATE);
+    OPERATION_DTO.setAmount(AMOUNT);
+    OPERATION_DTO.setCircuitType(CIRCUIT_TYPE);
+    OPERATION_DTO.setChannel(CHANNEL);
   }
 
   @Test
@@ -82,6 +100,7 @@ class TimelineServiceTest {
     try {
       DetailOperationDTO actual = timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
+      assertNull(actual);
     } catch (TimelineException e) {
       Assertions.fail();
     }
@@ -110,16 +129,19 @@ class TimelineServiceTest {
     Mockito.when(
             timelineRepositoryMock.findAll(Mockito.any(Example.class), Mockito.any(Pageable.class)))
         .thenReturn(new PageImpl<>(operations));
+    Mockito.when(operationMapper.toOperationDTO(Mockito.any(Operation.class))).thenReturn(OPERATION_DTO);
     TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 0, 3);
     assertFalse(resDto.getOperationList().isEmpty());
     OperationDTO res = resDto.getOperationList().get(0);
     assertEquals(OPERATION.getOperationId(), res.getOperationId());
     assertEquals(OPERATION.getOperationType(), res.getOperationType());
-    assertEquals(OPERATION.getHpan(), res.getHpan());
+    assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
+    assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
+    assertEquals(OPERATION.getInstrumentId(), res.getInstrumentId());
     assertEquals(OPERATION.getIban(), res.getIban());
     assertEquals(OPERATION.getCircuitType(), res.getCircuitType());
-    assertEquals(OPERATION.getOperationDate().toString(), res.getOperationDate());
-    assertEquals(OPERATION.getAmount().toString(), res.getAmount());
+    assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
+    assertEquals(OPERATION.getAmount(), res.getAmount());
     assertEquals(OPERATION.getChannel(), res.getChannel());
   }
 
