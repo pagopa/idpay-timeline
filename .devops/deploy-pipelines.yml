@@ -12,7 +12,7 @@ trigger:
     include:
       - release-dev
       - release-uat
-      - release-prod
+      - main
   paths:
     include:
       - src/*
@@ -54,7 +54,7 @@ variables:
     # postman environment secure file
     postmanEnvFile: idpay_uat.postman_environment.json
 
-  ${{ elseif startsWith(variables['Build.SourceBranch'], 'refs/heads/release-prod') }}:
+  ${{ elseif or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),eq(variables['Build.SourceBranch'], 'refs/heads/release-prod')) }}:
     environment: 'PROD'
     dockerRegistryServiceConnection: '$(PROD_CONTAINER_REGISTRY_SERVICE_CONN)'
     kubernetesServiceConnection: '$(PROD_KUBERNETES_SERVICE_CONN)'
