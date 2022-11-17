@@ -17,23 +17,26 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = OperationMapper.class)
 class OperationMapperTest {
+
   private static final String USER_ID = "test_user";
   private static final String INITIATIVE_ID = "test_initiative";
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
   private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
   private static final String MASKED_PAN = "MASKED_PAN";
-  private static final String BRAND_LOGO = "BAND_LOGO";
+  private static final String BRAND_LOGO = "BRAND_LOGO";
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, BRAND_LOGO,MASKED_PAN,INSTRUMENT_ID,null, null, null, null,  OPERATION_DATE, new BigDecimal("0.00"),
-      new BigDecimal("0.00"), new BigDecimal("0.00"), null, null,null);
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
+      null, null, null, OPERATION_DATE, new BigDecimal("0.00"),
+      new BigDecimal("0.00"), new BigDecimal("0.00"), null, null);
 
   private static final Operation OPERATION = new Operation();
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
-  private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder().build();
+  private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder()
+      .build();
 
-  static{
+  static {
     OPERATION.setUserId(USER_ID);
     OPERATION.setInitiativeId(INITIATIVE_ID);
     OPERATION.setOperationType(OPERATION_TYPE);
