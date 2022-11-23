@@ -33,7 +33,11 @@ public class Operation {
 
   private String channel;
 
-  private String email;
+  private String rewardNotificationId;
+
+  private String cro;
+
+  private Long rewardFeedbackProgressive;
 
   private LocalDateTime operationDate;
 
