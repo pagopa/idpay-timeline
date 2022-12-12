@@ -78,4 +78,20 @@ public class TimelineServiceImpl implements TimelineService {
     timelineRepository.save(operation);
   }
 
+  @Override
+  public TimelineDTO getRefunds(String initiativeId, String userId) {
+    List<Operation> timeline = timelineRepository.findByInitiativeIdAndUserIdAndOperationTypeContainingOrderByOperationDateDesc(
+        initiativeId, userId, "REFUND");
+
+    List<OperationDTO> operationList = new ArrayList<>();
+    if (timeline.isEmpty()) {
+      throw new TimelineException(HttpStatus.NOT_FOUND.value(),
+          "No refunds have been rewarded on this initiative!");
+    }
+    timeline.forEach(operation ->
+        operationList.add(operationMapper.toOperationDTO(operation))
+    );
+    return new TimelineDTO(operationList.get(0).getOperationDate(), operationList);
+  }
+
 }
