@@ -37,4 +37,10 @@ public class TimelineControllerImpl implements TimelineController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  @Override
+  public ResponseEntity<TimelineDTO> getRefunds(String initiativeId, String userId) {
+    TimelineDTO timelineDTO = timelineService.getRefunds(initiativeId, userId);
+    return new ResponseEntity<>(timelineDTO, HttpStatus.OK);
+  }
+
 }
