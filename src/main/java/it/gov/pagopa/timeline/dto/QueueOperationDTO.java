@@ -22,6 +22,8 @@ public class QueueOperationDTO {
   @NotBlank(message = TimelineConstants.ERROR_MANDATORY_FIELD)
   private String operationType;
 
+  private String rewardNotificationId;
+
   private String brandLogo;
 
   private String maskedPan;
@@ -34,7 +36,9 @@ public class QueueOperationDTO {
 
   private String channel;
 
-  private String email;
+  private String cro;
+
+  private Long rewardFeedbackProgressive;
 
   private LocalDateTime operationDate;
 
@@ -48,6 +52,5 @@ public class QueueOperationDTO {
 
   private String idTrxAcquirer;
 
-  private String application;
 }
 

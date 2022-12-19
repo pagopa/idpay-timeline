@@ -14,4 +14,6 @@ public interface TimelineService {
   void sendToQueue(QueueOperationDTO queueOperationDTO);
 
   void saveOperation(QueueOperationDTO queueOperationDTO);
+
+  TimelineDTO getRefunds(String initiativeId, String userId);
 }

@@ -50,11 +50,13 @@ class TimelineControllerTest {
       .build();
 
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "", "",
-      null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0),"", "", "");
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "",
+      "",
+      null, null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "");
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
-      "", INITIATIVE_ID, OPERATION_TYPE, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "", "",
-      null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0),"" ,"", "");
+      "", INITIATIVE_ID, OPERATION_TYPE, "", BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "", "",
+      null,
+      null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "");
 
   @MockBean
   TimelineService timelineServiceMock;
@@ -197,5 +199,44 @@ class TimelineControllerTest {
 
     assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
     assertTrue(error.getMessage().equals("Parameter [size] must be less than or equal to 10"));
+  }
+
+  @Test
+  void getRefunds_ok() throws Exception {
+
+    Mockito.when(
+            timelineServiceMock.getRefunds(INITIATIVE_ID, USER_ID))
+        .thenReturn(new TimelineDTO(LocalDateTime.now(), new ArrayList<>()));
+
+    mvc.perform(
+            MockMvcRequestBuilders.get(BASE_URL + INITIATIVE_ID + "/" + USER_ID + "/refunds")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andReturn();
+  }
+
+  @Test
+  void getRefunds_not_found() throws Exception {
+
+    Mockito.doThrow(
+            new TimelineException(HttpStatus.NOT_FOUND.value(),
+                "No refunds have been rewarded on this initiative!"))
+        .when(timelineServiceMock)
+        .getRefunds(INITIATIVE_ID, USER_ID);
+
+    MvcResult res =
+        mvc.perform(
+                MockMvcRequestBuilders.get(
+                        BASE_URL + INITIATIVE_ID + "/" + USER_ID + "/refunds")
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(MockMvcResultMatchers.status().isNotFound())
+            .andReturn();
+
+    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+
+    assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
+    assertEquals("No refunds have been rewarded on this initiative!", error.getMessage());
   }
 }
