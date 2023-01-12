@@ -9,6 +9,7 @@ import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,18 @@ public class TimelineServiceImpl implements TimelineService {
     timeline.forEach(operation ->
         operationList.add(operationMapper.toOperationDTO(operation))
     );
-    return new TimelineDTO(operationList.get(0).getOperationDate(), operationList);
+
+    LocalDateTime lastUpdate = operationList.get(0).getOperationDate();
+
+    if (page != 0) {
+      Operation first = timelineRepository.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(
+          initiativeId, userId).orElse(null);
+      if(first != null){
+        lastUpdate = first.getOperationDate();
+      }
+    }
+
+    return new TimelineDTO(lastUpdate, operationList);
   }
 
   @Override
