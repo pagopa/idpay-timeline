@@ -148,6 +148,60 @@ class TimelineServiceTest {
   }
 
   @Test
+  void getTimeline_ok_page1() {
+    List<Operation> operations = new ArrayList<>();
+    operations.add(OPERATION);
+    Mockito.when(
+            timelineRepositoryMock.findAll(Mockito.any(Example.class), Mockito.any(Pageable.class)))
+        .thenReturn(new PageImpl<>(operations));
+    Mockito.when(operationMapper.toOperationDTO(Mockito.any(Operation.class)))
+        .thenReturn(OPERATION_DTO);
+    Mockito.when(timelineRepositoryMock.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(
+        INITIATIVE_ID, USER_ID)).thenReturn(Optional.of(OPERATION));
+
+    TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3);
+    assertFalse(resDto.getOperationList().isEmpty());
+    OperationDTO res = resDto.getOperationList().get(0);
+    assertEquals(OPERATION.getOperationId(), res.getOperationId());
+    assertEquals(OPERATION.getOperationType(), res.getOperationType());
+    assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
+    assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
+    assertEquals(OPERATION.getInstrumentId(), res.getInstrumentId());
+    assertEquals(OPERATION.getIban(), res.getIban());
+    assertEquals(OPERATION.getCircuitType(), res.getCircuitType());
+    assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
+    assertEquals(OPERATION.getAmount(), res.getAmount());
+    assertEquals(OPERATION.getChannel(), res.getChannel());
+  }
+
+  @Test
+  void getTimeline_ok_page1_null() {
+    List<Operation> operations = new ArrayList<>();
+    operations.add(OPERATION);
+    Mockito.when(
+            timelineRepositoryMock.findAll(Mockito.any(Example.class), Mockito.any(Pageable.class)))
+        .thenReturn(new PageImpl<>(operations));
+    Mockito.when(operationMapper.toOperationDTO(Mockito.any(Operation.class)))
+        .thenReturn(OPERATION_DTO);
+    Mockito.when(timelineRepositoryMock.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(
+        INITIATIVE_ID, USER_ID)).thenReturn(Optional.empty());
+
+    TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3);
+    assertFalse(resDto.getOperationList().isEmpty());
+    OperationDTO res = resDto.getOperationList().get(0);
+    assertEquals(OPERATION.getOperationId(), res.getOperationId());
+    assertEquals(OPERATION.getOperationType(), res.getOperationType());
+    assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
+    assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
+    assertEquals(OPERATION.getInstrumentId(), res.getInstrumentId());
+    assertEquals(OPERATION.getIban(), res.getIban());
+    assertEquals(OPERATION.getCircuitType(), res.getCircuitType());
+    assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
+    assertEquals(OPERATION.getAmount(), res.getAmount());
+    assertEquals(OPERATION.getChannel(), res.getChannel());
+  }
+
+  @Test
   void getTimeline_ko() {
     Mockito.when(
             timelineRepositoryMock.findAll(Mockito.any(Example.class), Mockito.any(Pageable.class)))
@@ -208,7 +262,7 @@ class TimelineServiceTest {
   void getRefunds_ko() {
     Mockito.when(
             timelineRepositoryMock.findByInitiativeIdAndUserIdAndOperationTypeContainingOrderByOperationDateDesc(
-                    INITIATIVE_ID, USER_ID, "REFUND"))
+                INITIATIVE_ID, USER_ID, "REFUND"))
         .thenReturn(new ArrayList<>());
     try {
       timelineService.getRefunds(INITIATIVE_ID, USER_ID);

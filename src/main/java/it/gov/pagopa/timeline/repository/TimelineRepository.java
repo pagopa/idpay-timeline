@@ -14,4 +14,6 @@ public interface TimelineRepository extends MongoRepository<Operation, String> {
 
   List<Operation> findByInitiativeIdAndUserIdAndOperationTypeContainingOrderByOperationDateDesc(
       String initiativeId, String userId, String operationType);
+
+  Optional<Operation> findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(String initiativeId, String userId);
 }
