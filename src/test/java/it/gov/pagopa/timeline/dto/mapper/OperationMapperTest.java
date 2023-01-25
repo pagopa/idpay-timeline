@@ -51,6 +51,7 @@ class OperationMapperTest {
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
     OPERATION_DTO.setOperationDate(OPERATION_DATE);
     OPERATION_DTO.setAmount(new BigDecimal("0.00"));
+    OPERATION_DTO.setAccrued(new BigDecimal("0.00"));
     OPERATION_DTO.setMaskedPan(MASKED_PAN);
     OPERATION_DTO.setBrandLogo(BRAND_LOGO);
     OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
