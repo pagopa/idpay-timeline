@@ -39,6 +39,7 @@ public class OperationMapper {
         .operationType(operation.getOperationType())
         .operationDate(operation.getOperationDate())
         .amount(operation.getAmount())
+            .accrued(operation.getAccrued())
         .channel(operation.getChannel())
         .circuitType(operation.getCircuitType())
         .maskedPan(operation.getMaskedPan())

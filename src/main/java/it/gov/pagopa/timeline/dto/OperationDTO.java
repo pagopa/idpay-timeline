@@ -31,5 +31,7 @@ public class OperationDTO {
 
   private BigDecimal amount;
 
+  private BigDecimal accrued;
+
 }
 
