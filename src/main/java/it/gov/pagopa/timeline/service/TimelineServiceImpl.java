@@ -12,6 +12,7 @@ import it.gov.pagopa.timeline.repository.TimelineRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class TimelineServiceImpl implements TimelineService {
 
@@ -35,17 +37,22 @@ public class TimelineServiceImpl implements TimelineService {
   @Override
   public DetailOperationDTO getTimelineDetail(String initiativeId, String operationId,
       String userId) {
+    long startTime = System.currentTimeMillis();
+
     Operation operation = timelineRepository.findByInitiativeIdAndOperationIdAndUserId(
         initiativeId, operationId, userId).orElseThrow(
         () ->
             new TimelineException(
                 HttpStatus.NOT_FOUND.value(), "Cannot find the requested operation!"));
+    performanceLog(startTime, "GET_TIMELINE_DETAIL");
     return operationMapper.toDetailOperationDTO(operation);
   }
 
   @Override
   public TimelineDTO getTimeline(String initiativeId, String userId, String operationType, int page,
       int size) {
+
+    long startTime = System.currentTimeMillis();
 
     Pageable paging = PageRequest.of(page, size, Sort.Direction.DESC, "operationDate");
 
@@ -71,10 +78,12 @@ public class TimelineServiceImpl implements TimelineService {
     if (page != 0) {
       Operation first = timelineRepository.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(
           initiativeId, userId).orElse(null);
-      if(first != null){
+      if (first != null) {
         lastUpdate = first.getOperationDate();
       }
     }
+
+    performanceLog(startTime, "GET_TIMELINE");
 
     return new TimelineDTO(lastUpdate, operationList);
   }
@@ -86,24 +95,39 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Override
   public void saveOperation(QueueOperationDTO queueOperationDTO) {
+    long startTime = System.currentTimeMillis();
+
     Operation operation = operationMapper.toOperation(queueOperationDTO);
     timelineRepository.save(operation);
+
+    performanceLog(startTime, "SAVE_OPERATION");
   }
 
   @Override
   public TimelineDTO getRefunds(String initiativeId, String userId) {
+    long startTime = System.currentTimeMillis();
+
     List<Operation> timeline = timelineRepository.findByInitiativeIdAndUserIdAndOperationTypeContainingOrderByOperationDateDesc(
         initiativeId, userId, "REFUND");
 
     List<OperationDTO> operationList = new ArrayList<>();
     if (timeline.isEmpty()) {
+      performanceLog(startTime, "GET_REFUNDS");
       throw new TimelineException(HttpStatus.NOT_FOUND.value(),
           "No refunds have been rewarded on this initiative!");
     }
     timeline.forEach(operation ->
         operationList.add(operationMapper.toOperationDTO(operation))
     );
+    performanceLog(startTime, "GET_REFUNDS");
     return new TimelineDTO(operationList.get(0).getOperationDate(), operationList);
+  }
+
+  private void performanceLog(long startTime, String service) {
+    log.info(
+        "[PERFORMANCE_LOG] [{}}] Time occurred to perform business logic: {} ms",
+        service,
+        System.currentTimeMillis() - startTime);
   }
 
 }
