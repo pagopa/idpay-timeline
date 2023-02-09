@@ -125,7 +125,7 @@ public class TimelineServiceImpl implements TimelineService {
 
   private void performanceLog(long startTime, String service) {
     log.info(
-        "[PERFORMANCE_LOG] [{}}] Time occurred to perform business logic: {} ms",
+        "[PERFORMANCE_LOG] [{}] Time occurred to perform business logic: {} ms",
         service,
         System.currentTimeMillis() - startTime);
   }
