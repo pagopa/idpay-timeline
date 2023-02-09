@@ -51,6 +51,7 @@ class TimelineServiceTest {
   private static final String USER_ID = "TEST_USER_ID";
   private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
   private static final String OPERATION_ID = "TEST_OPERATION_ID";
+  private static final String EVENT_ID = "TEST_EVENT_ID";
   private static final String IBAN = "TEST_IBAN";
   private static final String CIRCUIT_TYPE = "00";
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
@@ -64,12 +65,13 @@ class TimelineServiceTest {
 
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, EVENT_ID, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
       null, null, null, null, null, null, null, null, null, null);
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
 
   static {
     OPERATION.setOperationType(OPERATION_TYPE);
+    OPERATION.setEventId(EVENT_ID);
     OPERATION.setInitiativeId(INITIATIVE_ID);
     OPERATION.setUserId(USER_ID);
     OPERATION.setMaskedPan(MASKED_PAN);
@@ -82,6 +84,7 @@ class TimelineServiceTest {
     OPERATION.setChannel(CHANNEL);
 
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
+    OPERATION_DTO.setEventId(EVENT_ID);
     OPERATION_DTO.setBrandLogo(BRAND_LOGO);
     OPERATION_DTO.setMaskedPan(MASKED_PAN);
     OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
@@ -136,6 +139,7 @@ class TimelineServiceTest {
     assertFalse(resDto.getOperationList().isEmpty());
     OperationDTO res = resDto.getOperationList().get(0);
     assertEquals(OPERATION.getOperationId(), res.getOperationId());
+    assertEquals(OPERATION.getEventId(), res.getEventId());
     assertEquals(OPERATION.getOperationType(), res.getOperationType());
     assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
     assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
@@ -163,6 +167,7 @@ class TimelineServiceTest {
     assertFalse(resDto.getOperationList().isEmpty());
     OperationDTO res = resDto.getOperationList().get(0);
     assertEquals(OPERATION.getOperationId(), res.getOperationId());
+    assertEquals(OPERATION.getEventId(), res.getEventId());
     assertEquals(OPERATION.getOperationType(), res.getOperationType());
     assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
     assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
@@ -190,6 +195,7 @@ class TimelineServiceTest {
     assertFalse(resDto.getOperationList().isEmpty());
     OperationDTO res = resDto.getOperationList().get(0);
     assertEquals(OPERATION.getOperationId(), res.getOperationId());
+    assertEquals(OPERATION.getEventId(), res.getEventId());
     assertEquals(OPERATION.getOperationType(), res.getOperationType());
     assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
     assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
@@ -247,6 +253,7 @@ class TimelineServiceTest {
     assertFalse(resDto.getOperationList().isEmpty());
     OperationDTO res = resDto.getOperationList().get(0);
     assertEquals(OPERATION.getOperationId(), res.getOperationId());
+    assertEquals(OPERATION.getEventId(), res.getEventId());
     assertEquals(OPERATION.getOperationType(), res.getOperationType());
     assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
     assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
