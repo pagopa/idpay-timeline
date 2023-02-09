@@ -21,13 +21,14 @@ class OperationMapperTest {
   private static final String USER_ID = "test_user";
   private static final String INITIATIVE_ID = "test_initiative";
   private static final String OPERATION_TYPE = "PAID_REFUND";
+  private static final String EVENT_ID = "EVENT_ID";
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
   private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
   private static final String MASKED_PAN = "MASKED_PAN";
   private static final String BRAND_LOGO = "BRAND_LOGO";
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, EVENT_ID, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
       null, null, null, OPERATION_DATE, new BigDecimal("0.00"),
       new BigDecimal("0.00"), new BigDecimal("0.00"), null, null);
 
@@ -40,6 +41,7 @@ class OperationMapperTest {
     OPERATION.setUserId(USER_ID);
     OPERATION.setInitiativeId(INITIATIVE_ID);
     OPERATION.setOperationType(OPERATION_TYPE);
+    OPERATION.setEventId(EVENT_ID);
     OPERATION.setOperationDate(OPERATION_DATE);
     OPERATION.setAmount(new BigDecimal("0.00"));
     OPERATION.setEffectiveAmount(new BigDecimal("0.00"));
@@ -49,6 +51,7 @@ class OperationMapperTest {
     OPERATION.setBrandLogo(BRAND_LOGO);
 
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
+    OPERATION_DTO.setEventId(EVENT_ID);
     OPERATION_DTO.setOperationDate(OPERATION_DATE);
     OPERATION_DTO.setAmount(new BigDecimal("0.00"));
     OPERATION_DTO.setAccrued(new BigDecimal("0.00"));
@@ -57,6 +60,7 @@ class OperationMapperTest {
     OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
 
     DETAIL_OPERATION_DTO.setOperationType(OPERATION_TYPE);
+    DETAIL_OPERATION_DTO.setEventId(EVENT_ID);
     DETAIL_OPERATION_DTO.setOperationDate(OPERATION_DATE);
     DETAIL_OPERATION_DTO.setAmount(new BigDecimal("0.00"));
     DETAIL_OPERATION_DTO.setAccrued(new BigDecimal("0.00"));

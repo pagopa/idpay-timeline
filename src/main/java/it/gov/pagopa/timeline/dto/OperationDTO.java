@@ -15,6 +15,8 @@ public class OperationDTO {
 
   private String operationType;
 
+  private String eventId;
+
   private String brandLogo;
 
   private String maskedPan;

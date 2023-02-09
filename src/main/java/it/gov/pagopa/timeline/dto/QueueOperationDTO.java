@@ -24,6 +24,11 @@ public class QueueOperationDTO {
 
   private String rewardNotificationId;
 
+  /**
+   * Id from reward-notification identifying a single refund
+   */
+  private String eventId;
+
   private String brandLogo;
 
   private String maskedPan;
