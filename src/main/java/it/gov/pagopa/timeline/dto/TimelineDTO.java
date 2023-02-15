@@ -12,6 +12,10 @@ public class TimelineDTO {
   private LocalDateTime lastUpdate;
 
   private List<OperationDTO> operationList;
+  private int pageNo;
+  private int pageSize;
+  private int totalElements;
+  private int totalPages;
 
 }
 

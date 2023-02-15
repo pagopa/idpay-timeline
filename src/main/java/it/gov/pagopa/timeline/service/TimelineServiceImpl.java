@@ -15,6 +15,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -61,8 +62,11 @@ public class TimelineServiceImpl implements TimelineService {
     operationExample.setUserId(userId);
     operationExample.setOperationType(operationType);
 
-    List<Operation> timeline = timelineRepository.findAll(Example.of(operationExample), paging)
-        .toList();
+//    List<Operation> timeline = timelineRepository.findAll(Example.of(operationExample), paging)
+//        .toList();
+
+    Page pages = timelineRepository.findAll(Example.of(operationExample), paging);
+    List<Operation> timeline = pages.stream().toList();
 
     List<OperationDTO> operationList = new ArrayList<>();
     if (timeline.isEmpty()) {
@@ -82,10 +86,8 @@ public class TimelineServiceImpl implements TimelineService {
         lastUpdate = first.getOperationDate();
       }
     }
-
     performanceLog(startTime, "GET_TIMELINE");
-
-    return new TimelineDTO(lastUpdate, operationList);
+    return new TimelineDTO(lastUpdate, operationList,pages.getNumber(),pages.getSize(),(int)pages.getTotalElements(),pages.getTotalPages() );
   }
 
   @Override
@@ -120,7 +122,7 @@ public class TimelineServiceImpl implements TimelineService {
         operationList.add(operationMapper.toOperationDTO(operation))
     );
     performanceLog(startTime, "GET_REFUNDS");
-    return new TimelineDTO(operationList.get(0).getOperationDate(), operationList);
+    return new TimelineDTO(operationList.get(0).getOperationDate(), operationList,0,0,0,0);
   }
 
   private void performanceLog(long startTime, String service) {
