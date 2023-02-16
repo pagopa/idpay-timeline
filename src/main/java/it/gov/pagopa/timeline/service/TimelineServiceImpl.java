@@ -15,10 +15,13 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -51,43 +54,22 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Override
   public TimelineDTO getTimeline(String initiativeId, String userId, String operationType, int page,
-      int size) {
+      int size, LocalDateTime startDate, LocalDateTime endDate) {
 
     long startTime = System.currentTimeMillis();
 
-    Pageable paging = PageRequest.of(page, size, Sort.Direction.DESC, "operationDate");
-
-    Operation operationExample = new Operation();
-    operationExample.setInitiativeId(initiativeId);
-    operationExample.setUserId(userId);
-    operationExample.setOperationType(operationType);
-
-//    List<Operation> timeline = timelineRepository.findAll(Example.of(operationExample), paging)
-//        .toList();
-
-    Page pages = timelineRepository.findAll(Example.of(operationExample), paging);
-    List<Operation> timeline = pages.stream().toList();
-
-    List<OperationDTO> operationList = new ArrayList<>();
-    if (timeline.isEmpty()) {
-      throw new TimelineException(HttpStatus.NOT_FOUND.value(),
-          "No operations have been made on this initiative!");
+    Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "operationDate");
+    Criteria criteria = timelineRepository.getCriteria(initiativeId, userId, operationType, startDate,
+            endDate);
+    List<OperationDTO> operationListDTO = new ArrayList<>();
+    List<Operation> operationList = timelineRepository.findByFilter(criteria, pageable);
+    long count = timelineRepository.getCount(criteria);
+    final Page<Operation> result = PageableExecutionUtils.getPage(operationList,pageable, () -> count);
+    for (Operation operation : operationList) {
+      operationListDTO.add(operationMapper.toOperationDTO(operation));
     }
-    timeline.forEach(operation ->
-        operationList.add(operationMapper.toOperationDTO(operation))
-    );
-
-    LocalDateTime lastUpdate = operationList.get(0).getOperationDate();
-
-    if (page != 0) {
-      Operation first = timelineRepository.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(
-          initiativeId, userId).orElse(null);
-      if (first != null) {
-        lastUpdate = first.getOperationDate();
-      }
-    }
-    performanceLog(startTime, "GET_TIMELINE");
-    return new TimelineDTO(lastUpdate, operationList,pages.getNumber(),pages.getSize(),(int)pages.getTotalElements(),pages.getTotalPages() );
+    performanceLog(startTime, "GET_TIMELINE_LIST");
+    return new TimelineDTO(LocalDateTime.now(), operationListDTO,result.getNumber(),result.getSize(),(int)result.getTotalElements(),result.getTotalPages());
   }
 
   @Override

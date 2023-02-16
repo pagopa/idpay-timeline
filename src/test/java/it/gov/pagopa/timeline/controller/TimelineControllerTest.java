@@ -162,7 +162,7 @@ class TimelineControllerTest {
             new TimelineException(HttpStatus.NOT_FOUND.value(),
                 "No operations have been made on this initiative!"))
         .when(timelineServiceMock)
-        .getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE);
+        .getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE,null,null);
 
     MvcResult res =
         mvc.perform(
