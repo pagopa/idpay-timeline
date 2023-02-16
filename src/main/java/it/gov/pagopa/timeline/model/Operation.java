@@ -3,11 +3,13 @@ package it.gov.pagopa.timeline.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Data;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@FieldNameConstants
 @Document(collection = "timeline")
 @CompoundIndex(name = "timeline_idx", def = "{'userId': 1, 'initiativeId': 1}")
 public class Operation {
