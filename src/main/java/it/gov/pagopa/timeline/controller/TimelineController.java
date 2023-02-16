@@ -34,8 +34,8 @@ public interface TimelineController {
       @RequestParam(defaultValue = "0") Integer page,
       @RequestParam(defaultValue = "3") @Max(value = 10, message = "Parameter [size] must be less than or equal to {value}") Integer size,
       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-      LocalDateTime startDate,
-      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate);
+      LocalDateTime dateFrom,
+      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTo);
 
   @PutMapping("/")
   ResponseEntity<Void> addOperation(@Valid @RequestBody QueueOperationDTO body);
