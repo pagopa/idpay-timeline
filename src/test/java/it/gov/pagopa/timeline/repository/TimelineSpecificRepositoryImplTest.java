@@ -32,7 +32,7 @@ class TimelineSpecificRepositoryImplTest {
 
     private static final String USER_ID = "TEST_USER_ID";
     private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
-    private static final String STATUS = "STATUS";
+    private static final String OPERATION_TYPE = "TEST_OPERATION_TYPE";
     private static final LocalDateTime START_DATE = LocalDateTime.now();
     private static final LocalDateTime END_DATE = LocalDateTime.now();
 
@@ -63,19 +63,32 @@ class TimelineSpecificRepositoryImplTest {
 
     @Test
     void getCriteria(){
-        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID,STATUS,START_DATE,END_DATE);
+        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, OPERATION_TYPE,START_DATE,END_DATE);
         assertEquals(4,criteria.getCriteriaObject().size());
     }
 
     @Test
+    void getCriteriaWithoutOperationType(){
+        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, null ,START_DATE,END_DATE);
+        assertEquals(3,criteria.getCriteriaObject().size());
+    }
+
+
+    @Test
     void getCriteriaOnlyStartDate(){
-        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID,STATUS,START_DATE,null);
+        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, OPERATION_TYPE,START_DATE,null);
         assertEquals(4,criteria.getCriteriaObject().size());
     }
 
     @Test
     void getCriteriaOnlyEndDate(){
-        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID,STATUS,null,END_DATE);
+        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, OPERATION_TYPE,null,END_DATE);
         assertEquals(4,criteria.getCriteriaObject().size());
+    }
+
+    @Test
+    void getCriteriaWithoutDates(){
+        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, OPERATION_TYPE,null,null);
+        assertEquals(3,criteria.getCriteriaObject().size());
     }
 }
