@@ -52,11 +52,11 @@ class TimelineControllerTest {
       .build();
 
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "",
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "",
       "",
       null, null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "");
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
-      "", INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "", "",
+      "", INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "", "",
       null,
       null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "");
 

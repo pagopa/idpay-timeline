@@ -19,6 +19,8 @@ public class DetailOperationDTO {
 
   private String brandLogo;
 
+  private String brand;
+
   private String maskedPan;
 
   private String instrumentId;
