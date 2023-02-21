@@ -152,7 +152,8 @@ class TimelineServiceTest {
   @Test
   void getTimeline_ko() {
     try {
-      timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 0, 3,null,null);
+      TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 0, 3,null,null);
+      assertNull(resDto.getLastUpdate());
     } catch (TimelineException e) {
       assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
       assertEquals("No operations have been made on this initiative!", e.getMessage());
