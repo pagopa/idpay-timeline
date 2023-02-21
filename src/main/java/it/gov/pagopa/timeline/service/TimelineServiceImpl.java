@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -68,8 +66,15 @@ public class TimelineServiceImpl implements TimelineService {
     for (Operation operation : operationList) {
       operationListDTO.add(operationMapper.toOperationDTO(operation));
     }
+    LocalDateTime lastUpdate = !operationList.isEmpty() ? operationList.get(0).getOperationDate() : null;
+    if (page != 0) {
+      Operation first = timelineRepository.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(initiativeId, userId).orElse(null);
+      if (first != null) {
+        lastUpdate = first.getOperationDate();
+      }
+    }
     performanceLog(startTime, "GET_TIMELINE_LIST");
-    return new TimelineDTO(LocalDateTime.now(), operationListDTO,result.getNumber(),result.getSize(),(int)result.getTotalElements(),result.getTotalPages());
+    return new TimelineDTO(lastUpdate, operationListDTO,result.getNumber(),result.getSize(),(int)result.getTotalElements(),result.getTotalPages());
   }
 
   @Override
