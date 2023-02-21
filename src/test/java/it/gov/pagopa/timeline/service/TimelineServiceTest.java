@@ -62,7 +62,7 @@ class TimelineServiceTest {
 
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, EVENT_ID, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
       null, null, null, null, null, null, null, null, null, null);
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
 
@@ -73,6 +73,7 @@ class TimelineServiceTest {
     OPERATION.setUserId(USER_ID);
     OPERATION.setMaskedPan(MASKED_PAN);
     OPERATION.setBrandLogo(BRAND_LOGO);
+    OPERATION.setBrand(BRAND_LOGO);
     OPERATION.setInstrumentId(INSTRUMENT_ID);
     OPERATION.setIban(IBAN);
     OPERATION.setOperationDate(OPERATION_DATE);
@@ -83,6 +84,7 @@ class TimelineServiceTest {
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
     OPERATION_DTO.setEventId(EVENT_ID);
     OPERATION_DTO.setBrandLogo(BRAND_LOGO);
+    OPERATION_DTO.setBrand(BRAND_LOGO);
     OPERATION_DTO.setMaskedPan(MASKED_PAN);
     OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
     OPERATION_DTO.setIban(IBAN);

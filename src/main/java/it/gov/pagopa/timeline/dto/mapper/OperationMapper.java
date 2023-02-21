@@ -17,6 +17,7 @@ public class OperationMapper {
         operation.setEventId(queueOperationDTO.getEventId());
         operation.setMaskedPan(queueOperationDTO.getMaskedPan());
         operation.setBrandLogo(queueOperationDTO.getBrandLogo());
+        operation.setBrand(queueOperationDTO.getBrand());
         operation.setInstrumentId(queueOperationDTO.getInstrumentId());
         operation.setCircuitType(queueOperationDTO.getCircuitType());
         operation.setIban(queueOperationDTO.getIban());
@@ -47,6 +48,7 @@ public class OperationMapper {
                 .maskedPan(operation.getMaskedPan())
                 .instrumentId(operation.getInstrumentId())
                 .brandLogo(operation.getBrandLogo())
+                .brand(operation.getBrand())
                 .iban(operation.getIban())
                 .build();
     }
@@ -64,6 +66,7 @@ public class OperationMapper {
                 .maskedPan(operation.getMaskedPan())
                 .instrumentId(operation.getInstrumentId())
                 .brandLogo(operation.getBrandLogo())
+                .brand(operation.getBrand())
                 .iban(operation.getIban())
                 .idTrxAcquirer(operation.getIdTrxAcquirer())
                 .idTrxIssuer(operation.getIdTrxIssuer())
