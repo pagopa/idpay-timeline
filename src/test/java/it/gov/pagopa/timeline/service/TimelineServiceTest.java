@@ -132,9 +132,12 @@ class TimelineServiceTest {
 
     Mockito.when(timelineRepositoryMock.findByFilter(Mockito.any(), Mockito.any())).thenReturn(operations);
     Mockito.when(operationMapper.toOperationDTO(Mockito.any(Operation.class))).thenReturn(OPERATION_DTO);
+    Mockito.when(timelineRepositoryMock.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(Optional.of(OPERATION));
 
     TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3,null,null);
     assertFalse(resDto.getOperationList().isEmpty());
+    assertEquals(resDto.getLastUpdate(), OPERATION.getOperationDate());
     OperationDTO res = resDto.getOperationList().get(0);
     assertEquals(OPERATION.getOperationId(), res.getOperationId());
     assertEquals(OPERATION.getEventId(), res.getEventId());
@@ -147,6 +150,19 @@ class TimelineServiceTest {
     assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
     assertEquals(OPERATION.getAmount(), res.getAmount());
     assertEquals(OPERATION.getChannel(), res.getChannel());
+  }
+
+  @Test
+  void getTimelineWithNoFirstOperation_ok() {
+    List<Operation> operations = new ArrayList<>();
+    operations.add(OPERATION);
+
+    Mockito.when(timelineRepositoryMock.findByFilter(Mockito.any(), Mockito.any())).thenReturn(operations);
+    Mockito.when(operationMapper.toOperationDTO(Mockito.any(Operation.class))).thenReturn(OPERATION_DTO);
+
+    TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3, null, null);
+    assertFalse(resDto.getOperationList().isEmpty());
+    assertEquals(resDto.getLastUpdate(), OPERATION.getOperationDate());
   }
 
   @Test

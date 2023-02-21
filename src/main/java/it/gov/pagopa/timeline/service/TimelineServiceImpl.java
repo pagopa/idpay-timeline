@@ -66,9 +66,15 @@ public class TimelineServiceImpl implements TimelineService {
     for (Operation operation : operationList) {
       operationListDTO.add(operationMapper.toOperationDTO(operation));
     }
-    LocalDateTime lastUpdateDate = !operationListDTO.isEmpty() ? operationListDTO.get(0).getOperationDate() : null;
+    LocalDateTime lastUpdate = !operationList.isEmpty() ? operationList.get(0).getOperationDate() : null;
+    if (page != 0) {
+      Operation first = timelineRepository.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(initiativeId, userId).orElse(null);
+      if (first != null) {
+        lastUpdate = first.getOperationDate();
+      }
+    }
     performanceLog(startTime, "GET_TIMELINE_LIST");
-    return new TimelineDTO(lastUpdateDate, operationListDTO,result.getNumber(),result.getSize(),(int)result.getTotalElements(),result.getTotalPages());
+    return new TimelineDTO(lastUpdate, operationListDTO,result.getNumber(),result.getSize(),(int)result.getTotalElements(),result.getTotalPages());
   }
 
   @Override
