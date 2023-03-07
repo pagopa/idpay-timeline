@@ -45,7 +45,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode={{test cf }}",
+									"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode={{test cf}}",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -59,7 +59,7 @@
 									"query": [
 										{
 											"key": "fiscalCode",
-											"value": "{{test cf }}"
+											"value": "{{test cf}}"
 										}
 									]
 								}
@@ -178,7 +178,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode={{valid Cf}}",
+									"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode={{CF_1}}",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -192,7 +192,7 @@
 									"query": [
 										{
 											"key": "fiscalCode",
-											"value": "{{valid Cf}}"
+											"value": "{{CF_1}}"
 										}
 									]
 								}
@@ -2692,7 +2692,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode={{valid Cf}}",
+									"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode={{CF_1}}",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -2706,7 +2706,7 @@
 									"query": [
 										{
 											"key": "fiscalCode",
-											"value": "{{valid Cf}}"
+											"value": "{{CF_1}}"
 										}
 									]
 								}
@@ -2911,10 +2911,6 @@
 		{
 			"key": "initiativeId timeline",
 			"value": "63fdd546fea3f35a5644e735"
-		},
-		{
-			"key": "valid Cf",
-			"value": "RLLCLD92M08A662O"
 		},
 		{
 			"key": "transaction-op-id",
