@@ -2759,7 +2759,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{valid Cf}}",
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{CF_1}}",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -2767,7 +2767,7 @@
 										"idpay",
 										"timeline",
 										"{{initiativeId timeline}}",
-										"{{valid Cf}}"
+										"{{CF_1}}"
 									],
 									"query": [
 										{
