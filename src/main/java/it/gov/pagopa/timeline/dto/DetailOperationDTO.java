@@ -54,5 +54,7 @@ public class DetailOperationDTO {
 
   private LocalDate userNotificationDate;
 
+  private String cro;
+
 }
 

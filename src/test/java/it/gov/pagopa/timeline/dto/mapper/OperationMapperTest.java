@@ -33,10 +33,11 @@ class OperationMapperTest {
   private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
   private static final LocalDate TRANSFER_DATE = LocalDate.now();
   private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
+  private static final String CRO = "CRO";
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
-      null, null, null, OPERATION_DATE, new BigDecimal("0.00"),
+      null, CRO, null, OPERATION_DATE, new BigDecimal("0.00"),
       new BigDecimal("0.00"), new BigDecimal("0.00"), null, null, STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
 
   private static final Operation OPERATION = new Operation();
@@ -63,6 +64,8 @@ class OperationMapperTest {
     OPERATION.setEndDate(END_DATE);
     OPERATION.setTransferDate(TRANSFER_DATE);
     OPERATION.setUserNotificationDate(NOTIFICATION_DATE);
+    OPERATION.setCro(CRO);
+
 
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
     OPERATION_DTO.setEventId(EVENT_ID);
@@ -89,6 +92,7 @@ class OperationMapperTest {
     DETAIL_OPERATION_DTO.setEndDate(END_DATE);
     DETAIL_OPERATION_DTO.setTransferDate(TRANSFER_DATE);
     DETAIL_OPERATION_DTO.setUserNotificationDate(NOTIFICATION_DATE);
+    DETAIL_OPERATION_DTO.setCro(CRO);
 
   }
 
