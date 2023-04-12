@@ -3,6 +3,7 @@ package it.gov.pagopa.timeline.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -58,6 +59,18 @@ public class QueueOperationDTO {
   private String idTrxIssuer;
 
   private String idTrxAcquirer;
+
+  private String status;
+
+  private String refundType;
+
+  private LocalDate startDate;
+
+  private LocalDate endDate;
+
+  private LocalDate transferDate;
+
+  private LocalDate userNotificationDate;
 
 }
 
