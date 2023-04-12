@@ -82,6 +82,7 @@ public class OperationMapper {
                 .endDate(operation.getEndDate())
                 .transferDate(operation.getTransferDate())
                 .userNotificationDate(operation.getUserNotificationDate())
+                .cro(operation.getCro())
                 .build();
     }
 }
