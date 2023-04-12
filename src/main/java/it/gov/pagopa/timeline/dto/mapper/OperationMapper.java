@@ -31,6 +31,12 @@ public class OperationMapper {
         operation.setAccrued(queueOperationDTO.getAccrued());
         operation.setIdTrxIssuer(queueOperationDTO.getIdTrxIssuer());
         operation.setIdTrxAcquirer(queueOperationDTO.getIdTrxAcquirer());
+        operation.setStatus(queueOperationDTO.getStatus());
+        operation.setRefundType(queueOperationDTO.getRefundType());
+        operation.setStartDate(queueOperationDTO.getStartDate());
+        operation.setEndDate(queueOperationDTO.getEndDate());
+        operation.setTransferDate(queueOperationDTO.getTransferDate());
+        operation.setUserNotificationDate(queueOperationDTO.getUserNotificationDate());
 
         return operation;
     }
@@ -70,6 +76,12 @@ public class OperationMapper {
                 .iban(operation.getIban())
                 .idTrxAcquirer(operation.getIdTrxAcquirer())
                 .idTrxIssuer(operation.getIdTrxIssuer())
+                .status(operation.getStatus())
+                .refundType(operation.getRefundType())
+                .startDate(operation.getStartDate())
+                .endDate(operation.getEndDate())
+                .transferDate(operation.getTransferDate())
+                .userNotificationDate(operation.getUserNotificationDate())
                 .build();
     }
 }

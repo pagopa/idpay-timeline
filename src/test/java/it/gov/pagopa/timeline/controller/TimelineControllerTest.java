@@ -1,19 +1,12 @@
 package it.gov.pagopa.timeline.controller;
 
-import static com.mongodb.assertions.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.ErrorDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
-import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.service.TimelineService;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +22,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import static com.mongodb.assertions.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(
@@ -48,17 +47,23 @@ class TimelineControllerTest {
   private static final int PAGE = 0;
   private static final int SIZE = 3;
   private static final int SIZE_KO = 11;
+  private static final String STATUS = "COMPLETED_OK";
+  private static final String REFUND_TYPE = "ORDINARY";
+  private static final LocalDate START_DATE = LocalDate.now();
+  private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
+  private static final LocalDate TRANSFER_DATE = LocalDate.now();
+  private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder()
       .build();
 
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "",
       "",
-      null, null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "");
+      null, null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
       "", INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "", "",
       null,
-      null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "");
+      null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
 
   @MockBean
   TimelineService timelineServiceMock;

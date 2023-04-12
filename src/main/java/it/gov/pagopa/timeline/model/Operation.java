@@ -1,6 +1,7 @@
 package it.gov.pagopa.timeline.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.experimental.FieldNameConstants;
@@ -56,5 +57,17 @@ public class Operation {
   private String idTrxIssuer;
 
   private String idTrxAcquirer;
+
+  private String status;
+
+  private String refundType;
+
+  private LocalDate startDate;
+
+  private LocalDate endDate;
+
+  private LocalDate transferDate;
+
+  private LocalDate userNotificationDate;
 
 }
