@@ -7,6 +7,7 @@ import it.gov.pagopa.timeline.dto.OperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.model.Operation;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,11 +27,18 @@ class OperationMapperTest {
   private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
   private static final String MASKED_PAN = "MASKED_PAN";
   private static final String BRAND_LOGO = "BRAND_LOGO";
+  private static final String STATUS = "COMPLETED_OK";
+  private static final String REFUND_TYPE = "ORDINARY";
+  private static final LocalDate START_DATE = LocalDate.now();
+  private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
+  private static final LocalDate TRANSFER_DATE = LocalDate.now();
+  private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
+  private static final String CRO = "CRO";
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
-      null, null, null, OPERATION_DATE, new BigDecimal("0.00"),
-      new BigDecimal("0.00"), new BigDecimal("0.00"), null, null);
+      null, CRO, null, OPERATION_DATE, new BigDecimal("0.00"),
+      new BigDecimal("0.00"), new BigDecimal("0.00"), null, null, STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
 
   private static final Operation OPERATION = new Operation();
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
@@ -50,6 +58,14 @@ class OperationMapperTest {
     OPERATION.setMaskedPan(MASKED_PAN);
     OPERATION.setBrandLogo(BRAND_LOGO);
     OPERATION.setBrand(BRAND_LOGO);
+    OPERATION.setStatus(STATUS);
+    OPERATION.setRefundType(REFUND_TYPE);
+    OPERATION.setStartDate(START_DATE);
+    OPERATION.setEndDate(END_DATE);
+    OPERATION.setTransferDate(TRANSFER_DATE);
+    OPERATION.setUserNotificationDate(NOTIFICATION_DATE);
+    OPERATION.setCro(CRO);
+
 
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
     OPERATION_DTO.setEventId(EVENT_ID);
@@ -70,6 +86,13 @@ class OperationMapperTest {
     DETAIL_OPERATION_DTO.setBrandLogo(BRAND_LOGO);
     DETAIL_OPERATION_DTO.setBrand(BRAND_LOGO);
     DETAIL_OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
+    DETAIL_OPERATION_DTO.setStatus(STATUS);
+    DETAIL_OPERATION_DTO.setRefundType(REFUND_TYPE);
+    DETAIL_OPERATION_DTO.setStartDate(START_DATE);
+    DETAIL_OPERATION_DTO.setEndDate(END_DATE);
+    DETAIL_OPERATION_DTO.setTransferDate(TRANSFER_DATE);
+    DETAIL_OPERATION_DTO.setUserNotificationDate(NOTIFICATION_DATE);
+    DETAIL_OPERATION_DTO.setCro(CRO);
 
   }
 
