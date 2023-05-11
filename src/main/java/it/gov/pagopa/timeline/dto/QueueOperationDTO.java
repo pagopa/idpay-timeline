@@ -7,9 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class QueueOperationDTO {
@@ -29,8 +29,6 @@ public class QueueOperationDTO {
    * Id from reward-notification identifying a single refund
    */
   private String eventId;
-
-  private String transactionId;
 
   private String brandLogo;
 
