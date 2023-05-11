@@ -382,7 +382,7 @@ class TimelineServiceTest {
       OPERATION.setOperationDate(OPERATION_DATE);
       OPERATION.setStatus(TimelineConstants.TRX_STATUS_REWARDED);
       return OPERATION;
-    }).when(timelineRepositoryMock).updateOperation(TRANSACTION_ID,TimelineConstants.TRX_STATUS_REWARDED);
+    }).when(timelineRepositoryMock).updateOperationStatusByTransactionId(TRANSACTION_ID,TimelineConstants.TRX_STATUS_REWARDED);
 
     timelineService.saveOperation(QUEUE_OPERATION_DTO);
 

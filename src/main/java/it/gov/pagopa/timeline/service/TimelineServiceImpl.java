@@ -12,8 +12,6 @@ import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -40,6 +38,12 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Autowired
   TimelineProducer timelineProducer;
+
+  private static final Set<String> ignoreCombinations = Set.of(
+      TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_REWARDED,
+      TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_AUTHORIZED,
+      TimelineConstants.TRX_STATUS_REWARDED + TimelineConstants.TRX_STATUS_REWARDED
+  );
 
   @Override
   public DetailOperationDTO getTimelineDetail(String initiativeId, String operationId,
@@ -103,11 +107,11 @@ public class TimelineServiceImpl implements TimelineService {
 
       if (existingOperation.isPresent()) {
         Operation operation = existingOperation.get();
-        if (ignoreTrx(queueOperationDTO, operation)) {
+        if (ignoreCombinations.contains(queueOperationDTO.getStatus() + operation.getStatus())) {
           return;
         }
         else if (queueOperationDTO.getStatus().equals(TimelineConstants.TRX_STATUS_REWARDED) && operation.getStatus().equals(TimelineConstants.TRX_STATUS_AUTHORIZED)) {
-          timelineRepository.updateOperation(
+          timelineRepository.updateOperationStatusByTransactionId(
               queueOperationDTO.getTransactionId(),
               queueOperationDTO.getStatus());
           performanceLog(startTime, "UPDATE_OPERATION");
@@ -120,19 +124,6 @@ public class TimelineServiceImpl implements TimelineService {
     timelineRepository.save(operation);
 
     performanceLog(startTime, "SAVE_OPERATION");
-  }
-
-  private boolean ignoreTrx(QueueOperationDTO queueOperationDTO, Operation operation){
-    Set<String> ignoreCombinations = new HashSet<>(Arrays.asList(
-        TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_REWARDED,
-        TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_AUTHORIZED,
-        TimelineConstants.TRX_STATUS_REWARDED + TimelineConstants.TRX_STATUS_REWARDED
-    ));
-
-    String queueStatus = queueOperationDTO.getStatus();
-    String operationStatus = operation.getStatus();
-
-    return ignoreCombinations.contains(queueStatus + operationStatus);
   }
 
   @Override
