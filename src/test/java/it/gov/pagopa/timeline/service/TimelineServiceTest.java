@@ -349,6 +349,26 @@ class TimelineServiceTest {
     assertEquals(TimelineConstants.TRX_STATUS_AUTHORIZED, OPERATION.getStatus());
   }
   @Test
+  void saveOperation_QRCODE_channel_null() {
+    QUEUE_OPERATION_DTO.setChannel(null);
+    timelineService.saveOperation(QUEUE_OPERATION_DTO);
+
+    verify(timelineRepositoryMock, Mockito.times(1))
+        .save(Mockito.any());
+  }
+  @Test
+  void saveOperation_QRCODE_channel_appio() {
+    OPERATION.setChannel(TimelineConstants.CHANNEL_QRCODE);
+    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.TRX_STATUS_AUTHORIZED);
+    QUEUE_OPERATION_DTO.setChannel(TimelineConstants.CHANNEL_QRCODE);
+    QUEUE_OPERATION_DTO.setOperationType(TimelineConstants.OPERATION_TYPE_TRX);
+
+    timelineService.saveOperation(QUEUE_OPERATION_DTO);
+
+    verify(timelineRepositoryMock, Mockito.times(1))
+        .save(Mockito.any());
+  }
+  @Test
   void saveOperation_QRCODE_operationAuthorized() {
     OPERATION.setChannel(TimelineConstants.CHANNEL_QRCODE);
     OPERATION.setStatus(TimelineConstants.TRX_STATUS_AUTHORIZED);
