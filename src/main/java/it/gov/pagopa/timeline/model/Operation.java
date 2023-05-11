@@ -22,6 +22,8 @@ public class Operation {
 
   private String initiativeId;
 
+  private String transactionId;
+
   private String operationType;
 
   private String eventId;

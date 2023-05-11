@@ -12,4 +12,6 @@ public interface TimelineSpecificRepository {
   Criteria getCriteria(String initiativeId, String userId, String operationType,
       LocalDateTime startDate, LocalDateTime endDate);
   long getCount(Criteria criteria);
+
+  void updateOperation(String transactionId, String status);
 }

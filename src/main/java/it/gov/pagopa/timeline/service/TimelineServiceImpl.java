@@ -1,5 +1,6 @@
 package it.gov.pagopa.timeline.service;
 
+import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.OperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
@@ -11,7 +12,11 @@ import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -57,24 +62,29 @@ public class TimelineServiceImpl implements TimelineService {
     long startTime = System.currentTimeMillis();
 
     Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "operationDate");
-    Criteria criteria = timelineRepository.getCriteria(initiativeId, userId, operationType, startDate,
-            endDate);
+    Criteria criteria = timelineRepository.getCriteria(initiativeId, userId, operationType,
+        startDate,
+        endDate);
     List<OperationDTO> operationListDTO = new ArrayList<>();
     List<Operation> operationList = timelineRepository.findByFilter(criteria, pageable);
     long count = timelineRepository.getCount(criteria);
-    final Page<Operation> result = PageableExecutionUtils.getPage(operationList,pageable, () -> count);
+    final Page<Operation> result = PageableExecutionUtils.getPage(operationList, pageable,
+        () -> count);
     for (Operation operation : operationList) {
       operationListDTO.add(operationMapper.toOperationDTO(operation));
     }
-    LocalDateTime lastUpdate = !operationList.isEmpty() ? operationList.get(0).getOperationDate() : null;
+    LocalDateTime lastUpdate =
+        !operationList.isEmpty() ? operationList.get(0).getOperationDate() : null;
     if (page != 0) {
-      Operation first = timelineRepository.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(initiativeId, userId).orElse(null);
+      Operation first = timelineRepository.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(
+          initiativeId, userId).orElse(null);
       if (first != null) {
         lastUpdate = first.getOperationDate();
       }
     }
     performanceLog(startTime, "GET_TIMELINE_LIST");
-    return new TimelineDTO(lastUpdate, operationListDTO,result.getNumber(),result.getSize(),(int)result.getTotalElements(),result.getTotalPages());
+    return new TimelineDTO(lastUpdate, operationListDTO, result.getNumber(), result.getSize(),
+        (int) result.getTotalElements(), result.getTotalPages());
   }
 
   @Override
@@ -86,10 +96,43 @@ public class TimelineServiceImpl implements TimelineService {
   public void saveOperation(QueueOperationDTO queueOperationDTO) {
     long startTime = System.currentTimeMillis();
 
+    if (TimelineConstants.CHANNEL_QRCODE.equals(queueOperationDTO.getChannel())
+    && TimelineConstants.OPERATION_TYPE_TRX.equals(queueOperationDTO.getOperationType())) {
+      Optional<Operation> existingOperation = timelineRepository.findByTransactionId(
+          queueOperationDTO.getTransactionId());
+
+      if (existingOperation.isPresent()) {
+        Operation operation = existingOperation.get();
+        if (ignoreTrx(queueOperationDTO, operation)) {
+          return;
+        }
+        else if (queueOperationDTO.getStatus().equals(TimelineConstants.TRX_STATUS_REWARDED) && operation.getStatus().equals(TimelineConstants.TRX_STATUS_AUTHORIZED)) {
+          timelineRepository.updateOperation(
+              queueOperationDTO.getTransactionId(),
+              queueOperationDTO.getStatus());
+          performanceLog(startTime, "UPDATE_OPERATION");
+          return;
+        }
+      }
+    }
+
     Operation operation = operationMapper.toOperation(queueOperationDTO);
     timelineRepository.save(operation);
 
     performanceLog(startTime, "SAVE_OPERATION");
+  }
+
+  private boolean ignoreTrx(QueueOperationDTO queueOperationDTO, Operation operation){
+    Set<String> ignoreCombinations = new HashSet<>(Arrays.asList(
+        TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_REWARDED,
+        TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_AUTHORIZED,
+        TimelineConstants.TRX_STATUS_REWARDED + TimelineConstants.TRX_STATUS_REWARDED
+    ));
+
+    String queueStatus = queueOperationDTO.getStatus();
+    String operationStatus = operation.getStatus();
+
+    return ignoreCombinations.contains(queueStatus + operationStatus);
   }
 
   @Override
@@ -109,7 +152,7 @@ public class TimelineServiceImpl implements TimelineService {
         operationList.add(operationMapper.toOperationDTO(operation))
     );
     performanceLog(startTime, "GET_REFUNDS");
-    return new TimelineDTO(operationList.get(0).getOperationDate(), operationList,0,0,0,0);
+    return new TimelineDTO(operationList.get(0).getOperationDate(), operationList, 0, 0, 0, 0);
   }
 
   private void performanceLog(long startTime, String service) {
