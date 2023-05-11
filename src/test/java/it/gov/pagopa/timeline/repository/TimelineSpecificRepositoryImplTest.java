@@ -105,7 +105,7 @@ class TimelineSpecificRepositoryImplTest {
   @Test
   void updateOperation() {
     String transactionId = "123";
-    String status = TimelineConstants.REWARDED;
+    String status = TimelineConstants.TRX_STATUS_REWARDED;
 
     timelineSpecificRepository.updateOperation(transactionId, status);
 

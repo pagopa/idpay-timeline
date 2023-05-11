@@ -276,8 +276,9 @@ class TimelineServiceTest {
 
   @Test
   void saveOperation_QRCODE_authorized() {
-    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.AUTHORIZED);
+    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.TRX_STATUS_AUTHORIZED);
     QUEUE_OPERATION_DTO.setChannel(TimelineConstants.CHANNEL_QRCODE);
+    QUEUE_OPERATION_DTO.setOperationType(TimelineConstants.OPERATION_TYPE_TRX);
 
     Mockito.when(timelineRepositoryMock.findByTransactionId(TRANSACTION_ID)).thenReturn(Optional.empty());
 
@@ -289,7 +290,7 @@ class TimelineServiceTest {
 
   @Test
   void saveOperation_QRCODE_rewarded() {
-    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.REWARDED);
+    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.TRX_STATUS_REWARDED);
     QUEUE_OPERATION_DTO.setChannel(TimelineConstants.CHANNEL_QRCODE);
 
     Mockito.when(timelineRepositoryMock.findByTransactionId(TRANSACTION_ID)).thenReturn(Optional.empty());
@@ -303,66 +304,70 @@ class TimelineServiceTest {
   @Test
   void saveOperation_QRCODE_operationRewarded() {
     OPERATION.setChannel(TimelineConstants.CHANNEL_QRCODE);
-    OPERATION.setStatus(TimelineConstants.REWARDED);
-    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.AUTHORIZED);
+    OPERATION.setStatus(TimelineConstants.TRX_STATUS_REWARDED);
+    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.TRX_STATUS_AUTHORIZED);
     QUEUE_OPERATION_DTO.setChannel(TimelineConstants.CHANNEL_QRCODE);
+    QUEUE_OPERATION_DTO.setOperationType(TimelineConstants.OPERATION_TYPE_TRX);
 
     Mockito.when(timelineRepositoryMock.findByTransactionId(TRANSACTION_ID)).thenReturn(Optional.of(OPERATION));
 
     timelineService.saveOperation(QUEUE_OPERATION_DTO);
 
     verify(timelineRepositoryMock).findByTransactionId(TRANSACTION_ID);
-    assertEquals(TimelineConstants.REWARDED, OPERATION.getStatus());
+    assertEquals(TimelineConstants.TRX_STATUS_REWARDED, OPERATION.getStatus());
   }
 
   @Test
   void saveOperation_QRCODE_imdepRewarded() {
     OPERATION.setChannel(TimelineConstants.CHANNEL_QRCODE);
-    OPERATION.setStatus(TimelineConstants.REWARDED);
-    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.REWARDED);
+    OPERATION.setStatus(TimelineConstants.TRX_STATUS_REWARDED);
+    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.TRX_STATUS_REWARDED);
     QUEUE_OPERATION_DTO.setChannel(TimelineConstants.CHANNEL_QRCODE);
+    QUEUE_OPERATION_DTO.setOperationType(TimelineConstants.OPERATION_TYPE_TRX);
 
     Mockito.when(timelineRepositoryMock.findByTransactionId(TRANSACTION_ID)).thenReturn(Optional.of(OPERATION));
 
     timelineService.saveOperation(QUEUE_OPERATION_DTO);
 
     verify(timelineRepositoryMock).findByTransactionId(TRANSACTION_ID);
-    assertEquals(TimelineConstants.REWARDED, OPERATION.getStatus());
+    assertEquals(TimelineConstants.TRX_STATUS_REWARDED, OPERATION.getStatus());
   }
 
   @Test
   void saveOperation_QRCODE_imdepAuthorized() {
     OPERATION.setChannel(TimelineConstants.CHANNEL_QRCODE);
-    OPERATION.setStatus(TimelineConstants.AUTHORIZED);
-    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.AUTHORIZED);
+    OPERATION.setStatus(TimelineConstants.TRX_STATUS_AUTHORIZED);
+    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.TRX_STATUS_AUTHORIZED);
     QUEUE_OPERATION_DTO.setChannel(TimelineConstants.CHANNEL_QRCODE);
+    QUEUE_OPERATION_DTO.setOperationType(TimelineConstants.OPERATION_TYPE_TRX);
 
     Mockito.when(timelineRepositoryMock.findByTransactionId(TRANSACTION_ID)).thenReturn(Optional.of(OPERATION));
 
     timelineService.saveOperation(QUEUE_OPERATION_DTO);
 
     verify(timelineRepositoryMock).findByTransactionId(TRANSACTION_ID);
-    assertEquals(TimelineConstants.AUTHORIZED, OPERATION.getStatus());
+    assertEquals(TimelineConstants.TRX_STATUS_AUTHORIZED, OPERATION.getStatus());
   }
   @Test
   void saveOperation_QRCODE_operationAuthorized() {
     OPERATION.setChannel(TimelineConstants.CHANNEL_QRCODE);
-    OPERATION.setStatus(TimelineConstants.AUTHORIZED);
-    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.REWARDED);
+    OPERATION.setStatus(TimelineConstants.TRX_STATUS_AUTHORIZED);
+    QUEUE_OPERATION_DTO.setStatus(TimelineConstants.TRX_STATUS_REWARDED);
     QUEUE_OPERATION_DTO.setChannel(TimelineConstants.CHANNEL_QRCODE);
+    QUEUE_OPERATION_DTO.setOperationType(TimelineConstants.OPERATION_TYPE_TRX);
 
     Mockito.when(timelineRepositoryMock.findByTransactionId(TRANSACTION_ID)).thenReturn(Optional.of(OPERATION));
 
     Mockito.doAnswer(invocationOnMock -> {
       OPERATION.setOperationDate(OPERATION_DATE);
-      OPERATION.setStatus(TimelineConstants.REWARDED);
+      OPERATION.setStatus(TimelineConstants.TRX_STATUS_REWARDED);
       return OPERATION;
-    }).when(timelineRepositoryMock).updateOperation(TRANSACTION_ID,TimelineConstants.REWARDED);
+    }).when(timelineRepositoryMock).updateOperation(TRANSACTION_ID,TimelineConstants.TRX_STATUS_REWARDED);
 
     timelineService.saveOperation(QUEUE_OPERATION_DTO);
 
     verify(timelineRepositoryMock).findByTransactionId(TRANSACTION_ID);
-    assertEquals(TimelineConstants.REWARDED, OPERATION.getStatus());
+    assertEquals(TimelineConstants.TRX_STATUS_REWARDED, OPERATION.getStatus());
 
   }
 }

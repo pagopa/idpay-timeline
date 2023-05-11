@@ -96,7 +96,8 @@ public class TimelineServiceImpl implements TimelineService {
   public void saveOperation(QueueOperationDTO queueOperationDTO) {
     long startTime = System.currentTimeMillis();
 
-    if (queueOperationDTO.getChannel().equals(TimelineConstants.CHANNEL_QRCODE)) {
+    if (TimelineConstants.CHANNEL_QRCODE.equals(queueOperationDTO.getChannel())
+    && TimelineConstants.OPERATION_TYPE_TRX.equals(queueOperationDTO.getOperationType())) {
       Optional<Operation> existingOperation = timelineRepository.findByTransactionId(
           queueOperationDTO.getTransactionId());
 
@@ -105,7 +106,7 @@ public class TimelineServiceImpl implements TimelineService {
         if (ignoreTrx(queueOperationDTO, operation)) {
           return;
         }
-        else if (queueOperationDTO.getStatus().equals(TimelineConstants.REWARDED) && operation.getStatus().equals(TimelineConstants.AUTHORIZED)) {
+        else if (queueOperationDTO.getStatus().equals(TimelineConstants.TRX_STATUS_REWARDED) && operation.getStatus().equals(TimelineConstants.TRX_STATUS_AUTHORIZED)) {
           timelineRepository.updateOperation(
               queueOperationDTO.getTransactionId(),
               queueOperationDTO.getStatus());
@@ -123,9 +124,9 @@ public class TimelineServiceImpl implements TimelineService {
 
   private boolean ignoreTrx(QueueOperationDTO queueOperationDTO, Operation operation){
     Set<String> ignoreCombinations = new HashSet<>(Arrays.asList(
-        TimelineConstants.AUTHORIZED + TimelineConstants.REWARDED,
-        TimelineConstants.AUTHORIZED + TimelineConstants.AUTHORIZED,
-        TimelineConstants.REWARDED + TimelineConstants.REWARDED
+        TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_REWARDED,
+        TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_AUTHORIZED,
+        TimelineConstants.TRX_STATUS_REWARDED + TimelineConstants.TRX_STATUS_REWARDED
     ));
 
     String queueStatus = queueOperationDTO.getStatus();
