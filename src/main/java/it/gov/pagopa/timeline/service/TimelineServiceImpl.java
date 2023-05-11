@@ -23,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +40,10 @@ public class TimelineServiceImpl implements TimelineService {
   @Autowired
   TimelineProducer timelineProducer;
 
-  private static final Set<String> ignoreCombinations = Set.of(
-      TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_REWARDED,
-      TimelineConstants.TRX_STATUS_AUTHORIZED + TimelineConstants.TRX_STATUS_AUTHORIZED,
-      TimelineConstants.TRX_STATUS_REWARDED + TimelineConstants.TRX_STATUS_REWARDED
+  private static final Set<Pair<String, String>> ignoreCombinations = Set.of(
+      Pair.of(TimelineConstants.TRX_STATUS_AUTHORIZED, TimelineConstants.TRX_STATUS_REWARDED),
+      Pair.of(TimelineConstants.TRX_STATUS_AUTHORIZED , TimelineConstants.TRX_STATUS_AUTHORIZED),
+      Pair.of(TimelineConstants.TRX_STATUS_REWARDED, TimelineConstants.TRX_STATUS_REWARDED)
   );
 
   @Override
@@ -107,10 +108,11 @@ public class TimelineServiceImpl implements TimelineService {
 
       if (existingOperation.isPresent()) {
         Operation operation = existingOperation.get();
-        if (ignoreCombinations.contains(queueOperationDTO.getStatus() + operation.getStatus())) {
+        if (ignoreCombinations.contains(Pair.of(queueOperationDTO.getStatus(), operation.getStatus()))) {
           return;
         }
-        else if (queueOperationDTO.getStatus().equals(TimelineConstants.TRX_STATUS_REWARDED) && operation.getStatus().equals(TimelineConstants.TRX_STATUS_AUTHORIZED)) {
+        else if (operation.getStatus().equals(TimelineConstants.TRX_STATUS_AUTHORIZED)
+            && queueOperationDTO.getStatus().equals(TimelineConstants.TRX_STATUS_REWARDED)) {
           timelineRepository.updateOperationStatusByTransactionId(
               queueOperationDTO.getTransactionId(),
               queueOperationDTO.getStatus());
