@@ -31,12 +31,13 @@ class OperationMapperTest {
   private static final String REFUND_TYPE = "ORDINARY";
   private static final LocalDate START_DATE = LocalDate.now();
   private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
+  private static final String TRANSACTION_ID = "TRANSACTION_ID";
   private static final LocalDate TRANSFER_DATE = LocalDate.now();
   private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
   private static final String CRO = "CRO";
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, EVENT_ID, TRANSACTION_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
       null, CRO, null, OPERATION_DATE, new BigDecimal("0.00"),
       new BigDecimal("0.00"), new BigDecimal("0.00"), null, null, STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
 
@@ -50,6 +51,7 @@ class OperationMapperTest {
     OPERATION.setInitiativeId(INITIATIVE_ID);
     OPERATION.setOperationType(OPERATION_TYPE);
     OPERATION.setEventId(EVENT_ID);
+    OPERATION.setTransactionId(TRANSACTION_ID);
     OPERATION.setOperationDate(OPERATION_DATE);
     OPERATION.setAmount(new BigDecimal("0.00"));
     OPERATION.setEffectiveAmount(new BigDecimal("0.00"));

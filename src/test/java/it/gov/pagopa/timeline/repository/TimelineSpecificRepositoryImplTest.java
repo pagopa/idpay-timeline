@@ -1,5 +1,13 @@
 package it.gov.pagopa.timeline.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import it.gov.pagopa.timeline.constants.TimelineConstants;
+import it.gov.pagopa.timeline.model.Operation;
+import it.gov.pagopa.timeline.model.Operation.Fields;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -12,83 +20,99 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = TimelineSpecificRepositoryImpl.class)
 class TimelineSpecificRepositoryImplTest {
 
-    @Autowired
-    TimelineSpecificRepository timelineSpecificRepository;
-    @MockBean
-    MongoTemplate mongoTemplate;
-    @MockBean
-    Criteria criteria;
+  @Autowired
+  TimelineSpecificRepository timelineSpecificRepository;
+  @MockBean
+  MongoTemplate mongoTemplate;
+  @MockBean
+  Criteria criteria;
 
-    private static final String USER_ID = "TEST_USER_ID";
-    private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
-    private static final String OPERATION_TYPE = "TEST_OPERATION_TYPE";
-    private static final LocalDateTime START_DATE = LocalDateTime.now();
-    private static final LocalDateTime END_DATE = LocalDateTime.now();
+  private static final String USER_ID = "TEST_USER_ID";
+  private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
+  private static final String OPERATION_TYPE = "TEST_OPERATION_TYPE";
+  private static final LocalDateTime START_DATE = LocalDateTime.now();
+  private static final LocalDateTime END_DATE = LocalDateTime.now();
 
-    @Test
-    void findByFilter(){
-        Criteria criteria = new Criteria();
-        Pageable paging = PageRequest.of(0, 20, Sort.by("lastUpdate"));
+  @Test
+  void findByFilter() {
+    Criteria criteria = new Criteria();
+    Pageable paging = PageRequest.of(0, 20, Sort.by("lastUpdate"));
 
-        timelineSpecificRepository.findByFilter(criteria,paging);
-        Mockito.verify(mongoTemplate, Mockito.times(1)).find(Mockito.any(),Mockito.any());
-    }
+    timelineSpecificRepository.findByFilter(criteria, paging);
+    verify(mongoTemplate, times(1)).find(Mockito.any(), Mockito.any());
+  }
 
-    @Test
-    void findByFilter_criteria_null(){
-        Criteria criteria = new Criteria();
+  @Test
+  void findByFilter_criteria_null() {
+    Criteria criteria = new Criteria();
 
-        timelineSpecificRepository.findByFilter(criteria,null);
-        Mockito.verify(mongoTemplate, Mockito.times(1)).find(Mockito.any(),Mockito.any());
-    }
+    timelineSpecificRepository.findByFilter(criteria, null);
+    verify(mongoTemplate, times(1)).find(Mockito.any(), Mockito.any());
+  }
 
-    @Test
-    void getCount(){
-        Criteria criteria = new Criteria();
-        timelineSpecificRepository.getCount(criteria);
-        Mockito.verify(mongoTemplate, Mockito.times(1)).count((Query) Mockito.any(),
-                (Class<?>) Mockito.any());
-    }
+  @Test
+  void getCount() {
+    Criteria criteria = new Criteria();
+    timelineSpecificRepository.getCount(criteria);
+    verify(mongoTemplate, times(1)).count((Query) Mockito.any(),
+        (Class<?>) Mockito.any());
+  }
 
-    @Test
-    void getCriteria(){
-        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, OPERATION_TYPE,START_DATE,END_DATE);
-        assertEquals(4,criteria.getCriteriaObject().size());
-    }
+  @Test
+  void getCriteria() {
+    Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID, USER_ID,
+        OPERATION_TYPE, START_DATE, END_DATE);
+    assertEquals(4, criteria.getCriteriaObject().size());
+  }
 
-    @Test
-    void getCriteriaWithoutOperationType(){
-        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, null ,START_DATE,END_DATE);
-        assertEquals(3,criteria.getCriteriaObject().size());
-    }
+  @Test
+  void getCriteriaWithoutOperationType() {
+    Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID, USER_ID, null,
+        START_DATE, END_DATE);
+    assertEquals(3, criteria.getCriteriaObject().size());
+  }
 
 
-    @Test
-    void getCriteriaOnlyStartDate(){
-        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, OPERATION_TYPE,START_DATE,null);
-        assertEquals(4,criteria.getCriteriaObject().size());
-    }
+  @Test
+  void getCriteriaOnlyStartDate() {
+    Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID, USER_ID,
+        OPERATION_TYPE, START_DATE, null);
+    assertEquals(4, criteria.getCriteriaObject().size());
+  }
 
-    @Test
-    void getCriteriaOnlyEndDate(){
-        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, OPERATION_TYPE,null,END_DATE);
-        assertEquals(4,criteria.getCriteriaObject().size());
-    }
+  @Test
+  void getCriteriaOnlyEndDate() {
+    Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID, USER_ID,
+        OPERATION_TYPE, null, END_DATE);
+    assertEquals(4, criteria.getCriteriaObject().size());
+  }
 
-    @Test
-    void getCriteriaWithoutDates(){
-        Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID,USER_ID, OPERATION_TYPE,null,null);
-        assertEquals(3,criteria.getCriteriaObject().size());
-    }
+  @Test
+  void getCriteriaWithoutDates() {
+    Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID, USER_ID,
+        OPERATION_TYPE, null, null);
+    assertEquals(3, criteria.getCriteriaObject().size());
+  }
+
+  @Test
+  void updateOperation() {
+    String transactionId = "123";
+    String status = TimelineConstants.REWARDED;
+
+    timelineSpecificRepository.updateOperation(transactionId, status);
+
+    verify(mongoTemplate, times(1)).updateFirst(
+        Query.query(Criteria.where(Fields.transactionId).is(transactionId)),
+        new Update().set(Fields.status, status),
+        Operation.class);
+
+  }
 }
