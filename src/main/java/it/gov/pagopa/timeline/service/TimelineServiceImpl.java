@@ -111,8 +111,8 @@ public class TimelineServiceImpl implements TimelineService {
         if (ignoreCombinations.contains(Pair.of(queueOperationDTO.getStatus(), operation.getStatus()))) {
           return;
         }
-        else if (operation.getStatus().equals(TimelineConstants.TRX_STATUS_AUTHORIZED)
-            && queueOperationDTO.getStatus().equals(TimelineConstants.TRX_STATUS_REWARDED)) {
+        else if (TimelineConstants.TRX_STATUS_REWARDED.equals(queueOperationDTO.getStatus())
+            && TimelineConstants.TRX_STATUS_AUTHORIZED.equals(operation.getStatus())) {
           timelineRepository.updateOperationStatusByTransactionId(
               queueOperationDTO.getTransactionId(),
               queueOperationDTO.getStatus());
