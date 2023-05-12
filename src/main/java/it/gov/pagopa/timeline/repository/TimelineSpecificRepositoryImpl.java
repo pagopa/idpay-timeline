@@ -37,7 +37,7 @@ public class TimelineSpecificRepositoryImpl implements TimelineSpecificRepositor
   }
 
   @Override
-  public void updateOperationStatusByEventId(String eventId,String status) {
+  public void updateOperationStatusByEventId(String eventId, String status) {
     mongoTemplate.updateFirst(
         Query.query(Criteria.where(Fields.eventId).is(eventId)),
         new Update()
