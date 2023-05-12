@@ -104,13 +104,13 @@ class TimelineSpecificRepositoryImplTest {
 
   @Test
   void updateOperation() {
-    String transactionId = "123";
+    String eventId = "123";
     String status = TimelineConstants.TRX_STATUS_REWARDED;
 
-    timelineSpecificRepository.updateOperationStatusByTransactionId(transactionId, status);
+    timelineSpecificRepository.updateOperationStatusByEventId(eventId, status);
 
     verify(mongoTemplate, times(1)).updateFirst(
-        Query.query(Criteria.where(Fields.transactionId).is(transactionId)),
+        Query.query(Criteria.where(Fields.eventId).is(eventId)),
         new Update().set(Fields.status, status),
         Operation.class);
 

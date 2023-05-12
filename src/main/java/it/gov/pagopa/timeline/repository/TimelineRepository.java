@@ -14,7 +14,7 @@ public interface TimelineRepository extends MongoRepository<Operation, String>, 
   Optional<Operation> findByInitiativeIdAndOperationIdAndUserId(String initiativeId,
       String operationId, String userId);
 
-  Optional<Operation> findByTransactionId(String transactionId);
+  Optional<Operation> findByEventId(String eventId);
 
   List<Operation> findByInitiativeIdAndUserIdAndOperationTypeContainingOrderByOperationDateDesc(
       String initiativeId, String userId, String operationType);
