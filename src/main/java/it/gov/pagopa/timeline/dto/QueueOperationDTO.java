@@ -30,8 +30,6 @@ public class QueueOperationDTO {
    */
   private String eventId;
 
-  private String transactionId;
-
   private String brandLogo;
 
   private String brand;

@@ -14,7 +14,6 @@ public class OperationMapper {
         operation.setInitiativeId(queueOperationDTO.getInitiativeId());
         operation.setUserId(queueOperationDTO.getUserId());
         operation.setOperationType(queueOperationDTO.getOperationType());
-        operation.setTransactionId(queueOperationDTO.getTransactionId());
         operation.setEventId(queueOperationDTO.getEventId());
         operation.setMaskedPan(queueOperationDTO.getMaskedPan());
         operation.setBrandLogo(queueOperationDTO.getBrandLogo());

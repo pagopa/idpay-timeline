@@ -103,8 +103,8 @@ public class TimelineServiceImpl implements TimelineService {
 
     if (TimelineConstants.CHANNEL_QRCODE.equals(queueOperationDTO.getChannel())
     && TimelineConstants.OPERATION_TYPE_TRX.equals(queueOperationDTO.getOperationType())) {
-      Optional<Operation> existingOperation = timelineRepository.findByTransactionId(
-          queueOperationDTO.getTransactionId());
+      Optional<Operation> existingOperation = timelineRepository.findByEventId(
+          queueOperationDTO.getEventId());
 
       if (existingOperation.isPresent()) {
         Operation operation = existingOperation.get();
@@ -113,8 +113,8 @@ public class TimelineServiceImpl implements TimelineService {
         }
         else if (TimelineConstants.TRX_STATUS_REWARDED.equals(queueOperationDTO.getStatus())
             && TimelineConstants.TRX_STATUS_AUTHORIZED.equals(operation.getStatus())) {
-          timelineRepository.updateOperationStatusByTransactionId(
-              queueOperationDTO.getTransactionId(),
+          timelineRepository.updateOperationStatusByEventId(
+              queueOperationDTO.getEventId(),
               queueOperationDTO.getStatus());
           performanceLog(startTime, "UPDATE_OPERATION");
           return;

@@ -50,18 +50,17 @@ class TimelineControllerTest {
   private static final String REFUND_TYPE = "ORDINARY";
   private static final LocalDate START_DATE = LocalDate.now();
   private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
-  private static final String TRANSACTION_ID = "TRANSACTION_ID";
   private static final LocalDate TRANSFER_DATE = LocalDate.now();
   private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder()
       .build();
 
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, TRANSACTION_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "",
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "",
       "",
       null, null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
-      "", INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, TRANSACTION_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "", "",
+      "", INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "", "",
       null,
       null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
 
