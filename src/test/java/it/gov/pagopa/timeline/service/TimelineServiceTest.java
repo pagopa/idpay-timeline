@@ -110,6 +110,7 @@ class TimelineServiceTest {
     OPERATION_DTO.setAmount(AMOUNT);
     OPERATION_DTO.setCircuitType(CIRCUIT_TYPE);
     OPERATION_DTO.setChannel(CHANNEL);
+    OPERATION_DTO.setStatus(STATUS);
 
     DETAIL_OPERATION_DTO.setOperationType(OPERATION_TYPE);
     DETAIL_OPERATION_DTO.setEventId(EVENT_ID);
@@ -166,6 +167,7 @@ class TimelineServiceTest {
 
   @Test
   void getTimeline_ok() {
+    OPERATION.setStatus(STATUS);
     List<Operation> operations = new ArrayList<>();
     operations.add(OPERATION);
 
@@ -188,6 +190,7 @@ class TimelineServiceTest {
     assertEquals(OPERATION.getCircuitType(), res.getCircuitType());
     assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
     assertEquals(OPERATION.getAmount(), res.getAmount());
+    assertEquals(OPERATION.getStatus(), res.getStatus());
   }
 
   @Test
@@ -225,6 +228,7 @@ class TimelineServiceTest {
   }
   @Test
   void getRefunds_ok() {
+    OPERATION.setStatus(STATUS);
     List<Operation> operations = new ArrayList<>();
     operations.add(OPERATION);
     Mockito.when(
@@ -246,6 +250,7 @@ class TimelineServiceTest {
     assertEquals(OPERATION.getCircuitType(), res.getCircuitType());
     assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
     assertEquals(OPERATION.getAmount(), res.getAmount());
+    assertEquals(OPERATION.getStatus(), res.getStatus());
   }
 
   @Test

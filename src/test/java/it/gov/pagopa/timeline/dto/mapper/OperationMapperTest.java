@@ -75,6 +75,7 @@ class OperationMapperTest {
     OPERATION_DTO.setBrandLogo(BRAND_LOGO);
     OPERATION_DTO.setBrand(BRAND_LOGO);
     OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
+    OPERATION_DTO.setStatus(STATUS);
 
     DETAIL_OPERATION_DTO.setOperationType(OPERATION_TYPE);
     DETAIL_OPERATION_DTO.setEventId(EVENT_ID);
