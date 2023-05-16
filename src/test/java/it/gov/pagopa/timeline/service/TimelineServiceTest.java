@@ -14,6 +14,7 @@ import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -51,6 +49,7 @@ class TimelineServiceTest {
   private static final String USER_ID = "TEST_USER_ID";
   private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
   private static final String OPERATION_ID = "TEST_OPERATION_ID";
+  private static final String EVENT_ID = "TEST_EVENT_ID";
   private static final String IBAN = "TEST_IBAN";
   private static final String CIRCUIT_TYPE = "00";
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
@@ -61,28 +60,46 @@ class TimelineServiceTest {
   private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
   private static final String MASKED_PAN = "MASKED_PAN";
   private static final String BRAND_LOGO = "BAND_LOGO";
+  private static final String STATUS = "COMPLETED_OK";
+  private static final String REFUND_TYPE = "ORDINARY";
+  private static final LocalDate START_DATE = LocalDate.now();
+  private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
+  private static final LocalDate TRANSFER_DATE = LocalDate.now();
+  private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
 
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
-      null, null, null, null, null, null, null, null, null, null);
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, null, null,
+      null, null, null, null, null, null, null, null, null, null, STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
+  private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder()
+          .build();
 
   static {
     OPERATION.setOperationType(OPERATION_TYPE);
+    OPERATION.setEventId(EVENT_ID);
     OPERATION.setInitiativeId(INITIATIVE_ID);
     OPERATION.setUserId(USER_ID);
     OPERATION.setMaskedPan(MASKED_PAN);
     OPERATION.setBrandLogo(BRAND_LOGO);
+    OPERATION.setBrand(BRAND_LOGO);
     OPERATION.setInstrumentId(INSTRUMENT_ID);
     OPERATION.setIban(IBAN);
     OPERATION.setOperationDate(OPERATION_DATE);
     OPERATION.setAmount(AMOUNT);
     OPERATION.setCircuitType(CIRCUIT_TYPE);
     OPERATION.setChannel(CHANNEL);
+    OPERATION.setStatus(STATUS);
+    OPERATION.setRefundType(REFUND_TYPE);
+    OPERATION.setStartDate(START_DATE);
+    OPERATION.setEndDate(END_DATE);
+    OPERATION.setTransferDate(TRANSFER_DATE);
+    OPERATION.setUserNotificationDate(NOTIFICATION_DATE);
 
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
+    OPERATION_DTO.setEventId(EVENT_ID);
     OPERATION_DTO.setBrandLogo(BRAND_LOGO);
+    OPERATION_DTO.setBrand(BRAND_LOGO);
     OPERATION_DTO.setMaskedPan(MASKED_PAN);
     OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
     OPERATION_DTO.setIban(IBAN);
@@ -90,6 +107,22 @@ class TimelineServiceTest {
     OPERATION_DTO.setAmount(AMOUNT);
     OPERATION_DTO.setCircuitType(CIRCUIT_TYPE);
     OPERATION_DTO.setChannel(CHANNEL);
+
+    DETAIL_OPERATION_DTO.setOperationType(OPERATION_TYPE);
+    DETAIL_OPERATION_DTO.setEventId(EVENT_ID);
+    DETAIL_OPERATION_DTO.setOperationDate(OPERATION_DATE);
+    DETAIL_OPERATION_DTO.setAmount(new BigDecimal("0.00"));
+    DETAIL_OPERATION_DTO.setAccrued(new BigDecimal("0.00"));
+    DETAIL_OPERATION_DTO.setMaskedPan(MASKED_PAN);
+    DETAIL_OPERATION_DTO.setBrandLogo(BRAND_LOGO);
+    DETAIL_OPERATION_DTO.setBrand(BRAND_LOGO);
+    DETAIL_OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
+    DETAIL_OPERATION_DTO.setStatus(STATUS);
+    DETAIL_OPERATION_DTO.setRefundType(REFUND_TYPE);
+    DETAIL_OPERATION_DTO.setStartDate(START_DATE);
+    DETAIL_OPERATION_DTO.setEndDate(END_DATE);
+    DETAIL_OPERATION_DTO.setTransferDate(TRANSFER_DATE);
+    DETAIL_OPERATION_DTO.setUserNotificationDate(NOTIFICATION_DATE);
   }
 
   @Test
@@ -97,11 +130,12 @@ class TimelineServiceTest {
     Mockito.when(timelineRepositoryMock.findByInitiativeIdAndOperationIdAndUserId(INITIATIVE_ID,
             OPERATION_ID, USER_ID))
         .thenReturn(Optional.of(OPERATION));
+    Mockito.when(operationMapper.toDetailOperationDTO(Mockito.any(Operation.class))).thenReturn(DETAIL_OPERATION_DTO);
 
     try {
       DetailOperationDTO actual = timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
-      assertNull(actual);
+      assertEquals(DETAIL_OPERATION_DTO, actual);
     } catch (TimelineException e) {
       Assertions.fail();
     }
@@ -114,7 +148,7 @@ class TimelineServiceTest {
         .thenReturn(Optional.empty());
 
     try {
-      DetailOperationDTO actual = timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
+      timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
       Assertions.fail();
     } catch (TimelineException e) {
@@ -127,15 +161,18 @@ class TimelineServiceTest {
   void getTimeline_ok() {
     List<Operation> operations = new ArrayList<>();
     operations.add(OPERATION);
-    Mockito.when(
-            timelineRepositoryMock.findAll(Mockito.any(Example.class), Mockito.any(Pageable.class)))
-        .thenReturn(new PageImpl<>(operations));
-    Mockito.when(operationMapper.toOperationDTO(Mockito.any(Operation.class)))
-        .thenReturn(OPERATION_DTO);
-    TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 0, 3);
+
+    Mockito.when(timelineRepositoryMock.findByFilter(Mockito.any(), Mockito.any())).thenReturn(operations);
+    Mockito.when(operationMapper.toOperationDTO(Mockito.any(Operation.class))).thenReturn(OPERATION_DTO);
+    Mockito.when(timelineRepositoryMock.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(Optional.of(OPERATION));
+
+    TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3,null,null);
     assertFalse(resDto.getOperationList().isEmpty());
+    assertEquals(resDto.getLastUpdate(), OPERATION.getOperationDate());
     OperationDTO res = resDto.getOperationList().get(0);
     assertEquals(OPERATION.getOperationId(), res.getOperationId());
+    assertEquals(OPERATION.getEventId(), res.getEventId());
     assertEquals(OPERATION.getOperationType(), res.getOperationType());
     assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
     assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
@@ -148,12 +185,23 @@ class TimelineServiceTest {
   }
 
   @Test
+  void getTimelineWithNoFirstOperation_ok() {
+    List<Operation> operations = new ArrayList<>();
+    operations.add(OPERATION);
+
+    Mockito.when(timelineRepositoryMock.findByFilter(Mockito.any(), Mockito.any())).thenReturn(operations);
+    Mockito.when(operationMapper.toOperationDTO(Mockito.any(Operation.class))).thenReturn(OPERATION_DTO);
+
+    TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3, null, null);
+    assertFalse(resDto.getOperationList().isEmpty());
+    assertEquals(resDto.getLastUpdate(), OPERATION.getOperationDate());
+  }
+
+  @Test
   void getTimeline_ko() {
-    Mockito.when(
-            timelineRepositoryMock.findAll(Mockito.any(Example.class), Mockito.any(Pageable.class)))
-        .thenReturn(new PageImpl<>(new ArrayList<>()));
     try {
-      timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 0, 3);
+      TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 0, 3,null,null);
+      assertNull(resDto.getLastUpdate());
     } catch (TimelineException e) {
       assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
       assertEquals("No operations have been made on this initiative!", e.getMessage());
@@ -193,6 +241,7 @@ class TimelineServiceTest {
     assertFalse(resDto.getOperationList().isEmpty());
     OperationDTO res = resDto.getOperationList().get(0);
     assertEquals(OPERATION.getOperationId(), res.getOperationId());
+    assertEquals(OPERATION.getEventId(), res.getEventId());
     assertEquals(OPERATION.getOperationType(), res.getOperationType());
     assertEquals(OPERATION.getMaskedPan(), res.getMaskedPan());
     assertEquals(OPERATION.getBrandLogo(), res.getBrandLogo());
@@ -208,7 +257,7 @@ class TimelineServiceTest {
   void getRefunds_ko() {
     Mockito.when(
             timelineRepositoryMock.findByInitiativeIdAndUserIdAndOperationTypeContainingOrderByOperationDateDesc(
-                    INITIATIVE_ID, USER_ID, "REFUND"))
+                INITIATIVE_ID, USER_ID, "REFUND"))
         .thenReturn(new ArrayList<>());
     try {
       timelineService.getRefunds(INITIATIVE_ID, USER_ID);

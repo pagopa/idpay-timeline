@@ -3,8 +3,10 @@ package it.gov.pagopa.timeline.controller;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
+import java.time.LocalDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +29,13 @@ public interface TimelineController {
 
   @GetMapping("/{initiativeId}/{userId}")
   ResponseEntity<TimelineDTO> getTimeline(@PathVariable("initiativeId") String initiativeId,
-      @PathVariable("userId") String userId, @RequestParam(required = false) String operationType,
+      @PathVariable("userId") String userId,
+      @RequestParam(required = false) String operationType,
       @RequestParam(defaultValue = "0") Integer page,
-      @RequestParam(defaultValue = "3") @Max(value = 10, message = "Parameter [size] must be less than or equal to {value}") Integer size);
+      @RequestParam(defaultValue = "3") @Max(value = 10, message = "Parameter [size] must be less than or equal to {value}") Integer size,
+      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+      LocalDateTime dateFrom,
+      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTo);
 
   @PutMapping("/")
   ResponseEntity<Void> addOperation(@Valid @RequestBody QueueOperationDTO body);

@@ -1,976 +1,2866 @@
 {
 	"info": {
-		"_postman_id": "f1d87a79-c36c-4a9d-a639-747ce4716dba",
+		"_postman_id": "71ee22ab-17c2-4d31-823a-430a78ab2ae7",
 		"name": "Timeline - e2e",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21721440"
+		"_exporter_id": "26036736"
 	},
 	"item": [
 		{
-			"name": "Get Operation Detail",
+			"name": "Happy Case",
 			"item": [
 				{
-					"name": "Generate Token IO",
-					"event": [
+					"name": "Get  Timeline empty list with not valid CF",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Retrieve Token', () => {\r",
-									"    //verify response HTTP status \r",
-									"    pm.response.to.have.status(200);\r",
-									"    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
-									"});\r",
-									""
+							"name": "Generate Token IO Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Retrieve Token', () => {\r",
+											"    //verify response HTTP status \r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "",
+										"type": "default"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "true",
+										"type": "default"
+									}
 								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "",
-								"type": "default"
+								"url": {
+									"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode={{test cf}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bpd",
+										"pagopa",
+										"api",
+										"v1",
+										"login"
+									],
+									"query": [
+										{
+											"key": "fiscalCode",
+											"value": "{{test cf}}"
+										}
+									]
+								}
 							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "true",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode=AAAAAA00A00A000A",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"bpd",
-								"pagopa",
-								"api",
-								"v1",
-								"login"
-							],
-							"query": [
-								{
-									"key": "fiscalCode",
-									"value": "AAAAAA00A00A000A"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Operation- Ok - TRANSACTION",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Operation- Ok - TRANSACTION [200]\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Operation- Ok - TRANSACTION - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"        pm.expect(jsonResponse.operationId).equals(\"62e8d2e7d774adef371f26e7\");\r",
-									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-05T09:41:17.970\");\r",
-									"        pm.expect(jsonResponse.operationType).equals('TRANSACTION');\r",
-									"        pm.expect(jsonResponse.amount).equals(\"500.00\");\r",
-									"        pm.expect(jsonResponse.accrued).equals(\"0.00\");\r",
-									"        pm.expect(jsonResponse.circuitType).equals(\"00\");\r",
-									"        pm.expect(jsonResponse.idTrxIssuer).equals(\"idTrxIssuer\");\r",
-									"        pm.expect(jsonResponse.idTrxAcquirer).equals(\"idTrxAcquirer\");\r",
-									"        pm.expect(jsonResponse.hpan).equals(\"be74864bf21e4d38571ebb2caf8f56dd8429c43ec965d30e670bd01f9c92d05e\");\r",
-									"        pm.expect(jsonResponse.iban).to.be.undefined;\r",
-									"        pm.expect(jsonResponse.channel).to.be.undefined;\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {}
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{tokenIO}}",
-									"type": "string"
-								}
-							]
+							"response": []
 						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman/62e8d2e7d774adef371f26e7",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman",
-								"62e8d2e7d774adef371f26e7"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Operation- Ok - REVERSAL",
-					"event": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Operation- Ok - REVERSAL [200]\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Operation- Ok - REVERSAL - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"        pm.expect(jsonResponse.operationId).equals(\"62e8d15dd774adef371f26e0\");\r",
-									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-01T09:41:17.970\");\r",
-									"        pm.expect(jsonResponse.operationType).equals('REVERSAL');\r",
-									"        pm.expect(jsonResponse.amount).equals(\"500.00\");\r",
-									"        pm.expect(jsonResponse.accrued).equals(\"0.00\");\r",
-									"        pm.expect(jsonResponse.circuitType).equals(\"00\");\r",
-									"        pm.expect(jsonResponse.idTrxIssuer).equals(\"idTrxIssuer\");\r",
-									"        pm.expect(jsonResponse.idTrxAcquirer).equals(\"idTrxAcquirer\");\r",
-									"        pm.expect(jsonResponse.hpan).equals(\"be74864bf21e4d38571ebb2caf8f56dd8429c43ec965d30e670bd01f9c92d05e\");\r",
-									"        pm.expect(jsonResponse.iban).to.be.undefined;\r",
-									"        pm.expect(jsonResponse.channel).to.be.undefined;\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman/62e8d15dd774adef371f26e0",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman",
-								"62e8d15dd774adef371f26e0"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Operation- Ok - ONBOARDING",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Operation- Ok - ONBOARDING [200]\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Operation- Ok - ONBOARDING - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"        pm.expect(jsonResponse.operationId).equals(\"62e8d36cd774adef371f26e8\");\r",
-									"        pm.expect(jsonResponse.operationDate).equals(\"2022-07-29T15:13:04.469\");\r",
-									"        pm.expect(jsonResponse.operationType).equals('ONBOARDING');\r",
-									"        pm.expect(jsonResponse.amount).to.be.undefined;\r",
-									"        pm.expect(jsonResponse.accrued).to.be.undefined;\r",
-									"        pm.expect(jsonResponse.circuitType).to.be.undefined;\r",
-									"        pm.expect(jsonResponse.idTrxIssuer).to.be.undefined;\r",
-									"        pm.expect(jsonResponse.idTrxAcquirer).to.be.undefined;\r",
-									"        pm.expect(jsonResponse.hpan).to.be.undefined;\r",
-									"        pm.expect(jsonResponse.iban).to.be.undefined;\r",
-									"        pm.expect(jsonResponse.channel).to.be.undefined;\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+							"name": "GET Timeline - OK Empty List Copy",
+							"event": [
 								{
-									"key": "token",
-									"value": "{{tokenIO}}",
-									"type": "string"
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - res status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK - size = 10, page = 0, expect [Empty List]\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman/62e8d36cd774adef371f26e8",
-							"host": [
-								"{{baseUrl}}"
 							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman",
-								"62e8d36cd774adef371f26e8"
-							]
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "GET Operation- Ko [Not Found]",
-					"event": [
+					"name": "Get Timeline OK Case Full List with valid CF",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Operation- Ko [Not Found] [404]\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Operation- Ko [Not Found] - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.code).equals(404);\r",
-									"    pm.expect(jsonResponse.message).equals(\"Cannot find the requested operation!\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_fail/test_operation_fail",
-							"host": [
-								"{{baseUrl}}"
+							"name": "Generate Token IO Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Retrieve Token', () => {\r",
+											"    //verify response HTTP status \r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_fail",
-								"test_operation_fail"
-							]
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "",
+										"type": "default"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "true",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode={{CF_1}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bpd",
+										"pagopa",
+										"api",
+										"v1",
+										"login"
+									],
+									"query": [
+										{
+											"key": "fiscalCode",
+											"value": "{{CF_1}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline - OK Full List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK - expect response full list\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(10);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By Event TRANSACTION",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event TRANSACTION",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event TRANSACTION\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('TRANSACTION');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=TRANSACTION&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "TRANSACTION"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By Event PAID_REFUND",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event PAID_REFUND",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event PAID_REFUND\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('PAID_REFUND');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=PAID_REFUND&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "PAID_REFUND"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By Event ADD_INSTRUMENT",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event ADD_INSTRUMENT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event ADD_INSTRUMENT\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('ADD_INSTRUMENT');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ADD_INSTRUMENT&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "ADD_INSTRUMENT"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By DateFrom (existing Date)",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By DateFrom (existing Date)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event DELETE_INSTRUMENT\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(4);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateFrom=2023-03-01T00%3A00%3A00Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "DELETE_INSTRUMENT",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "dateFrom",
+											"value": "2023-03-01T00%3A00%3A00Z"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By Event ADD_IBAN",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event ADD_IBAN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event ADD_IBAN\", function () {\r",
+											"\r",
+											"    let jsonResponse = pm.response.json();\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('ADD_IBAN');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ADD_IBAN&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "ADD_IBAN"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By Event DELETE_INSTRUMENT",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event DELETE_INSTRUMENT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event DELETE_INSTRUMENT\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('DELETE_INSTRUMENT');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=DELETE_INSTRUMENT&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "DELETE_INSTRUMENT"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By Event ONBOARDING",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event ONBOARDING",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event ONBOARDING\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('ONBOARDING');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ONBOARDING&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "ONBOARDING"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By DateFrom (not existing Date)",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By DateFrom (not existing Date)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By dateFrom (not existing date)\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateFrom=2023-07-01T00%3A00%3A00Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "DELETE_INSTRUMENT",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "dateFrom",
+											"value": "2023-07-01T00%3A00%3A00Z"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By Event TRANSACTION And DateFrom (existing Date)",
+					"item": [
+						{
+							"name": "Get Timeline OK Case Filter By Event TRANSACTION And DateFrom (existing Date)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event TRANSACTION And DateFrom (existing )\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals(\"TRANSACTION\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=TRANSACTION&size=10&dateFrom=2023-03-01T00%3A00%3A00Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "TRANSACTION"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "dateFrom",
+											"value": "2023-03-01T00%3A00%3A00Z"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By DateTo (existing Date)",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By DateTo (existing Date)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event DateTo (existing date)\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(10);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateTo=2023-05-01T00%3A00%3A00Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "DELETE_INSTRUMENT",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "dateTo",
+											"value": "2023-05-01T00%3A00%3A00Z"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By DateTo (not existing Date)",
+					"item": [
+						{
+							"name": "Get Timeline OK Case Filter By DateTo (not existing Date)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK -status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event DateTo (notExisting)\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.variables.replaceIn(\"{{$randomUserName}}\")"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateTo=2023-02-01T00%3A00%3A00Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "DELETE_INSTRUMENT",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "dateTo",
+											"value": "2023-02-01T00%3A00%3A00Z"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK Case Filter By Date From and DateTo (existing Dates)",
+					"item": [
+						{
+							"name": "Get Timeline OK Case Filter By Date From and DateTo (existing Dates)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By DateFrom and DateTo \", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(4);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateFrom=2023-03-01T00%3A00%3A00Z&dateTo=2023-05-01T00%3A00%3A00Z",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "DELETE_INSTRUMENT",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "dateFrom",
+											"value": "2023-03-01T00%3A00%3A00Z"
+										},
+										{
+											"key": "dateTo",
+											"value": "2023-05-01T00%3A00%3A00Z"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline OK [wrong page number filter]",
+					"item": [
+						{
+							"name": "GET Timeline - OK Empty List Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - Ok - page number 2\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=2&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail Rejected_Add_Instrument",
+					"item": [
+						{
+							"name": "GET Timeline Detail - OK",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('REJECTED_ADD_INSTRUMENT');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/63fe098801e27d382f80bc8a",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"63fe098801e27d382f80bc8a"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail Rejected_Delete_Instrument",
+					"item": [
+						{
+							"name": "GET Timeline Detail - OK Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('REJECTED_DELETE_INSTRUMENT');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/63fe099901e27d382f80bc8b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"63fe099901e27d382f80bc8b"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail Transaction",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event TRANSACTION Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event TRANSACTION\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('TRANSACTION');\r",
+											"    pm.collectionVariables.set(\"transaction-op-id\", jsonResponse.operationList[0].operationId);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=TRANSACTION&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "TRANSACTION"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline Detail - OK Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('TRANSACTION');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{transaction-op-id}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"{{transaction-op-id}}"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail Reversal",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event REVERSAL",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event REVERSAL\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('REVERSAL');\r",
+											"    pm.collectionVariables.set(\"reversal-op-id\", jsonResponse.operationList[0].operationId);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"type": "text",
+										"value": "{{apimSubscriptionKey}}"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"type": "text",
+										"value": "{{Ocp-Apim-Trace}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=REVERSAL&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "REVERSAL"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline Detail - OK",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('REVERSAL');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{reversal-op-id}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"{{reversal-op-id}}"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail Add_Instrument",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event ADD_INSTRUMENT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event ADD_INSTRUMENT\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('ADD_INSTRUMENT');\r",
+											"    pm.collectionVariables.set(\"add_instrument-op-id\", jsonResponse.operationList[0].operationId);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"type": "text",
+										"value": "{{apimSubscriptionKey}}"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"type": "text",
+										"value": "{{Ocp-Apim-Trace}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ADD_INSTRUMENT&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "ADD_INSTRUMENT"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline Detail - OK Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('ADD_INSTRUMENT');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/63fddfe5d5e50d32983d5d53",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"63fddfe5d5e50d32983d5d53"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail Delete_Instrument",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event DELETE_INSTRUMENT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event DELETE_INSTRUMENT\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('DELETE_INSTRUMENT');\r",
+											"    pm.collectionVariables.set(\"delete_instrument-op-id\", jsonResponse.operationList[0].operationId);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"type": "text",
+										"value": "{{apimSubscriptionKey}}"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"type": "text",
+										"value": "{{Ocp-Apim-Trace}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=DELETE_INSTRUMENT&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "DELETE_INSTRUMENT"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline Detail - OK Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('DELETE_INSTRUMENT');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{delete_instrument-op-id}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"{{delete_instrument-op-id}}"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail Add_Iban",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event ADD_IBAN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event ADD_IBAN\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('ADD_IBAN');\r",
+											"    pm.collectionVariables.set(\"add_iban-op-id\", jsonResponse.operationList[0].operationId);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"type": "text",
+										"value": "{{apimSubscriptionKey}}"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"type": "text",
+										"value": "{{Ocp-Apim-Trace}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ADD_IBAN&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "ADD_IBAN"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline Detail - OK Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('ADD_IBAN');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{add_iban-op-id}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"{{add_iban-op-id}}"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail Onboarding",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event ONBOARDING",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event ONBOARDING\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('ONBOARDING');\r",
+											"    pm.collectionVariables.set(\"onboarding-op-id\", jsonResponse.operationList[0].operationId);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"type": "text",
+										"value": "{{apimSubscriptionKey}}"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"type": "text",
+										"value": "{{Ocp-Apim-Trace}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ONBOARDING&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "ONBOARDING"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline Detail - OK Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('ONBOARDING');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{onboarding-op-id}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"{{onboarding-op-id}}"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail Paid_Refund",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event PAID_REFUND",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event PAID_REFUND\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('PAID_REFUND');\r",
+											"    pm.collectionVariables.set(\"paid_refund-op-id\", jsonResponse.operationList[0].operationId);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"type": "text",
+										"value": "{{apimSubscriptionKey}}"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"type": "text",
+										"value": "{{Ocp-Apim-Trace}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=PAID_REFUND&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "PAID_REFUND"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline Detail - OK Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('PAID_REFUND');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/63fe083201e27d382f80bc88",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"63fe083201e27d382f80bc88"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Timeline Detail REJECTED_Refund",
+					"item": [
+						{
+							"name": "GET Timeline - OK Filter By Event REJECTED_REFUND",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - OK - status 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - OK with filter By Event REJECTED_REFUND \", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+											"    pm.expect(jsonResponse.operationList[0].operationType).equals('REJECTED_REFUND');\r",
+											"    pm.collectionVariables.set(\"rejected_refund-op-id\", jsonResponse.operationList[0].operationId);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"type": "text",
+										"value": "{{apimSubscriptionKey}}"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"type": "text",
+										"value": "{{Ocp-Apim-Trace}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=REJECTED_REFUND&size=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "REJECTED_REFUND"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline Detail - OK Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.operationType).equals('REJECTED_REFUND');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{rejected_refund-op-id}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"{{rejected_refund-op-id}}"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
 		{
-			"name": "Get Timeline",
+			"name": "Unhappy Case",
 			"item": [
 				{
-					"name": "Generate Token IO",
-					"event": [
+					"name": "Get Timeline Detail KO [wrong ope Id] Paid_Refund 404",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Retrieve Token', () => {\r",
-									"    //verify response HTTP status \r",
-									"    pm.response.to.have.status(200);\r",
-									"    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "",
-								"type": "default"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "true",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode=AAAAAA00A00A000A",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"bpd",
-								"pagopa",
-								"api",
-								"v1",
-								"login"
-							],
-							"query": [
+							"name": "Generate Token IO Copy 2",
+							"event": [
 								{
-									"key": "fiscalCode",
-									"value": "AAAAAA00A00A000A"
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Retrieve Token', () => {\r",
+											"    //verify response HTTP status \r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "",
+										"type": "default"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "true",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/bpd/pagopa/api/v1/login?fiscalCode={{CF_1}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"bpd",
+										"pagopa",
+										"api",
+										"v1",
+										"login"
+									],
+									"query": [
+										{
+											"key": "fiscalCode",
+											"value": "{{CF_1}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Timeline Detail - KO 404",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline Detail by operation id status test\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline Detail by operation id\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.code).equals(404);\r",
+											"    pm.expect(jsonResponse.message).equals('Cannot find the requested operation!');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{CF_1}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										"{{CF_1}}"
+									],
+									"query": [
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "GET Timeline - Ok - Default size, default page, no filter",
-					"event": [
+					"name": "Get Timeline KO [wrong page size filter] 400",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Ok - Default size, default page, no filter [200]\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Ok - Default size, default page, no filter - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.lastUpdate).to.be.a('string');\r",
-									"    pm.expect(jsonResponse.operationList).to.not.be.empty;\r",
-									"    pm.expect(jsonResponse.operationList.length).to.eql(3);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman",
-								""
-							],
-							"query": [
+							"name": "GET Timeline - KO 400",
+							"event": [
 								{
-									"key": "page",
-									"value": "0",
-									"disabled": true
-								},
-								{
-									"key": "operationType",
-									"value": "TRANSACTION",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "11",
-									"disabled": true
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"GET Timeline - KO- status test\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"GET Timeline - KO - size 100\", function () {\r",
+											"    let jsonResponse = pm.response.json()\r",
+											"    pm.expect(jsonResponse.code).equals(400);\r",
+											"    pm.expect(jsonResponse.message).equals(\"Parameter [size] must be less than or equal to 10\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Ok - Default size, default page, TRANSACTION filter",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Ok - Default size, default page, TRANSACTION filter [200]\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Ok - Default size, default page, TRANSACTION filter - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.lastUpdate).to.be.a('string');\r",
-									"    pm.expect(jsonResponse.operationList).to.not.be.empty;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Ok - Default size, default page, TRANSACTION filter - Single operationDTO Test\", function () {\r",
-									"    let jsonOperationList = pm.response.json().operationList\r",
-									"    jsonOperationList.forEach(function(operation){\r",
-									"        pm.expect(operation.operationId).to.be.a('string');\r",
-									"        pm.expect(operation.operationDate).to.be.a('string');\r",
-									"        pm.expect(operation.operationType).equals('TRANSACTION');\r",
-									"        pm.expect(operation.amount).to.be.a('string');\r",
-									"        pm.expect(operation.hpan).equals(\"be74864bf21e4d38571ebb2caf8f56dd8429c43ec965d30e670bd01f9c92d05e\");\r",
-									"        pm.expect(operation.iban).to.be.undefined;\r",
-									"        pm.expect(operation.channel).to.be.undefined;\r",
-									"    });\r",
-									"});"
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenIO}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Ocp-Apim-Subscription-Key",
+										"value": "{{apimSubscriptionKey}}",
+										"type": "text"
+									},
+									{
+										"key": "Ocp-Apim-Trace",
+										"value": "{{Ocp-Apim-Trace}}",
+										"type": "text"
+									}
 								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman?operationType=TRANSACTION",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0",
-									"disabled": true
-								},
-								{
-									"key": "operationType",
-									"value": "TRANSACTION"
-								},
-								{
-									"key": "size",
-									"value": "11",
-									"disabled": true
+								"url": {
+									"raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=100",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"idpay",
+										"timeline",
+										"{{initiativeId timeline}}",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "operationType",
+											"value": "TRANSACTION",
+											"disabled": true
+										},
+										{
+											"key": "size",
+											"value": "100"
+										}
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Ok - size = 1, page 1, no filter",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Ok - size = 1, page 1, no filter [200]\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Ok - size = 1, page 1, no filter - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.lastUpdate).to.be.a('string');\r",
-									"    pm.expect(jsonResponse.operationList).to.not.be.empty;\r",
-									"    pm.expect(jsonResponse.operationList.length).to.eql(1);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
 							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman?page=1&size=1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "operationType",
-									"value": "PAID_REFUND",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "1"
-								}
-							]
+							"response": []
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Ok - size = 1, default page, no filter",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Ok - size = 1, default page, no filter [200]\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Ok - size = 1, default page, no filter - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.lastUpdate).to.be.a('string');\r",
-									"    pm.expect(jsonResponse.operationList).to.not.be.empty;\r",
-									"    pm.expect(jsonResponse.operationList.length).to.eql(1);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman?size=1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0",
-									"disabled": true
-								},
-								{
-									"key": "operationType",
-									"value": "TRANSACTION",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Ok - size = 5, page = 0, no filter",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Ok - size = 5, page = 0, no filter [200]\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Ok - size = 5, page = 0, no filter - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.lastUpdate).to.be.a('string');\r",
-									"    pm.expect(jsonResponse.operationList).to.not.be.empty;\r",
-									"    pm.expect(jsonResponse.operationList.length).to.be.below(6);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman?page=0&size=5",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "operationType",
-									"value": "TRANSACTION",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "5"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Ko - size = 5, page = 1, no filter [Empty List]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Ko - size = 5, page = 1, no filter [Empty List] [404]\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Ko - size = 5, page = 1, no filter [Empty List] - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.code).equals(404);\r",
-									"    pm.expect(jsonResponse.message).equals(\"No operations have been made on this initiative!\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman?page=1&size=5",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "operationType",
-									"value": "TRANSACTION",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "5"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Ko - default size, default page, PAID_REFUND filter [Empty List]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Ko - default size, default page, PAID_REFUND filter [Empty List] [404]\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Ko - default size, default page, PAID_REFUND filter [Empty List] - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.code).equals(404);\r",
-									"    pm.expect(jsonResponse.message).equals(\"No operations have been made on this initiative!\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman?operationType=PAID_REFUND",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "operationType",
-									"value": "PAID_REFUND"
-								},
-								{
-									"key": "size",
-									"value": "5",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Ko [Wrong initiativeId]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline - Ko - size = 5, page = 1, no filter [Empty List] [404]\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline - Ko - size = 5, page = 1, no filter [Empty List] - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.code).equals(404);\r",
-									"    pm.expect(jsonResponse.message).equals(\"No operations have been made on this initiative!\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_fail",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_fail"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "operationType",
-									"value": "TRANSACTION",
-									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "5",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Timeline - Ko [SIZE > 10]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"GET Timeline KO - size > 10 [400]\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"GET Timeline KO - size > 10 - DTO Test\", function () {\r",
-									"    let jsonResponse = pm.response.json()\r",
-									"    pm.expect(jsonResponse.code).equals(400);\r",
-									"    pm.expect(jsonResponse.message).to.not.be.empty;\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Ocp-Apim-Subscription-Key",
-								"value": "{{apimSubscriptionKey}}",
-								"type": "text"
-							},
-							{
-								"key": "Ocp-Apim-Trace",
-								"value": "{{Ocp-Apim-Trace}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/idpay/timeline/test_initiative_postman?page=0&operationType=TRANSACTION&size=11",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"idpay",
-								"timeline",
-								"test_initiative_postman"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "operationType",
-									"value": "TRANSACTION"
-								},
-								{
-									"key": "size",
-									"value": "11"
-								}
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
@@ -1012,8 +2902,47 @@
 		},
 		{
 			"key": "Ocp-Apim-Trace",
-			"value": "true",
-			"type": "string"
+			"value": "true"
+		},
+		{
+			"key": "test cf",
+			"value": "test_Fake_User"
+		},
+		{
+			"key": "initiativeId timeline",
+			"value": "63fdd546fea3f35a5644e735"
+		},
+		{
+			"key": "transaction-op-id",
+			"value": ""
+		},
+		{
+			"key": "reversal-op-id",
+			"value": ""
+		},
+		{
+			"key": "add_instrument-op-id",
+			"value": ""
+		},
+		{
+			"key": "delete_instrument-op-id",
+			"value": ""
+		},
+		{
+			"key": "add_iban-op-id",
+			"value": ""
+		},
+		{
+			"key": "onboarding-op-id",
+			"value": ""
+		},
+		{
+			"key": "paid_refund-op-id",
+			"value": ""
+		},
+		{
+			"key": "rejected_refund-op-id",
+			"value": ""
 		}
 	]
 }
