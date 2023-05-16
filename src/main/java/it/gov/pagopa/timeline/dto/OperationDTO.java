@@ -31,6 +31,8 @@ public class OperationDTO {
 
   private String channel;
 
+  private String status;
+
   private LocalDateTime operationDate;
 
   private BigDecimal amount;
