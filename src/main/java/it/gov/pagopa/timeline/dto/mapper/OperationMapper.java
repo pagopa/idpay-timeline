@@ -56,6 +56,7 @@ public class OperationMapper {
                 .brandLogo(operation.getBrandLogo())
                 .brand(operation.getBrand())
                 .iban(operation.getIban())
+                .status(operation.getStatus())
                 .build();
     }
 
