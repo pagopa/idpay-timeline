@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 public class TimelineSpecificRepositoryImpl implements TimelineSpecificRepository {
 
@@ -33,6 +34,15 @@ public class TimelineSpecificRepositoryImpl implements TimelineSpecificRepositor
     Query query = new Query();
     query.addCriteria(criteria);
     return mongoTemplate.count(query, Operation.class);
+  }
+
+  @Override
+  public void updateOperationStatusByEventId(String eventId, String status) {
+    mongoTemplate.updateFirst(
+        Query.query(Criteria.where(Fields.eventId).is(eventId)),
+        new Update()
+            .set(Fields.status, status),
+        Operation.class);
   }
 
   public Criteria getCriteria(String initiativeId, String userId, String operationType,
