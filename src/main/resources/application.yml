@@ -4,9 +4,9 @@ spring:
     version: "@project.version@"
   jmx.enabled: true
   cloud:
+    function:
+      definition: consumerTimeline
     stream:
-      function:
-        definition: consumerTimeline
       binders:
         kafka-in:
           type: kafka
