@@ -73,8 +73,8 @@ spring:
       on-profile: default
   data:
     mongodb:
-      database: ${MONGODB_DBNAME:}
-      uri: ${MONGODB_URI:}
+      uri: ${MONGODB_URI:mongodb://localhost:27017}
+      database: ${MONGODB_DBNAME:idpay}
       # custom configured properties
       config:
         connectionPool:
@@ -84,6 +84,7 @@ spring:
           maxConnectionLifeTimeMS: ${MONGODB_CONNECTIONPOOL_MAX_CONNECTION_LIFE_MS:0}
           maxConnectionIdleTimeMS: ${MONGODB_CONNECTIONPOOL_MAX_CONNECTION_IDLE_MS:120000}
           maxConnecting: ${MONGODB_CONNECTIONPOOL_MAX_CONNECTING:2}
+
 management.endpoints:
   web:
     exposure.include: info, health
