@@ -3,7 +3,7 @@ package it.gov.pagopa.timeline.exception;
 import it.gov.pagopa.timeline.dto.ErrorDTO;
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
