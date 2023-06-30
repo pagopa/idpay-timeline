@@ -37,7 +37,7 @@ public class OperationMapper {
         operation.setEndDate(queueOperationDTO.getEndDate());
         operation.setTransferDate(queueOperationDTO.getTransferDate());
         operation.setUserNotificationDate(queueOperationDTO.getUserNotificationDate());
-
+        operation.setBusinessName(queueOperationDTO.getBusinessName());
         return operation;
     }
 
@@ -47,7 +47,7 @@ public class OperationMapper {
                 .operationType(operation.getOperationType())
                 .eventId(operation.getEventId())
                 .operationDate(operation.getOperationDate())
-                .amount(operation.getAmount())
+                .amount(operation.getEffectiveAmount())
                 .accrued(operation.getAccrued())
                 .channel(operation.getChannel())
                 .circuitType(operation.getCircuitType())
@@ -57,6 +57,7 @@ public class OperationMapper {
                 .brand(operation.getBrand())
                 .iban(operation.getIban())
                 .status(operation.getStatus())
+                .businessName(operation.getBusinessName())
                 .build();
     }
 
@@ -66,7 +67,7 @@ public class OperationMapper {
                 .operationType(operation.getOperationType())
                 .eventId(operation.getEventId())
                 .operationDate(operation.getOperationDate())
-                .amount(operation.getAmount())
+                .amount(operation.getEffectiveAmount())
                 .accrued(operation.getAccrued())
                 .channel(operation.getChannel())
                 .circuitType(operation.getCircuitType())
@@ -84,6 +85,7 @@ public class OperationMapper {
                 .transferDate(operation.getTransferDate())
                 .userNotificationDate(operation.getUserNotificationDate())
                 .cro(operation.getCro())
+                .businessName(operation.getBusinessName())
                 .build();
     }
 }
