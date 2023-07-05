@@ -12,7 +12,7 @@ import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.service.TimelineService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import org.junit.jupiter.api.Disabled;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -52,17 +52,20 @@ class TimelineControllerTest {
   private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
   private static final LocalDate TRANSFER_DATE = LocalDate.now();
   private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
+  private static final String BUSINESS_NAME = "BUSINESS_NAME";
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder()
       .build();
 
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
-      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "",
-      "",
-      null, null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
+      USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
+          INSTRUMENT_ID, "", "", "", "", null, null,
+          new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS,
+          REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
-      "", INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN, INSTRUMENT_ID, "", "", "", "",
-      null,
-      null, new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE);
+      "", INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
+          INSTRUMENT_ID, "", "", "", "", null, null,
+          new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS,
+          REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
 
   @MockBean
   TimelineService timelineServiceMock;
@@ -141,12 +144,8 @@ class TimelineControllerTest {
     assertTrue(error.getMessage().contains(TimelineConstants.ERROR_MANDATORY_FIELD));
   }
 
-  @Disabled
+  @Test
   void getTimeline_ok() throws Exception {
-
-//    Mockito.when(
-//            timelineServiceMock.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE))
-//        .thenReturn(new TimelineDTO(LocalDateTime.now(), new ArrayList<>()));
 
     mvc.perform(
             MockMvcRequestBuilders.get(BASE_URL + INITIATIVE_ID + "/" + USER_ID)
@@ -207,12 +206,8 @@ class TimelineControllerTest {
     assertTrue(error.getMessage().equals("Parameter [size] must be less than or equal to 10"));
   }
 
-  @Disabled
+  @Test
   void getRefunds_ok() throws Exception {
-
-//    Mockito.when(
-//            timelineServiceMock.getRefunds(INITIATIVE_ID, USER_ID))
-//        .thenReturn(new TimelineDTO(LocalDateTime.now(), new ArrayList<>()));
 
     mvc.perform(
             MockMvcRequestBuilders.get(BASE_URL + INITIATIVE_ID + "/" + USER_ID + "/refunds")

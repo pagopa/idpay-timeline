@@ -62,7 +62,7 @@ class TimelineSpecificRepositoryImplTest {
   void getCount() {
     Criteria criteria = new Criteria();
     timelineSpecificRepository.getCount(criteria);
-    verify(mongoTemplate, times(1)).count((Query) Mockito.any(),
+    verify(mongoTemplate, times(1)).count(Mockito.any(),
         (Class<?>) Mockito.any());
   }
 
@@ -82,16 +82,16 @@ class TimelineSpecificRepositoryImplTest {
 
 
   @Test
-  void getCriteriaOnlyStartDate() {
+  void getCriteriaOnlyStartDate_Authorized() {
     Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID, USER_ID,
-        OPERATION_TYPE, START_DATE, null);
+            TimelineConstants.TRX_STATUS_AUTHORIZED, START_DATE, null);
     assertEquals(4, criteria.getCriteriaObject().size());
   }
 
   @Test
-  void getCriteriaOnlyEndDate() {
+  void getCriteriaOnlyEndDate_Cancelled() {
     Criteria criteria = timelineSpecificRepository.getCriteria(INITIATIVE_ID, USER_ID,
-        OPERATION_TYPE, null, END_DATE);
+            TimelineConstants.TRX_STATUS_CANCELLED, null, END_DATE);
     assertEquals(4, criteria.getCriteriaObject().size());
   }
 

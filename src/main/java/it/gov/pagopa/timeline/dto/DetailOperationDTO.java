@@ -56,5 +56,7 @@ public class DetailOperationDTO {
 
   private String cro;
 
+  private String businessName;
+
 }
 

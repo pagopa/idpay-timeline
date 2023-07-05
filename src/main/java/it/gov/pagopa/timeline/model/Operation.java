@@ -70,4 +70,6 @@ public class Operation {
 
   private LocalDate userNotificationDate;
 
+  private String businessName;
+
 }
