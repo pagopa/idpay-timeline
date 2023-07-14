@@ -39,5 +39,7 @@ public class OperationDTO {
 
   private BigDecimal accrued;
 
+  private String businessName;
+
 }
 

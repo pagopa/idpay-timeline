@@ -1,6 +1,7 @@
 package it.gov.pagopa.timeline.repository;
 
 
+import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.model.Operation.Fields;
 import java.time.LocalDateTime;
@@ -51,7 +52,15 @@ public class TimelineSpecificRepositoryImpl implements TimelineSpecificRepositor
     Criteria criteria = Criteria.where(Operation.Fields.initiativeId).is(initiativeId);
     criteria.and(Operation.Fields.userId).is(userId);
     if (operationType != null) {
-      criteria.and(Fields.operationType).is(operationType);
+      if (operationType.equals(TimelineConstants.TRX_STATUS_CANCELLED)){
+        criteria.andOperator(Criteria.where(Fields.operationType).is(TimelineConstants.OPERATION_TYPE_TRX),
+                Criteria.where(Fields.status).is(TimelineConstants.TRX_STATUS_CANCELLED));
+      } else if (operationType.equals(TimelineConstants.TRX_STATUS_AUTHORIZED)) {
+        criteria.andOperator(Criteria.where(Fields.operationType).is(TimelineConstants.OPERATION_TYPE_TRX),
+                Criteria.where(Fields.status).in(TimelineConstants.TRX_STATUS_AUTHORIZED, TimelineConstants.TRX_STATUS_REWARDED));
+      } else {
+        criteria.and(Fields.operationType).is(operationType);
+      }
     }
     if (startDate != null && endDate != null) {
       criteria.and(Fields.operationDate)
