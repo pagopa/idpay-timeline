@@ -1,30 +1,19 @@
 package it.gov.pagopa.timeline.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.verify;
-
 import it.gov.pagopa.timeline.constants.TimelineConstants;
-import it.gov.pagopa.timeline.dto.DetailOperationDTO;
-import it.gov.pagopa.timeline.dto.OperationDTO;
-import it.gov.pagopa.timeline.dto.QueueOperationDTO;
-import it.gov.pagopa.timeline.dto.TimelineDTO;
+import it.gov.pagopa.timeline.dto.*;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
 import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +21,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = TimelineServiceImpl.class)
@@ -59,6 +59,7 @@ class TimelineServiceTest {
   private static final BigDecimal AMOUNT = new BigDecimal("50.00");
   private static final Operation OPERATION = new Operation();
   private static final String OPERATION_TYPE = "PAID_REFUND";
+  private static final String OPERATION_TYPE_DELETE_INITIATIVE = "DELETE_INITIATIVE";
   private static final String CHANNEL = "APP_IO";
   private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
   private static final String MASKED_PAN = "MASKED_PAN";
@@ -393,6 +394,29 @@ class TimelineServiceTest {
 
     verify(timelineRepositoryMock).findByEventId(EVENT_ID);
     assertEquals(TimelineConstants.TRX_STATUS_REWARDED, OPERATION.getStatus());
+  }
+  @ParameterizedTest
+  @MethodSource("operationTypeAndInvocationTimes")
+  void processOperation_deleteOperation(String operationType, int times) {
+    QueueCommandOperationDTO queueCommandOperationDTO = QueueCommandOperationDTO.builder()
+            .operationId(INITIATIVE_ID)
+            .operationType(operationType)
+            .build();
 
+    Mockito.doAnswer(invocationOnMock -> {
+      OPERATION.setInitiativeId(INITIATIVE_ID);
+      return OPERATION;
+    }).when(timelineRepositoryMock).deleteOperation(queueCommandOperationDTO.getOperationId());
+
+    timelineService.processOperation(queueCommandOperationDTO);
+
+    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deleteOperation(queueCommandOperationDTO.getOperationId());
+  }
+
+  private static Stream<Arguments> operationTypeAndInvocationTimes() {
+    return Stream.of(
+            Arguments.of(OPERATION_TYPE_DELETE_INITIATIVE, 1),
+            Arguments.of("OPERATION_TYPE_TEST", 0)
+    );
   }
 }

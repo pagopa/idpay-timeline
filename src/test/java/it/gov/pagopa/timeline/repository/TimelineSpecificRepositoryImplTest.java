@@ -113,6 +113,16 @@ class TimelineSpecificRepositoryImplTest {
         Query.query(Criteria.where(Fields.eventId).is(eventId)),
         new Update().set(Fields.status, status),
         Operation.class);
+  }
+  @Test
+  void deleteOperation() {
+    String initiativeId = INITIATIVE_ID;
 
+    timelineSpecificRepository.deleteOperation(initiativeId);
+
+    verify(mongoTemplate, times(1)).findAndRemove(
+            Query.query(Criteria.where(Fields.initiativeId).is(initiativeId)),
+            Operation.class
+    );
   }
 }

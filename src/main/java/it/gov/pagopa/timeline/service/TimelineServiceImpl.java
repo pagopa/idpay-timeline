@@ -1,10 +1,8 @@
 package it.gov.pagopa.timeline.service;
 
+import com.mongodb.client.result.DeleteResult;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
-import it.gov.pagopa.timeline.dto.DetailOperationDTO;
-import it.gov.pagopa.timeline.dto.OperationDTO;
-import it.gov.pagopa.timeline.dto.QueueOperationDTO;
-import it.gov.pagopa.timeline.dto.TimelineDTO;
+import it.gov.pagopa.timeline.dto.*;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
 import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
@@ -15,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import it.gov.pagopa.timeline.utils.AuditUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +39,8 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Autowired
   TimelineProducer timelineProducer;
+  @Autowired
+  AuditUtilities auditUtilities;
 
   private static final Set<Pair<String, String>> ignoreCombinations = Set.of(
       Pair.of(TimelineConstants.TRX_STATUS_AUTHORIZED, TimelineConstants.TRX_STATUS_REWARDED),
@@ -148,11 +150,23 @@ public class TimelineServiceImpl implements TimelineService {
     return new TimelineDTO(operationList.get(0).getOperationDate(), operationList, 0, 0, 0, 0);
   }
 
-  private void performanceLog(long startTime, String service) {
-    log.info(
-        "[PERFORMANCE_LOG] [{}] Time occurred to perform business logic: {} ms",
-        service,
-        System.currentTimeMillis() - startTime);
+  @Override
+  public void processOperation(QueueCommandOperationDTO queueDeleteOperationDTO) {
+    long startTime = System.currentTimeMillis();
+
+    if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueDeleteOperationDTO.getOperationType())) {
+      DeleteResult deleteResult = timelineRepository.deleteOperation(queueDeleteOperationDTO.getOperationId());
+      log.info("[DELETE OPERATION] Deleted {} operations on initiative: {}", deleteResult.getDeletedCount(), queueDeleteOperationDTO.getOperationId());
+      auditUtilities.logDeleteOperation(deleteResult.getDeletedCount(),queueDeleteOperationDTO.getOperationId());
+    }
+    performanceLog(startTime, "DELETE_OPERATION");
   }
+
+    private void performanceLog(long startTime, String service) {
+        log.info(
+                "[PERFORMANCE_LOG] [{}] Time occurred to perform business logic: {} ms",
+                service,
+                System.currentTimeMillis() - startTime);
+    }
 
 }
