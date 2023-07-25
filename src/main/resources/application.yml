@@ -16,6 +16,7 @@ spring:
                 stream:
                   kafka:
                     binder:
+                      brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST:}
                       configuration:
                         sasl:
                           jaas:
@@ -28,6 +29,7 @@ spring:
                 stream:
                   kafka:
                     binder:
+                      brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST:}
                       configuration:
                         sasl:
                           jaas:
@@ -40,6 +42,7 @@ spring:
                 stream:
                   kafka:
                     binder:
+                      brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST_01:}
                       configuration:
                         sasl:
                           jaas:
@@ -62,7 +65,6 @@ spring:
       kafka:
         binder:
           auto-create-topics: false
-          brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST:}
           configuration:
             heartbeat.interval.ms: ${KAFKA_CONFIG_HEARTBEAT_INTERVAL_MS:3000}
             request.timeout.ms: ${KAFKA_CONFIG_REQUEST_TIMEOUT_MS:30000}
