@@ -64,7 +64,6 @@ microservice-chart:
       KAFKA_TOPIC_TIMELINE: idpay_timeline_topic
       KAFKA_GROUP_IN: idpay-timeline-consumer-group
       KAFKA_TOPIC_COMMANDS: idpay-commands
-      KAFKA_COMMANDS_GROUP_IN: idpay-commands-timeline-consumer-group
 
   envSecret:
     MONGODB_URI: mongodb-connection-string

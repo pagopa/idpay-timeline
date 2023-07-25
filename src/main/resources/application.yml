@@ -58,7 +58,7 @@ spring:
           binder: kafka-commands
           content-type: ${KAFKA_CONTENT_TYPE:application/json}
           destination: ${KAFKA_TOPIC_COMMANDS:}
-          group: ${KAFKA_COMMANDS_GROUP_IN:}
+          group: ${KAFKA_COMMANDS_GROUP_IN:idpay-commands-timeline-consumer-group}
       kafka:
         binder:
           auto-create-topics: false
