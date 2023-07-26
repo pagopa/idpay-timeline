@@ -21,10 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -161,7 +158,14 @@ public class TimelineServiceImpl implements TimelineService {
       log.info("[DELETE OPERATION] Deleted {} operations for user {} on initiative: {}", deletedOperation.size(),
               usersId, queueDeleteOperationDTO.getOperationId());
 
-      deletedOperation.forEach(op -> auditUtilities.logDeleteOperation(op.getUserId(), op.getInitiativeId()));
+      Set<String> loggedUserId = new HashSet<>();
+
+      deletedOperation.forEach(op -> {
+        if (!loggedUserId.contains(op.getUserId())) {
+          auditUtilities.logDeleteOperation(op.getUserId(), op.getInitiativeId());
+          loggedUserId.add(op.getUserId());
+        }
+      });
     }
     performanceLog(startTime, "DELETE_OPERATION");
   }
