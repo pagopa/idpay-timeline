@@ -32,10 +32,10 @@ public class AuditUtilities {
     log.info(pattern, (Object[]) parameters);
   }
 
-  public void logDeleteOperation(int deleteCounters, String userId, String initiativeId) {
+  public void logDeleteOperation(String userId, String initiativeId) {
     logAuditString(
             CEF_BASE_PATTERN,
-            String.format("Deleted %s operations", deleteCounters), userId, initiativeId
+            "Timeline operations deleted", userId, initiativeId
     );
   }
 }

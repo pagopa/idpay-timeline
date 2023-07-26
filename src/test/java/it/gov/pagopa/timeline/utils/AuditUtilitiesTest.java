@@ -30,14 +30,13 @@ class AuditUtilitiesTest {
 
     @Test
     void logDeleteOperation_ok(){
-        auditUtilities.logDeleteOperation(DELETE_COUNTERS, USER_ID, INITIATIVE_ID);
+        auditUtilities.logDeleteOperation(USER_ID, INITIATIVE_ID);
 
         Assertions.assertEquals(
-                ("CEF:0|PagoPa|IDPAY|1.0|7|User interaction|2| event=Timeline dstip=%s msg=Deleted %s operations" +
+                ("CEF:0|PagoPa|IDPAY|1.0|7|User interaction|2| event=Timeline dstip=%s msg=Timeline operations deleted" +
                         " suser=%s cs1Label=initiativeId cs1=%s")
                         .formatted(
                                 AuditUtilities.SRCIP,
-                                DELETE_COUNTERS,
                                 USER_ID,
                                 INITIATIVE_ID
                         ),
