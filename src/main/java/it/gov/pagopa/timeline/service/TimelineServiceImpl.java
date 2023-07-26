@@ -156,7 +156,7 @@ public class TimelineServiceImpl implements TimelineService {
     if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueDeleteOperationDTO.getOperationType())) {
 
       List<Operation> deletedOperation = timelineRepository.deleteByInitiativeId(queueDeleteOperationDTO.getOperationId());
-      List<String> usersId = deletedOperation.stream().map(Operation::getUserId).toList();
+      List<String> usersId = deletedOperation.stream().distinct().map(Operation::getUserId).toList();
 
       log.info("[DELETE OPERATION] Deleted {} operations for user {} on initiative: {}", deletedOperation.size(),
               usersId, queueDeleteOperationDTO.getOperationId());
