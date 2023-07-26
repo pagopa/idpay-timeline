@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory;
 
 class AuditUtilitiesTest {
 
-    private static final Long DELETE_COUNTERS = 1L;
+    private static final int DELETE_COUNTERS = 1;
+    private static final String USER_ID = "TEST_USER_ID";
     private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
 
 
@@ -28,15 +29,16 @@ class AuditUtilitiesTest {
 
 
     @Test
-    void logCreateWallet_ok(){
-        auditUtilities.logDeleteOperation(DELETE_COUNTERS, INITIATIVE_ID);
+    void logDeleteOperation_ok(){
+        auditUtilities.logDeleteOperation(DELETE_COUNTERS, USER_ID, INITIATIVE_ID);
 
         Assertions.assertEquals(
                 ("CEF:0|PagoPa|IDPAY|1.0|7|User interaction|2| event=Timeline dstip=%s msg=Deleted %s operations" +
-                        " cs1Label=initiativeId cs1=%s")
+                        " suser=%s cs1Label=initiativeId cs1=%s")
                         .formatted(
                                 AuditUtilities.SRCIP,
                                 DELETE_COUNTERS,
+                                USER_ID,
                                 INITIATIVE_ID
                         ),
                 memoryAppender.getLoggedEvents().get(0).getFormattedMessage()

@@ -26,17 +26,16 @@ public class AuditUtilities {
   }
 
   private static final String CEF = String.format("CEF:0|PagoPa|IDPAY|1.0|7|User interaction|2| event=Timeline dstip=%s", SRCIP);
-  private static final String CEF_BASE_PATTERN = CEF + " msg={} cs1Label=initiativeId cs1={}";
+  private static final String CEF_BASE_PATTERN = CEF + " msg={} suser={} cs1Label=initiativeId cs1={}";
 
   private void logAuditString(String pattern, String... parameters) {
     log.info(pattern, (Object[]) parameters);
   }
 
-  public void logDeleteOperation(Long deleteCounters, String initiativeId) {
+  public void logDeleteOperation(int deleteCounters, String userId, String initiativeId) {
     logAuditString(
             CEF_BASE_PATTERN,
-            String.format("Deleted %s operations", deleteCounters), initiativeId
+            String.format("Deleted %s operations", deleteCounters), userId, initiativeId
     );
   }
-
 }

@@ -1,6 +1,5 @@
 package it.gov.pagopa.timeline.service;
 
-import com.mongodb.client.result.DeleteResult;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.*;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
@@ -8,12 +7,6 @@ import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import it.gov.pagopa.timeline.utils.AuditUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +19,12 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -155,9 +154,14 @@ public class TimelineServiceImpl implements TimelineService {
     long startTime = System.currentTimeMillis();
 
     if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueDeleteOperationDTO.getOperationType())) {
-      DeleteResult deleteResult = timelineRepository.deleteOperation(queueDeleteOperationDTO.getOperationId());
-      log.info("[DELETE OPERATION] Deleted {} operations on initiative: {}", deleteResult.getDeletedCount(), queueDeleteOperationDTO.getOperationId());
-      auditUtilities.logDeleteOperation(deleteResult.getDeletedCount(),queueDeleteOperationDTO.getOperationId());
+
+      List<Operation> deletedOperation = timelineRepository.deleteByInitiativeId(queueDeleteOperationDTO.getOperationId());
+      List<String> usersId = deletedOperation.stream().map(Operation::getUserId).toList();
+
+      log.info("[DELETE OPERATION] Deleted {} operations for user {} on initiative: {}", deletedOperation.size(),
+              usersId, queueDeleteOperationDTO.getOperationId());
+
+      auditUtilities.logDeleteOperation(deletedOperation.size(), usersId.toString(), queueDeleteOperationDTO.getOperationId());
     }
     performanceLog(startTime, "DELETE_OPERATION");
   }

@@ -7,6 +7,7 @@ import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
+import it.gov.pagopa.timeline.utils.AuditUtilities;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -48,6 +49,8 @@ class TimelineServiceTest {
 
   @MockBean
   TimelineProducer timelineProducer;
+  @MockBean
+  AuditUtilities auditUtilities;
 
   private static final String USER_ID = "TEST_USER_ID";
   private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
@@ -403,14 +406,16 @@ class TimelineServiceTest {
             .operationType(operationType)
             .build();
 
-    Mockito.doAnswer(invocationOnMock -> {
-      OPERATION.setInitiativeId(INITIATIVE_ID);
-      return OPERATION;
-    }).when(timelineRepositoryMock).deleteOperation(queueCommandOperationDTO.getOperationId());
+    OPERATION.setInitiativeId(INITIATIVE_ID);
+
+    List<Operation> deletedOperation = List.of(OPERATION);
+
+    Mockito.when(timelineRepositoryMock.deleteByInitiativeId(queueCommandOperationDTO.getOperationId()))
+                    .thenReturn(deletedOperation);
 
     timelineService.processOperation(queueCommandOperationDTO);
 
-    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deleteOperation(queueCommandOperationDTO.getOperationId());
+    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deleteByInitiativeId(queueCommandOperationDTO.getOperationId());
   }
 
   private static Stream<Arguments> operationTypeAndInvocationTimes() {

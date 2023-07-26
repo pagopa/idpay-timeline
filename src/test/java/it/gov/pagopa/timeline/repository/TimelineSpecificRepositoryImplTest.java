@@ -1,13 +1,8 @@
 package it.gov.pagopa.timeline.repository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.model.Operation.Fields;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -23,6 +18,12 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = TimelineSpecificRepositoryImpl.class)
@@ -113,16 +114,5 @@ class TimelineSpecificRepositoryImplTest {
         Query.query(Criteria.where(Fields.eventId).is(eventId)),
         new Update().set(Fields.status, status),
         Operation.class);
-  }
-  @Test
-  void deleteOperation() {
-    String initiativeId = INITIATIVE_ID;
-
-    timelineSpecificRepository.deleteOperation(initiativeId);
-
-    verify(mongoTemplate, times(1)).findAndRemove(
-            Query.query(Criteria.where(Fields.initiativeId).is(initiativeId)),
-            Operation.class
-    );
   }
 }

@@ -1,12 +1,9 @@
 package it.gov.pagopa.timeline.repository;
 
 
-import com.mongodb.client.result.DeleteResult;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.model.Operation.Fields;
-import java.time.LocalDateTime;
-import java.util.List;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,6 +11,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class TimelineSpecificRepositoryImpl implements TimelineSpecificRepository {
 
@@ -45,14 +45,6 @@ public class TimelineSpecificRepositoryImpl implements TimelineSpecificRepositor
         new Update()
             .set(Fields.status, status),
         Operation.class);
-  }
-
-  @Override
-  public DeleteResult deleteOperation(String initiativeId) {
-    return mongoTemplate.remove(
-            Query.query(Criteria.where(Fields.initiativeId).is(initiativeId)),
-            Operation.class
-    );
   }
 
   public Criteria getCriteria(String initiativeId, String userId, String operationType,

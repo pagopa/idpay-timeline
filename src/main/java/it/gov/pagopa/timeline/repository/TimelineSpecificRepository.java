@@ -1,11 +1,11 @@
 package it.gov.pagopa.timeline.repository;
 
-import com.mongodb.client.result.DeleteResult;
 import it.gov.pagopa.timeline.model.Operation;
-import java.time.LocalDateTime;
-import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.Criteria;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 public interface TimelineSpecificRepository {
@@ -15,5 +15,4 @@ public interface TimelineSpecificRepository {
   long getCount(Criteria criteria);
 
   void updateOperationStatusByEventId(String eventId, String status);
-  DeleteResult deleteOperation(String initiativeId);
 }
