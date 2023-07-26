@@ -158,14 +158,7 @@ public class TimelineServiceImpl implements TimelineService {
       log.info("[DELETE OPERATION] Deleted {} operations for user {} on initiative: {}", deletedOperation.size(),
               usersId, queueDeleteOperationDTO.getOperationId());
 
-      Set<String> loggedUserId = new HashSet<>();
-
-      deletedOperation.forEach(op -> {
-        if (!loggedUserId.contains(op.getUserId())) {
-          auditUtilities.logDeleteOperation(op.getUserId(), op.getInitiativeId());
-          loggedUserId.add(op.getUserId());
-        }
-      });
+      usersId.forEach(userId -> auditUtilities.logDeleteOperation(userId, queueDeleteOperationDTO.getOperationId()));
     }
     performanceLog(startTime, "DELETE_OPERATION");
   }
