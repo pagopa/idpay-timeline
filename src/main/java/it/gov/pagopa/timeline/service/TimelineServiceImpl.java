@@ -1,20 +1,13 @@
 package it.gov.pagopa.timeline.service;
 
 import it.gov.pagopa.timeline.constants.TimelineConstants;
-import it.gov.pagopa.timeline.dto.DetailOperationDTO;
-import it.gov.pagopa.timeline.dto.OperationDTO;
-import it.gov.pagopa.timeline.dto.QueueOperationDTO;
-import it.gov.pagopa.timeline.dto.TimelineDTO;
+import it.gov.pagopa.timeline.dto.*;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
 import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import it.gov.pagopa.timeline.utils.AuditUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +19,9 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -39,6 +35,8 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Autowired
   TimelineProducer timelineProducer;
+  @Autowired
+  AuditUtilities auditUtilities;
 
   private static final Set<Pair<String, String>> ignoreCombinations = Set.of(
       Pair.of(TimelineConstants.TRX_STATUS_AUTHORIZED, TimelineConstants.TRX_STATUS_REWARDED),
@@ -148,11 +146,28 @@ public class TimelineServiceImpl implements TimelineService {
     return new TimelineDTO(operationList.get(0).getOperationDate(), operationList, 0, 0, 0, 0);
   }
 
-  private void performanceLog(long startTime, String service) {
-    log.info(
-        "[PERFORMANCE_LOG] [{}] Time occurred to perform business logic: {} ms",
-        service,
-        System.currentTimeMillis() - startTime);
+  @Override
+  public void processOperation(QueueCommandOperationDTO queueDeleteOperationDTO) {
+    long startTime = System.currentTimeMillis();
+
+    if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueDeleteOperationDTO.getOperationType())) {
+
+      List<Operation> deletedOperation = timelineRepository.deleteByInitiativeId(queueDeleteOperationDTO.getOperationId());
+      List<String> usersId = deletedOperation.stream().map(Operation::getUserId).distinct().toList();
+
+      log.info("[DELETE OPERATION] Deleted {} operations for user {} on initiative: {}", deletedOperation.size(),
+              usersId, queueDeleteOperationDTO.getOperationId());
+
+      usersId.forEach(userId -> auditUtilities.logDeleteOperation(userId, queueDeleteOperationDTO.getOperationId()));
+    }
+    performanceLog(startTime, "DELETE_OPERATION");
   }
+
+    private void performanceLog(long startTime, String service) {
+        log.info(
+                "[PERFORMANCE_LOG] [{}] Time occurred to perform business logic: {} ms",
+                service,
+                System.currentTimeMillis() - startTime);
+    }
 
 }
