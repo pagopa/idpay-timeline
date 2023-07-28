@@ -1,6 +1,7 @@
 package it.gov.pagopa.timeline.service;
 
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
+import it.gov.pagopa.timeline.dto.QueueCommandOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import java.time.LocalDateTime;
@@ -17,4 +18,6 @@ public interface TimelineService {
   void saveOperation(QueueOperationDTO queueOperationDTO);
 
   TimelineDTO getRefunds(String initiativeId, String userId);
+
+  void processOperation(QueueCommandOperationDTO queueDeleteOperationDTO);
 }
