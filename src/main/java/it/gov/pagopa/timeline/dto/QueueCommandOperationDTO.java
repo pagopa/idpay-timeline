@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 @Builder
 public class QueueCommandOperationDTO {
     private String operationType;
-    private String operationId;
+    private String entityId;
     private LocalDateTime operationTime;
 }

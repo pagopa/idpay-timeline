@@ -402,7 +402,7 @@ class TimelineServiceTest {
   @MethodSource("operationTypeAndInvocationTimes")
   void processOperation_deleteOperation(String operationType, int times) {
     QueueCommandOperationDTO queueCommandOperationDTO = QueueCommandOperationDTO.builder()
-            .operationId(INITIATIVE_ID)
+            .entityId(INITIATIVE_ID)
             .operationType(operationType)
             .build();
 
@@ -410,12 +410,12 @@ class TimelineServiceTest {
 
     List<Operation> deletedOperation = List.of(OPERATION);
 
-    Mockito.when(timelineRepositoryMock.deleteByInitiativeId(queueCommandOperationDTO.getOperationId()))
+    Mockito.when(timelineRepositoryMock.deleteByInitiativeId(queueCommandOperationDTO.getEntityId()))
                     .thenReturn(deletedOperation);
 
     timelineService.processOperation(queueCommandOperationDTO);
 
-    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deleteByInitiativeId(queueCommandOperationDTO.getOperationId());
+    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deleteByInitiativeId(queueCommandOperationDTO.getEntityId());
   }
 
   private static Stream<Arguments> operationTypeAndInvocationTimes() {
