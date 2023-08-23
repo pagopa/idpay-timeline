@@ -53,7 +53,7 @@ public class TimelineServiceImpl implements TimelineService {
         initiativeId, operationId, userId).orElseThrow(
         () ->
             new TimelineException(
-                HttpStatus.NOT_FOUND, "Cannot find the requested operation!"));
+                HttpStatus.NOT_FOUND.value(), "Cannot find the requested operation!"));
     performanceLog(startTime, "GET_TIMELINE_DETAIL");
     return operationMapper.toDetailOperationDTO(operation);
   }
@@ -136,7 +136,7 @@ public class TimelineServiceImpl implements TimelineService {
     List<OperationDTO> operationList = new ArrayList<>();
     if (timeline.isEmpty()) {
       performanceLog(startTime, "GET_REFUNDS");
-      throw new TimelineException(HttpStatus.NOT_FOUND,
+      throw new TimelineException(HttpStatus.NOT_FOUND.value(),
           "No refunds have been rewarded on this initiative!");
     }
     timeline.forEach(operation ->

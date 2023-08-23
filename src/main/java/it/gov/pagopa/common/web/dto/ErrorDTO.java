@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class ErrorDTO {
 
   @NotBlank
-  private String code;
+  private Integer code;
   @NotBlank
   private String message;
 }

@@ -1,8 +1,8 @@
 package it.gov.pagopa.common.web.exception;
 
 import it.gov.pagopa.common.web.dto.ErrorDTO;
-import it.gov.pagopa.timeline.constants.TimelineConstants;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -13,8 +13,6 @@ import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Slf4j
@@ -40,7 +38,7 @@ public class ValidationExceptionHandler {
         ErrorManager.getRequestDetails(request), message);
     log.debug("Something went wrong while validating http request", ex);
 
-    return new ErrorDTO(TimelineConstants.Exception.BadRequest.CODE, message);
+    return new ErrorDTO(HttpStatus.BAD_REQUEST.value(), message);
   }
 
 
@@ -55,6 +53,6 @@ public class ValidationExceptionHandler {
         ErrorManager.getRequestDetails(request), message);
     log.debug("Something went wrong handling request", ex);
 
-    return new ErrorDTO("INVALID_REQUEST", message);
+        return new ErrorDTO(HttpStatus.BAD_REQUEST.value(), message);
   }
 }

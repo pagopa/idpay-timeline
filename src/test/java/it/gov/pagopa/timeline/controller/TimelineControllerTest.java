@@ -4,7 +4,7 @@ import static com.mongodb.assertions.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.gov.pagopa.common.web.exception.ClientExceptionNoBody;
+import it.gov.pagopa.common.web.exception.ClientExceptionWithBody;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.common.web.dto.ErrorDTO;
@@ -68,8 +68,6 @@ class TimelineControllerTest {
           INSTRUMENT_ID, "", "", "", "", null, null,
           new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS,
           REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
-  public static final String BAD_REQUEST_CODE = TimelineConstants.Exception.BadRequest.CODE;
-  public static final String NOT_FOUND_CODE = TimelineConstants.Exception.NotFound.CODE;
 
   @MockBean
   TimelineService timelineServiceMock;
@@ -98,7 +96,7 @@ class TimelineControllerTest {
   void getTimelineDetail_not_found() throws Exception {
 
     Mockito.doThrow(
-            new TimelineException(HttpStatus.NOT_FOUND, "Cannot find the requested operation!"))
+            new TimelineException(HttpStatus.NOT_FOUND.value(), "Cannot find the requested operation!"))
         .when(timelineServiceMock)
         .getTimelineDetail(INITIATIVE_ID, OPERATION_ID, USER_ID);
 
@@ -109,7 +107,7 @@ class TimelineControllerTest {
                     .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(MockMvcResultMatchers.status().isNotFound())
             .andExpect(res -> {
-              Assertions.assertTrue(res.getResolvedException() instanceof ClientExceptionNoBody);
+              Assertions.assertTrue(res.getResolvedException() instanceof ClientExceptionWithBody);
               Assertions.assertEquals(HttpStatus.NOT_FOUND, ((TimelineException) res.getResolvedException()).getHttpStatus());
               Assertions.assertEquals("Cannot find the requested operation!", res.getResolvedException().getMessage());
             })
@@ -143,7 +141,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(BAD_REQUEST_CODE, error.getCode());
+    assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
     assertTrue(error.getMessage().contains(TimelineConstants.ERROR_MANDATORY_FIELD));
   }
 
@@ -165,7 +163,7 @@ class TimelineControllerTest {
   void getTimeline_not_found() throws Exception {
 
     Mockito.doThrow(
-            new TimelineException(HttpStatus.NOT_FOUND,
+            new TimelineException(HttpStatus.NOT_FOUND.value(),
                 "No operations have been made on this initiative!"))
         .when(timelineServiceMock)
         .getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE,null,null);
@@ -180,7 +178,7 @@ class TimelineControllerTest {
                     .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(MockMvcResultMatchers.status().isNotFound())
             .andExpect(res -> {
-              Assertions.assertTrue(res.getResolvedException() instanceof ClientExceptionNoBody);
+              Assertions.assertTrue(res.getResolvedException() instanceof ClientExceptionWithBody);
               Assertions.assertEquals(HttpStatus.NOT_FOUND, ((TimelineException) res.getResolvedException()).getHttpStatus());
               Assertions.assertEquals("No operations have been made on this initiative!", res.getResolvedException().getMessage());
             })
@@ -204,7 +202,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(BAD_REQUEST_CODE, error.getCode());
+    assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
     assertTrue(error.getMessage().equals("Parameter [size] must be less than or equal to 10"));
   }
 
@@ -223,7 +221,7 @@ class TimelineControllerTest {
   void getRefunds_not_found() throws Exception {
 
     Mockito.doThrow(
-            new TimelineException(HttpStatus.NOT_FOUND,
+            new TimelineException(HttpStatus.NOT_FOUND.value(),
                 "No refunds have been rewarded on this initiative!"))
         .when(timelineServiceMock)
         .getRefunds(INITIATIVE_ID, USER_ID);
@@ -235,7 +233,7 @@ class TimelineControllerTest {
                     .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(MockMvcResultMatchers.status().isNotFound())
             .andExpect(res -> {
-              Assertions.assertTrue(res.getResolvedException() instanceof ClientExceptionNoBody);
+              Assertions.assertTrue(res.getResolvedException() instanceof ClientExceptionWithBody);
               Assertions.assertEquals(HttpStatus.NOT_FOUND, ((TimelineException) res.getResolvedException()).getHttpStatus());
               Assertions.assertEquals("No refunds have been rewarded on this initiative!", res.getResolvedException().getMessage());
             })

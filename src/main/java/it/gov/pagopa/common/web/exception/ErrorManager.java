@@ -15,7 +15,7 @@ public class ErrorManager {
   private static final ErrorDTO defaultErrorDTO;
 
   static {
-    defaultErrorDTO = new ErrorDTO("Error", "Something gone wrong");
+    defaultErrorDTO = new ErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Something gone wrong");
   }
 
   @ExceptionHandler(RuntimeException.class)
@@ -24,11 +24,11 @@ public class ErrorManager {
       log.error("Something went wrong handling request {}", getRequestDetails(request), error);
     } else {
       log.info("A {} occurred handling request {}: HttpStatus {} - {} at {}",
-          clientException.getClass().getSimpleName(),
-          getRequestDetails(request),
-          clientException.getHttpStatus(),
-          clientException.getMessage(),
-          clientException.getStackTrace().length > 0 ? clientException.getStackTrace()[0] : "UNKNOWN");
+              clientException.getClass().getSimpleName(),
+              getRequestDetails(request),
+              clientException.getHttpStatus(),
+              clientException.getMessage(),
+              clientException.getStackTrace().length > 0 ? clientException.getStackTrace()[0] : "UNKNOWN");
     }
 
     if(error instanceof ClientExceptionNoBody clientExceptionNoBody){
@@ -46,8 +46,8 @@ public class ErrorManager {
         errorDTO = defaultErrorDTO;
       }
       return ResponseEntity.status(httpStatus)
-          .contentType(MediaType.APPLICATION_JSON)
-          .body(errorDTO);
+              .contentType(MediaType.APPLICATION_JSON)
+              .body(errorDTO);
     }
   }
 

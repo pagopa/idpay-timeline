@@ -10,14 +10,4 @@ public class TimelineConstants {
   public static final String OPERATION_TYPE_TRX = "TRANSACTION";
   public static final String OPERATION_TYPE_DELETE_INITIATIVE = "DELETE_INITIATIVE";
   private TimelineConstants(){}
-
-  public static final class Exception extends AbstractConstant {
-    public static final class BadRequest {
-      public static final String CODE = BASE_CODE + ".bad.request";
-    }
-
-    public static final class NotFound {
-      public static final String CODE = BASE_CODE + ".not.found";
-    }
-  }
 }
