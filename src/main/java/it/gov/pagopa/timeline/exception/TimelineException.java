@@ -1,14 +1,13 @@
 package it.gov.pagopa.timeline.exception;
 
-import lombok.AllArgsConstructor;
+import it.gov.pagopa.common.web.exception.ClientExceptionNoBody;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
-@AllArgsConstructor
 @Getter
-public class TimelineException extends RuntimeException {
-
-  private final int code;
-
-  private final String message;
-
+@SuppressWarnings("squid:S110")
+public class TimelineException extends ClientExceptionNoBody {
+  public TimelineException(HttpStatus httpStatus, String message) {
+    super(httpStatus, message);
+  }
 }

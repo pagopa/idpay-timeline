@@ -167,7 +167,7 @@ class TimelineServiceTest {
           USER_ID);
       Assertions.fail();
     } catch (TimelineException e) {
-      assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
+      assertEquals(HttpStatus.NOT_FOUND, e.getHttpStatus());
       assertEquals("Cannot find the requested operation!", e.getMessage());
     }
   }
@@ -219,7 +219,7 @@ class TimelineServiceTest {
       TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 0, 3,null,null);
       assertNull(resDto.getLastUpdate());
     } catch (TimelineException e) {
-      assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
+      assertEquals(HttpStatus.NOT_FOUND, e.getHttpStatus());
       assertEquals("No operations have been made on this initiative!", e.getMessage());
     }
   }
@@ -269,7 +269,7 @@ class TimelineServiceTest {
     try {
       timelineService.getRefunds(INITIATIVE_ID, USER_ID);
     } catch (TimelineException e) {
-      assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
+      assertEquals(HttpStatus.NOT_FOUND, e.getHttpStatus());
       assertEquals("No refunds have been rewarded on this initiative!", e.getMessage());
     }
   }
