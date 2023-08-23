@@ -4,17 +4,15 @@ import static com.mongodb.assertions.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.gov.pagopa.common.web.exception.ClientExceptionWithBody;
+import it.gov.pagopa.common.web.dto.ErrorDTO;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
-import it.gov.pagopa.common.web.dto.ErrorDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.service.TimelineService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -100,18 +98,19 @@ class TimelineControllerTest {
         .when(timelineServiceMock)
         .getTimelineDetail(INITIATIVE_ID, OPERATION_ID, USER_ID);
 
+    MvcResult res =
         mvc.perform(
                 MockMvcRequestBuilders.get(
                         BASE_URL + INITIATIVE_ID + "/" + OPERATION_ID + "/" + USER_ID)
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(MockMvcResultMatchers.status().isNotFound())
-            .andExpect(res -> {
-              Assertions.assertTrue(res.getResolvedException() instanceof ClientExceptionWithBody);
-              Assertions.assertEquals(HttpStatus.NOT_FOUND, ((TimelineException) res.getResolvedException()).getHttpStatus());
-              Assertions.assertEquals("Cannot find the requested operation!", res.getResolvedException().getMessage());
-            })
             .andReturn();
+
+    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+
+    assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
+    assertEquals("Cannot find the requested operation!", error.getMessage());
   }
 
   @Test
@@ -168,6 +167,7 @@ class TimelineControllerTest {
         .when(timelineServiceMock)
         .getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE,null,null);
 
+    MvcResult res =
         mvc.perform(
                 MockMvcRequestBuilders.get(
                         BASE_URL + INITIATIVE_ID + "/" + USER_ID)
@@ -177,12 +177,12 @@ class TimelineControllerTest {
                     .param("size", String.valueOf(SIZE))
                     .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(MockMvcResultMatchers.status().isNotFound())
-            .andExpect(res -> {
-              Assertions.assertTrue(res.getResolvedException() instanceof ClientExceptionWithBody);
-              Assertions.assertEquals(HttpStatus.NOT_FOUND, ((TimelineException) res.getResolvedException()).getHttpStatus());
-              Assertions.assertEquals("No operations have been made on this initiative!", res.getResolvedException().getMessage());
-            })
             .andReturn();
+
+    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+
+    assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
+    assertEquals("No operations have been made on this initiative!", error.getMessage());
   }
 
   @Test
@@ -226,17 +226,18 @@ class TimelineControllerTest {
         .when(timelineServiceMock)
         .getRefunds(INITIATIVE_ID, USER_ID);
 
+    MvcResult res =
         mvc.perform(
                 MockMvcRequestBuilders.get(
                         BASE_URL + INITIATIVE_ID + "/" + USER_ID + "/refunds")
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(MockMvcResultMatchers.status().isNotFound())
-            .andExpect(res -> {
-              Assertions.assertTrue(res.getResolvedException() instanceof ClientExceptionWithBody);
-              Assertions.assertEquals(HttpStatus.NOT_FOUND, ((TimelineException) res.getResolvedException()).getHttpStatus());
-              Assertions.assertEquals("No refunds have been rewarded on this initiative!", res.getResolvedException().getMessage());
-            })
             .andReturn();
+
+    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+
+    assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
+    assertEquals("No refunds have been rewarded on this initiative!", error.getMessage());
   }
 }
