@@ -148,19 +148,17 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Override
   public void processOperation(QueueCommandOperationDTO queueDeleteOperationDTO) {
-    long startTime = System.currentTimeMillis();
-
     if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueDeleteOperationDTO.getOperationType())) {
+      long startTime = System.currentTimeMillis();
 
-      List<Operation> deletedOperation = timelineRepository.deleteByInitiativeId(queueDeleteOperationDTO.getOperationId());
+      List<Operation> deletedOperation = timelineRepository.deleteByInitiativeId(queueDeleteOperationDTO.getEntityId());
       List<String> usersId = deletedOperation.stream().map(Operation::getUserId).distinct().toList();
 
-      log.info("[DELETE OPERATION] Deleted {} operations for user {} on initiative: {}", deletedOperation.size(),
-              usersId, queueDeleteOperationDTO.getOperationId());
+      log.info("[DELETE_INITIATIVE] Deleted initiative {} from collection: timeline", queueDeleteOperationDTO.getEntityId());
 
-      usersId.forEach(userId -> auditUtilities.logDeleteOperation(userId, queueDeleteOperationDTO.getOperationId()));
+      usersId.forEach(userId -> auditUtilities.logDeleteOperation(userId, queueDeleteOperationDTO.getEntityId()));
+      performanceLog(startTime, "DELETE_INITIATIVE");
     }
-    performanceLog(startTime, "DELETE_OPERATION");
   }
 
     private void performanceLog(long startTime, String service) {
