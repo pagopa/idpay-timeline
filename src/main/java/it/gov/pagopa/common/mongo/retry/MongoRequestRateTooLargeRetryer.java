@@ -1,13 +1,14 @@
 package it.gov.pagopa.common.mongo.retry;
 
-import static java.lang.Thread.sleep;
-
 import it.gov.pagopa.common.mongo.retry.exception.MongoRequestRateTooLargeRetryExpiredException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
+
+import static java.lang.Thread.sleep;
 
 @Slf4j
 public final class MongoRequestRateTooLargeRetryer {
@@ -18,7 +19,7 @@ public final class MongoRequestRateTooLargeRetryer {
   private static final Pattern RETRY_AFTER_MS_PATTERN = Pattern.compile("RetryAfterMs=(\\d+)");
 
   public static <T> T execute(Supplier<T> logic, long maxRetry, long maxMillisElapsed)
-          throws InterruptedException {
+      throws InterruptedException {
     long counter = 0;
     long startime = System.currentTimeMillis();
     while (true) {
@@ -31,8 +32,8 @@ public final class MongoRequestRateTooLargeRetryer {
   }
 
   private static void handleMongoException(DataAccessException e, long maxRetry,
-                                           long counter, long maxMillisElapsed, long startime)
-          throws InterruptedException {
+      long counter, long maxMillisElapsed, long startime)
+      throws InterruptedException {
     long millisElapsed = System.currentTimeMillis() - startime;
 
     if (isRequestRateTooLargeException(e)) {
@@ -43,21 +44,21 @@ public final class MongoRequestRateTooLargeRetryer {
       }
 
       if ((maxRetry <= 0 || counter <= maxRetry)
-              && (maxMillisElapsed <= 0 || millisElapsed <= maxMillisElapsed)) {
+          && (maxMillisElapsed <= 0 || millisElapsed <= maxMillisElapsed)) {
 
         if (retryAfterMs != null) {
           log.info(
-                  "[REQUEST_RATE_TOO_LARGE_RETRY] Retrying after {} ms due to RequestRateTooLargeException: attempt {} of {} after {} ms of max {} ms",
-                  retryAfterMs, counter, maxRetry, millisElapsed, maxMillisElapsed);
+              "[REQUEST_RATE_TOO_LARGE_RETRY] Retrying after {} ms due to RequestRateTooLargeException: attempt {} of {} after {} ms of max {} ms",
+              retryAfterMs, counter, maxRetry, millisElapsed, maxMillisElapsed);
           sleep(retryAfterMs);
         } else {
           log.info(
-                  "[REQUEST_RATE_TOO_LARGE_RETRY] Retrying for RequestRateTooLargeException: attempt {} of {} after {} ms of max {} ms",
-                  counter, maxRetry, millisElapsed, maxMillisElapsed);
+              "[REQUEST_RATE_TOO_LARGE_RETRY] Retrying for RequestRateTooLargeException: attempt {} of {} after {} ms of max {} ms",
+              counter, maxRetry, millisElapsed, maxMillisElapsed);
         }
       } else {
         throw new MongoRequestRateTooLargeRetryExpiredException(maxRetry, counter, maxMillisElapsed,
-                millisElapsed, retryAfterMs, e);
+            millisElapsed, retryAfterMs, e);
       }
     } else {
       throw e;
