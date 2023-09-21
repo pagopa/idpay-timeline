@@ -22,6 +22,7 @@ public class OperationMapper {
         operation.setCircuitType(queueOperationDTO.getCircuitType());
         operation.setIban(queueOperationDTO.getIban());
         operation.setChannel(queueOperationDTO.getChannel());
+        operation.setInstrumentType(queueOperationDTO.getInstrumentType());
         operation.setRewardNotificationId(queueOperationDTO.getRewardNotificationId());
         operation.setCro(queueOperationDTO.getCro());
         operation.setRewardFeedbackProgressive(queueOperationDTO.getRewardFeedbackProgressive());

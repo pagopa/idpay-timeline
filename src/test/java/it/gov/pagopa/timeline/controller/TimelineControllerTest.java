@@ -58,12 +58,12 @@ class TimelineControllerTest {
 
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
-          INSTRUMENT_ID, "", "", "", "", null, null,
+          INSTRUMENT_ID, "", "", "", "", "", null, null,
           new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS,
           REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
       "", INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
-          INSTRUMENT_ID, "", "", "", "", null, null,
+          INSTRUMENT_ID, "", "", "", "", "", null, null,
           new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS,
           REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
 

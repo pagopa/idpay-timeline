@@ -44,6 +44,8 @@ public class QueueOperationDTO {
 
   private String channel;
 
+  private String instrumentType;
+
   private String cro;
 
   private Long rewardFeedbackProgressive;
