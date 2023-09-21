@@ -13,6 +13,6 @@ public interface TimelineSpecificRepository {
   Criteria getCriteria(String initiativeId, String userId, String operationType,
       LocalDateTime startDate, LocalDateTime endDate);
   long getCount(Criteria criteria);
-
   void updateOperationStatusByEventId(String eventId, String status);
+  List<Operation> deletePaged(String initiativeId, int pageSize);
 }

@@ -25,6 +25,7 @@ import java.util.*;
 
 @Slf4j
 @Service
+@SuppressWarnings("BusyWait")
 public class TimelineServiceImpl implements TimelineService {
 
   @Autowired
@@ -37,6 +38,9 @@ public class TimelineServiceImpl implements TimelineService {
   TimelineProducer timelineProducer;
   @Autowired
   AuditUtilities auditUtilities;
+
+  private static final String PAGINATION_KEY = "pagination";
+  private static final String DELAY_KEY = "delay";
 
   private static final Set<Pair<String, String>> ignoreCombinations = Set.of(
       Pair.of(TimelineConstants.TRX_STATUS_AUTHORIZED, TimelineConstants.TRX_STATUS_REWARDED),
@@ -147,16 +151,29 @@ public class TimelineServiceImpl implements TimelineService {
   }
 
   @Override
-  public void processOperation(QueueCommandOperationDTO queueDeleteOperationDTO) {
-    if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueDeleteOperationDTO.getOperationType())) {
+  public void processOperation(QueueCommandOperationDTO queueCommandOperationDTO) {
+    if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueCommandOperationDTO.getOperationType())) {
       long startTime = System.currentTimeMillis();
 
-      List<Operation> deletedOperation = timelineRepository.deleteByInitiativeId(queueDeleteOperationDTO.getEntityId());
+      List<Operation> deletedOperation = new ArrayList<>();
+      List<Operation> fetchedOperations;
+
+      do {
+        fetchedOperations = timelineRepository.deletePaged(queueCommandOperationDTO.getEntityId(),
+                Integer.parseInt(queueCommandOperationDTO.getAdditionalParams().get(PAGINATION_KEY)));
+        deletedOperation.addAll(fetchedOperations);
+        try{
+          Thread.sleep(Long.parseLong(queueCommandOperationDTO.getAdditionalParams().get(DELAY_KEY)));
+        } catch (InterruptedException e){
+          log.error("An error has occurred while waiting {}", e.getMessage());
+          Thread.currentThread().interrupt();
+        }
+      } while (fetchedOperations.size() == (Integer.parseInt(queueCommandOperationDTO.getAdditionalParams().get(PAGINATION_KEY))));
+
+      log.info("[DELETE_INITIATIVE] Deleted initiative {} from collection: timeline", queueCommandOperationDTO.getEntityId());
+
       List<String> usersId = deletedOperation.stream().map(Operation::getUserId).distinct().toList();
-
-      log.info("[DELETE_INITIATIVE] Deleted initiative {} from collection: timeline", queueDeleteOperationDTO.getEntityId());
-
-      usersId.forEach(userId -> auditUtilities.logDeleteOperation(userId, queueDeleteOperationDTO.getEntityId()));
+      usersId.forEach(userId -> auditUtilities.logDeleteOperation(userId, queueCommandOperationDTO.getEntityId()));
       performanceLog(startTime, "DELETE_INITIATIVE");
     }
   }
