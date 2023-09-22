@@ -34,10 +34,11 @@ class OperationMapperTest {
   private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
   private static final LocalDate TRANSFER_DATE = LocalDate.now();
   private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
+  public static final String INSTRUMENT_TYPE = "INSTRUMENT_TYPE";
   private static final String CRO = "CRO";
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
-          INSTRUMENT_ID, null, null, null, null, CRO, null, OPERATION_DATE,
+          INSTRUMENT_ID, null, null, null, INSTRUMENT_TYPE, CRO, null, OPERATION_DATE,
           new BigDecimal("0.00"), new BigDecimal("0.00"), new BigDecimal("0.00"), null, null,
           STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
 
@@ -45,6 +46,7 @@ class OperationMapperTest {
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder()
       .build();
+
 
   static {
     OPERATION.setUserId(USER_ID);
@@ -61,6 +63,7 @@ class OperationMapperTest {
     OPERATION.setBrand(BRAND_LOGO);
     OPERATION.setStatus(STATUS);
     OPERATION.setRefundType(REFUND_TYPE);
+    OPERATION.setInstrumentType(INSTRUMENT_TYPE);
     OPERATION.setStartDate(START_DATE);
     OPERATION.setEndDate(END_DATE);
     OPERATION.setTransferDate(TRANSFER_DATE);
@@ -90,6 +93,7 @@ class OperationMapperTest {
     DETAIL_OPERATION_DTO.setBrandLogo(BRAND_LOGO);
     DETAIL_OPERATION_DTO.setBrand(BRAND_LOGO);
     DETAIL_OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
+    DETAIL_OPERATION_DTO.setInstrumentType(INSTRUMENT_TYPE);
     DETAIL_OPERATION_DTO.setStatus(STATUS);
     DETAIL_OPERATION_DTO.setRefundType(REFUND_TYPE);
     DETAIL_OPERATION_DTO.setStartDate(START_DATE);

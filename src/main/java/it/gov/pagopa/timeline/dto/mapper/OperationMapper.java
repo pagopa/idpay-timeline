@@ -74,6 +74,7 @@ public class OperationMapper {
                 .circuitType(operation.getCircuitType())
                 .maskedPan(operation.getMaskedPan())
                 .instrumentId(operation.getInstrumentId())
+                .instrumentType(operation.getInstrumentType())
                 .brandLogo(operation.getBrandLogo())
                 .brand(operation.getBrand())
                 .iban(operation.getIban())

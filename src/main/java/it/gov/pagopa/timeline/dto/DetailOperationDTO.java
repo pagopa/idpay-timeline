@@ -26,6 +26,8 @@ public class DetailOperationDTO {
 
   private String instrumentId;
 
+  private String instrumentType;
+
   private String circuitType;
 
   private String iban;
