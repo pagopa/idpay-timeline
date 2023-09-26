@@ -4,6 +4,7 @@ package it.gov.pagopa.timeline.repository;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.model.Operation.Fields;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,6 +16,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 public class TimelineSpecificRepositoryImpl implements TimelineSpecificRepository {
 
   private final MongoTemplate mongoTemplate;
@@ -45,6 +47,16 @@ public class TimelineSpecificRepositoryImpl implements TimelineSpecificRepositor
         new Update()
             .set(Fields.status, status),
         Operation.class);
+  }
+
+  @Override
+  public List<Operation> deletePaged(String initiativeId, int pageSize) {
+    log.trace("[DELETE_PAGED] Deleting timeline operations in pages");
+    Pageable pageable = PageRequest.of(0, pageSize);
+    return mongoTemplate.findAllAndRemove(
+            Query.query(Criteria.where(Fields.initiativeId).is(initiativeId)).with(pageable),
+            Operation.class
+    );
   }
 
   public Criteria getCriteria(String initiativeId, String userId, String operationType,

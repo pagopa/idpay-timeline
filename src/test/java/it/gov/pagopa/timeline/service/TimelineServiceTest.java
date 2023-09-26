@@ -26,13 +26,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = TimelineServiceImpl.class)
@@ -74,6 +73,10 @@ class TimelineServiceTest {
   private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
   private static final LocalDate TRANSFER_DATE = LocalDate.now();
   private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
+  private static final String PAGINATION_KEY = "pagination";
+  private static final String PAGINATION_VALUE = "100";
+  private static final String DELAY_KEY = "delay";
+  private static final String DELAY_VALUE = "1500";
 
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
@@ -398,30 +401,63 @@ class TimelineServiceTest {
     verify(timelineRepositoryMock).findByEventId(EVENT_ID);
     assertEquals(TimelineConstants.TRX_STATUS_REWARDED, OPERATION.getStatus());
   }
+
   @ParameterizedTest
   @MethodSource("operationTypeAndInvocationTimes")
-  void processOperation_deleteOperation(String operationType, int times) {
-    QueueCommandOperationDTO queueCommandOperationDTO = QueueCommandOperationDTO.builder()
+  void processOperation(String operationType, int times) {
+    // Given
+    Map<String, String> additionalParams = new HashMap<>();
+    additionalParams.put(PAGINATION_KEY, PAGINATION_VALUE);
+    additionalParams.put(DELAY_KEY, DELAY_VALUE);
+    final QueueCommandOperationDTO queueCommandOperationDTO = QueueCommandOperationDTO.builder()
             .entityId(INITIATIVE_ID)
             .operationType(operationType)
+            .operationTime(LocalDateTime.now().minusMinutes(5))
+            .additionalParams(additionalParams)
             .build();
+    Operation operation = new Operation();
+    operation.setOperationId(OPERATION_ID);
+    operation.setInitiativeId(INITIATIVE_ID);
+    final List<Operation> deletedPage = List.of(operation);
 
-    OPERATION.setInitiativeId(INITIATIVE_ID);
+    if(times == 2){
+      final List<Operation> operationPage = createOperationPage(Integer.parseInt(PAGINATION_VALUE));
+      when(timelineRepositoryMock.deletePaged(queueCommandOperationDTO.getEntityId(), Integer.parseInt(queueCommandOperationDTO.getAdditionalParams().get(PAGINATION_KEY))))
+              .thenReturn(operationPage)
+              .thenReturn(deletedPage);
+    } else {
+      when(timelineRepositoryMock.deletePaged(queueCommandOperationDTO.getEntityId(), Integer.parseInt(queueCommandOperationDTO.getAdditionalParams().get(PAGINATION_KEY))))
+              .thenReturn(deletedPage);
+    }
 
-    List<Operation> deletedOperation = List.of(OPERATION);
-
-    Mockito.when(timelineRepositoryMock.deleteByInitiativeId(queueCommandOperationDTO.getEntityId()))
-                    .thenReturn(deletedOperation);
-
+    // When
+    if(times == 1){
+      Thread.currentThread().interrupt();
+    }
     timelineService.processOperation(queueCommandOperationDTO);
 
-    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deleteByInitiativeId(queueCommandOperationDTO.getEntityId());
+    // Then
+    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deletePaged(queueCommandOperationDTO.getEntityId(), Integer.parseInt(queueCommandOperationDTO.getAdditionalParams().get(PAGINATION_KEY)));
   }
 
   private static Stream<Arguments> operationTypeAndInvocationTimes() {
     return Stream.of(
             Arguments.of(OPERATION_TYPE_DELETE_INITIATIVE, 1),
+            Arguments.of(OPERATION_TYPE_DELETE_INITIATIVE, 2),
             Arguments.of("OPERATION_TYPE_TEST", 0)
     );
+  }
+
+  private List<Operation> createOperationPage(int pageSize){
+    List<Operation> operationPage = new ArrayList<>();
+
+    for(int i=0;i<pageSize; i++){
+      Operation operation = new Operation();
+      operation.setOperationId(OPERATION_ID);
+      operation.setInitiativeId(INITIATIVE_ID);
+      operationPage.add(operation);
+    }
+
+    return operationPage;
   }
 }
