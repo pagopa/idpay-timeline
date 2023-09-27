@@ -40,8 +40,8 @@ import static org.mockito.Mockito.when;
 @TestPropertySource(
         locations = "classpath:application.yml",
         properties = {
-                "app.initiative.delete.paginationSize=100",
-                "app.initiative.delete.delayTime=1000"
+                "app.delete.paginationSize=100",
+                "app.delete.delayTime=1000"
         })
 class TimelineServiceTest {
 

@@ -46,9 +46,9 @@ public class TimelineServiceImpl implements TimelineService {
       Pair.of(TimelineConstants.TRX_STATUS_REWARDED, TimelineConstants.TRX_STATUS_REWARDED)
   );
 
-  @Value("${app.initiative.delete.paginationSize}")
+  @Value("${app.delete.paginationSize}")
   String pagination;
-  @Value("${app.initiative.delete.delayTime}")
+  @Value("${app.delete.delayTime}")
   String delay;
 
   @Override
