@@ -3,6 +3,7 @@ package it.gov.pagopa.timeline.repository;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.model.Operation.Fields;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -20,6 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
@@ -41,6 +43,7 @@ class TimelineSpecificRepositoryImplTest {
   private static final String OPERATION_TYPE = "TEST_OPERATION_TYPE";
   private static final LocalDateTime START_DATE = LocalDateTime.now();
   private static final LocalDateTime END_DATE = LocalDateTime.now();
+  private static final String OPERATION_ID = "OPERATION_ID";
 
   @Test
   void findByFilter() {
@@ -115,4 +118,25 @@ class TimelineSpecificRepositoryImplTest {
         new Update().set(Fields.status, status),
         Operation.class);
   }
+
+  @Test
+  void deletePaged (){
+    // Given
+    int pageSize = 100;
+    Pageable pageable = PageRequest.of(0, pageSize);
+    Operation operation = new Operation();
+    operation.setOperationId(OPERATION_ID);
+    operation.setInitiativeId(INITIATIVE_ID);
+
+    Mockito.when(mongoTemplate.findAllAndRemove(Query.query(Criteria.where(Fields.initiativeId).is(INITIATIVE_ID)).with(pageable), Operation.class))
+            .thenReturn(List.of(operation));
+
+    // When
+    List<Operation> result = timelineSpecificRepository.deletePaged(INITIATIVE_ID, pageSize);
+
+    // Then
+    Assertions.assertEquals(1, result.size());
+    verify(mongoTemplate, times(1)).findAllAndRemove(Query.query(Criteria.where(Fields.initiativeId).is(INITIATIVE_ID)).with(pageable), Operation.class);
+  }
+
 }

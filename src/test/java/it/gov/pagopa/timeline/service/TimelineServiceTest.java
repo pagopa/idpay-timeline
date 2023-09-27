@@ -18,24 +18,31 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @ContextConfiguration(classes = TimelineServiceImpl.class)
+@TestPropertySource(
+        locations = "classpath:application.yml",
+        properties = {
+                "app.delete.paginationSize=100",
+                "app.delete.delayTime=1000"
+        })
 class TimelineServiceTest {
 
   @MockBean
@@ -64,6 +71,7 @@ class TimelineServiceTest {
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final String OPERATION_TYPE_DELETE_INITIATIVE = "DELETE_INITIATIVE";
   private static final String CHANNEL = "APP_IO";
+  private static final String INSTRUMENT_TYPE_QRCODE = "QRCODE";
   private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
   private static final String MASKED_PAN = "MASKED_PAN";
   private static final String BRAND_LOGO = "BAND_LOGO";
@@ -74,11 +82,15 @@ class TimelineServiceTest {
   private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
   private static final LocalDate TRANSFER_DATE = LocalDate.now();
   private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
+  private static final String PAGINATION_KEY = "pagination";
+  private static final String PAGINATION_VALUE = "100";
+  private static final String DELAY_KEY = "delay";
+  private static final String DELAY_VALUE = "1500";
 
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
-          INSTRUMENT_ID, null, null, CHANNEL, null, null, null,
+          INSTRUMENT_ID, null, null, CHANNEL, INSTRUMENT_TYPE_QRCODE, null, null, null,
           null, null, null, null, null, STATUS, REFUND_TYPE,
           START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
@@ -135,6 +147,10 @@ class TimelineServiceTest {
     DETAIL_OPERATION_DTO.setTransferDate(TRANSFER_DATE);
     DETAIL_OPERATION_DTO.setUserNotificationDate(NOTIFICATION_DATE);
   }
+
+  @Value("${app.delete.paginationSize}")
+  private String pagination;
+
   @AfterEach
   void tearDown() {
     Mockito.reset(timelineRepositoryMock, operationMapper, timelineProducer);
@@ -398,30 +414,63 @@ class TimelineServiceTest {
     verify(timelineRepositoryMock).findByEventId(EVENT_ID);
     assertEquals(TimelineConstants.TRX_STATUS_REWARDED, OPERATION.getStatus());
   }
+
   @ParameterizedTest
   @MethodSource("operationTypeAndInvocationTimes")
-  void processOperation_deleteOperation(String operationType, int times) {
-    QueueCommandOperationDTO queueCommandOperationDTO = QueueCommandOperationDTO.builder()
+  void processOperation(String operationType, int times) {
+    // Given
+    Map<String, String> additionalParams = new HashMap<>();
+    additionalParams.put(PAGINATION_KEY, PAGINATION_VALUE);
+    additionalParams.put(DELAY_KEY, DELAY_VALUE);
+    final QueueCommandOperationDTO queueCommandOperationDTO = QueueCommandOperationDTO.builder()
             .entityId(INITIATIVE_ID)
             .operationType(operationType)
+            .operationTime(LocalDateTime.now().minusMinutes(5))
+            .additionalParams(additionalParams)
             .build();
+    Operation operation = new Operation();
+    operation.setOperationId(OPERATION_ID);
+    operation.setInitiativeId(INITIATIVE_ID);
+    final List<Operation> deletedPage = List.of(operation);
 
-    OPERATION.setInitiativeId(INITIATIVE_ID);
+    if(times == 2){
+      final List<Operation> operationPage = createOperationPage(Integer.parseInt(PAGINATION_VALUE));
+      when(timelineRepositoryMock.deletePaged(queueCommandOperationDTO.getEntityId(), Integer.parseInt(pagination)))
+              .thenReturn(operationPage)
+              .thenReturn(deletedPage);
+    } else {
+      when(timelineRepositoryMock.deletePaged(queueCommandOperationDTO.getEntityId(), Integer.parseInt(pagination)))
+              .thenReturn(deletedPage);
+    }
 
-    List<Operation> deletedOperation = List.of(OPERATION);
-
-    Mockito.when(timelineRepositoryMock.deleteByInitiativeId(queueCommandOperationDTO.getEntityId()))
-                    .thenReturn(deletedOperation);
-
+    // When
+    if(times == 1){
+      Thread.currentThread().interrupt();
+    }
     timelineService.processOperation(queueCommandOperationDTO);
 
-    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deleteByInitiativeId(queueCommandOperationDTO.getEntityId());
+    // Then
+    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deletePaged(queueCommandOperationDTO.getEntityId(), Integer.parseInt(pagination));
   }
 
   private static Stream<Arguments> operationTypeAndInvocationTimes() {
     return Stream.of(
             Arguments.of(OPERATION_TYPE_DELETE_INITIATIVE, 1),
+            Arguments.of(OPERATION_TYPE_DELETE_INITIATIVE, 2),
             Arguments.of("OPERATION_TYPE_TEST", 0)
     );
+  }
+
+  private List<Operation> createOperationPage(int pageSize){
+    List<Operation> operationPage = new ArrayList<>();
+
+    for(int i=0;i<pageSize; i++){
+      Operation operation = new Operation();
+      operation.setOperationId(OPERATION_ID);
+      operation.setInitiativeId(INITIATIVE_ID);
+      operationPage.add(operation);
+    }
+
+    return operationPage;
   }
 }
