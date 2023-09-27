@@ -10,6 +10,7 @@ import it.gov.pagopa.timeline.repository.TimelineRepository;
 import it.gov.pagopa.timeline.utils.AuditUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,14 +40,16 @@ public class TimelineServiceImpl implements TimelineService {
   @Autowired
   AuditUtilities auditUtilities;
 
-  private static final String PAGINATION_KEY = "pagination";
-  private static final String DELAY_KEY = "delay";
-
   private static final Set<Pair<String, String>> ignoreCombinations = Set.of(
       Pair.of(TimelineConstants.TRX_STATUS_AUTHORIZED, TimelineConstants.TRX_STATUS_REWARDED),
       Pair.of(TimelineConstants.TRX_STATUS_AUTHORIZED , TimelineConstants.TRX_STATUS_AUTHORIZED),
       Pair.of(TimelineConstants.TRX_STATUS_REWARDED, TimelineConstants.TRX_STATUS_REWARDED)
   );
+
+  @Value("${app.initiative.delete.paginationSize}")
+  String pagination;
+  @Value("${app.initiative.delete.delayTime}")
+  String delay;
 
   @Override
   public DetailOperationDTO getTimelineDetail(String initiativeId, String operationId,
@@ -160,15 +163,15 @@ public class TimelineServiceImpl implements TimelineService {
 
       do {
         fetchedOperations = timelineRepository.deletePaged(queueCommandOperationDTO.getEntityId(),
-                Integer.parseInt(queueCommandOperationDTO.getAdditionalParams().get(PAGINATION_KEY)));
+                Integer.parseInt(pagination));
         deletedOperation.addAll(fetchedOperations);
         try{
-          Thread.sleep(Long.parseLong(queueCommandOperationDTO.getAdditionalParams().get(DELAY_KEY)));
+          Thread.sleep(Long.parseLong(delay));
         } catch (InterruptedException e){
           log.error("An error has occurred while waiting {}", e.getMessage());
           Thread.currentThread().interrupt();
         }
-      } while (fetchedOperations.size() == (Integer.parseInt(queueCommandOperationDTO.getAdditionalParams().get(PAGINATION_KEY))));
+      } while (fetchedOperations.size() == (Integer.parseInt(pagination)));
 
       log.info("[DELETE_INITIATIVE] Deleted initiative {} from collection: timeline", queueCommandOperationDTO.getEntityId());
 
