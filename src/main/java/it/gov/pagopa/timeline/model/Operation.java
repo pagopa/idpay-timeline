@@ -40,6 +40,8 @@ public class Operation {
 
   private String channel;
 
+  private String instrumentType;
+
   private String rewardNotificationId;
 
   private String cro;

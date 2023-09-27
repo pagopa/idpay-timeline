@@ -63,6 +63,7 @@ class TimelineServiceTest {
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final String OPERATION_TYPE_DELETE_INITIATIVE = "DELETE_INITIATIVE";
   private static final String CHANNEL = "APP_IO";
+  private static final String INSTRUMENT_TYPE_QRCODE = "QRCODE";
   private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
   private static final String MASKED_PAN = "MASKED_PAN";
   private static final String BRAND_LOGO = "BAND_LOGO";
@@ -81,7 +82,7 @@ class TimelineServiceTest {
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
-          INSTRUMENT_ID, null, null, CHANNEL, null, null, null,
+          INSTRUMENT_ID, null, null, CHANNEL, INSTRUMENT_TYPE_QRCODE, null, null, null,
           null, null, null, null, null, STATUS, REFUND_TYPE,
           START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
   private static final OperationDTO OPERATION_DTO = OperationDTO.builder().build();
