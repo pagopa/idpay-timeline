@@ -47,9 +47,9 @@ public class TimelineServiceImpl implements TimelineService {
   );
 
   @Value("${app.delete.paginationSize}")
-  String pagination;
+  private int pageSize;
   @Value("${app.delete.delayTime}")
-  String delay;
+  private long delay;
 
   @Override
   public DetailOperationDTO getTimelineDetail(String initiativeId, String operationId,
@@ -162,16 +162,15 @@ public class TimelineServiceImpl implements TimelineService {
       List<Operation> fetchedOperations;
 
       do {
-        fetchedOperations = timelineRepository.deletePaged(queueCommandOperationDTO.getEntityId(),
-                Integer.parseInt(pagination));
+        fetchedOperations = timelineRepository.deletePaged(queueCommandOperationDTO.getEntityId(), pageSize);
         deletedOperation.addAll(fetchedOperations);
         try{
-          Thread.sleep(Long.parseLong(delay));
+          Thread.sleep(delay);
         } catch (InterruptedException e){
           log.error("An error has occurred while waiting {}", e.getMessage());
           Thread.currentThread().interrupt();
         }
-      } while (fetchedOperations.size() == (Integer.parseInt(pagination)));
+      } while (fetchedOperations.size() == pageSize);
 
       log.info("[DELETE_INITIATIVE] Deleted initiative {} from collection: timeline", queueCommandOperationDTO.getEntityId());
 

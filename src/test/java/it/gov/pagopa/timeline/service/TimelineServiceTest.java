@@ -82,10 +82,7 @@ class TimelineServiceTest {
   private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
   private static final LocalDate TRANSFER_DATE = LocalDate.now();
   private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
-  private static final String PAGINATION_KEY = "pagination";
   private static final String PAGINATION_VALUE = "100";
-  private static final String DELAY_KEY = "delay";
-  private static final String DELAY_VALUE = "1500";
 
 
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
@@ -149,7 +146,7 @@ class TimelineServiceTest {
   }
 
   @Value("${app.delete.paginationSize}")
-  private String pagination;
+  private int pageSize;
 
   @AfterEach
   void tearDown() {
@@ -419,14 +416,10 @@ class TimelineServiceTest {
   @MethodSource("operationTypeAndInvocationTimes")
   void processOperation(String operationType, int times) {
     // Given
-    Map<String, String> additionalParams = new HashMap<>();
-    additionalParams.put(PAGINATION_KEY, PAGINATION_VALUE);
-    additionalParams.put(DELAY_KEY, DELAY_VALUE);
     final QueueCommandOperationDTO queueCommandOperationDTO = QueueCommandOperationDTO.builder()
             .entityId(INITIATIVE_ID)
             .operationType(operationType)
             .operationTime(LocalDateTime.now().minusMinutes(5))
-            .additionalParams(additionalParams)
             .build();
     Operation operation = new Operation();
     operation.setOperationId(OPERATION_ID);
@@ -435,11 +428,11 @@ class TimelineServiceTest {
 
     if(times == 2){
       final List<Operation> operationPage = createOperationPage(Integer.parseInt(PAGINATION_VALUE));
-      when(timelineRepositoryMock.deletePaged(queueCommandOperationDTO.getEntityId(), Integer.parseInt(pagination)))
+      when(timelineRepositoryMock.deletePaged(queueCommandOperationDTO.getEntityId(), pageSize))
               .thenReturn(operationPage)
               .thenReturn(deletedPage);
     } else {
-      when(timelineRepositoryMock.deletePaged(queueCommandOperationDTO.getEntityId(), Integer.parseInt(pagination)))
+      when(timelineRepositoryMock.deletePaged(queueCommandOperationDTO.getEntityId(), pageSize))
               .thenReturn(deletedPage);
     }
 
@@ -450,7 +443,7 @@ class TimelineServiceTest {
     timelineService.processOperation(queueCommandOperationDTO);
 
     // Then
-    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deletePaged(queueCommandOperationDTO.getEntityId(), Integer.parseInt(pagination));
+    Mockito.verify(timelineRepositoryMock, Mockito.times(times)).deletePaged(queueCommandOperationDTO.getEntityId(), pageSize);
   }
 
   private static Stream<Arguments> operationTypeAndInvocationTimes() {
