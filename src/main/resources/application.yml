@@ -128,6 +128,11 @@ spring:
           maxConnectionIdleTimeMS: ${MONGODB_CONNECTIONPOOL_MAX_CONNECTION_IDLE_MS:120000}
           maxConnecting: ${MONGODB_CONNECTIONPOOL_MAX_CONNECTING:2}
 
+app:
+  delete:
+    paginationSize: ${DELETE_PAGINATION_SIZE:100}
+    delayTime: ${DELETE_DELAY_TIME:1000}
+
 management.endpoints:
   web:
     exposure.include: info, health

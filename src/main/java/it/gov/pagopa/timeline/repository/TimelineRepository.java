@@ -21,8 +21,6 @@ public interface TimelineRepository extends MongoRepository<Operation, String>, 
 
   Optional<Operation> findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(String initiativeId, String userId);
 
-  List<Operation> deleteByInitiativeId (String initiativeId);
-
   Criteria getCriteria(String initiativeId, String userId, String operationType,
           LocalDateTime startDate, LocalDateTime endDate);
 }

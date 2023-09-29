@@ -10,6 +10,7 @@ import it.gov.pagopa.timeline.repository.TimelineRepository;
 import it.gov.pagopa.timeline.utils.AuditUtilities;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ import java.util.*;
 
 @Slf4j
 @Service
+@SuppressWarnings("BusyWait")
 public class TimelineServiceImpl implements TimelineService {
 
   @Autowired
@@ -43,6 +45,11 @@ public class TimelineServiceImpl implements TimelineService {
       Pair.of(TimelineConstants.TRX_STATUS_AUTHORIZED , TimelineConstants.TRX_STATUS_AUTHORIZED),
       Pair.of(TimelineConstants.TRX_STATUS_REWARDED, TimelineConstants.TRX_STATUS_REWARDED)
   );
+
+  @Value("${app.delete.paginationSize}")
+  private int pageSize;
+  @Value("${app.delete.delayTime}")
+  private long delay;
 
   @Override
   public DetailOperationDTO getTimelineDetail(String initiativeId, String operationId,
@@ -147,16 +154,28 @@ public class TimelineServiceImpl implements TimelineService {
   }
 
   @Override
-  public void processOperation(QueueCommandOperationDTO queueDeleteOperationDTO) {
-    if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueDeleteOperationDTO.getOperationType())) {
+  public void processOperation(QueueCommandOperationDTO queueCommandOperationDTO) {
+    if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueCommandOperationDTO.getOperationType())) {
       long startTime = System.currentTimeMillis();
 
-      List<Operation> deletedOperation = timelineRepository.deleteByInitiativeId(queueDeleteOperationDTO.getEntityId());
+      List<Operation> deletedOperation = new ArrayList<>();
+      List<Operation> fetchedOperations;
+
+      do {
+        fetchedOperations = timelineRepository.deletePaged(queueCommandOperationDTO.getEntityId(), pageSize);
+        deletedOperation.addAll(fetchedOperations);
+        try{
+          Thread.sleep(delay);
+        } catch (InterruptedException e){
+          log.error("An error has occurred while waiting {}", e.getMessage());
+          Thread.currentThread().interrupt();
+        }
+      } while (fetchedOperations.size() == pageSize);
+
+      log.info("[DELETE_INITIATIVE] Deleted initiative {} from collection: timeline", queueCommandOperationDTO.getEntityId());
+
       List<String> usersId = deletedOperation.stream().map(Operation::getUserId).distinct().toList();
-
-      log.info("[DELETE_INITIATIVE] Deleted initiative {} from collection: timeline", queueDeleteOperationDTO.getEntityId());
-
-      usersId.forEach(userId -> auditUtilities.logDeleteOperation(userId, queueDeleteOperationDTO.getEntityId()));
+      usersId.forEach(userId -> auditUtilities.logDeleteOperation(userId, queueCommandOperationDTO.getEntityId()));
       performanceLog(startTime, "DELETE_INITIATIVE");
     }
   }
