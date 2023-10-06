@@ -59,6 +59,7 @@ public class OperationMapper {
                 .iban(operation.getIban())
                 .status(operation.getStatus())
                 .businessName(operation.getBusinessName())
+                .instrumentType(operation.getInstrumentType())
                 .build();
     }
 
