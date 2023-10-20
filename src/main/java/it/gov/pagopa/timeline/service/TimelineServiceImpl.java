@@ -3,6 +3,7 @@ package it.gov.pagopa.timeline.service;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.*;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
+import it.gov.pagopa.timeline.enums.ChannelTransaction;
 import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.TimelineException;
 import it.gov.pagopa.timeline.model.Operation;
@@ -106,7 +107,7 @@ public class TimelineServiceImpl implements TimelineService {
   public void saveOperation(QueueOperationDTO queueOperationDTO) {
     long startTime = System.currentTimeMillis();
 
-    if (TimelineConstants.CHANNEL_QRCODE.equals(queueOperationDTO.getChannel())
+    if (ChannelTransaction.isChannelPresent(queueOperationDTO.getChannel())
     && TimelineConstants.OPERATION_TYPE_TRX.equals(queueOperationDTO.getOperationType())) {
       Optional<Operation> existingOperation = timelineRepository.findByEventId(
           queueOperationDTO.getEventId());
