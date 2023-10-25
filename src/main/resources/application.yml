@@ -22,42 +22,24 @@ spring:
         kafka-in:
           type: kafka
           environment:
-            spring:
-              cloud:
-                stream:
-                  kafka:
-                    binder:
-                      brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST:}
-                      configuration:
-                        sasl:
-                          jaas:
-                            config: ${KAFKA_TIMELINE_IN_SASL_JAAS_CONFIG:}
+            spring.cloud.stream.kafka.binder:
+              brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST:}
+              configuration:
+                sasl.jaas.config: ${KAFKA_TIMELINE_IN_SASL_JAAS_CONFIG:}
         kafka-out:
           type: kafka
           environment:
-            spring:
-              cloud:
-                stream:
-                  kafka:
-                    binder:
-                      brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST:}
-                      configuration:
-                        sasl:
-                          jaas:
-                            config: ${KAFKA_TIMELINE_OUT_SASL_JAAS_CONFIG:}
+            spring.cloud.stream.kafka.binder:
+              brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST:}
+              configuration:
+                sasl.jaas.config: ${KAFKA_TIMELINE_OUT_SASL_JAAS_CONFIG:}
         kafka-commands:
           type: kafka
           environment:
-            spring:
-              cloud:
-                stream:
-                  kafka:
-                    binder:
-                      brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST_01:}
-                      configuration:
-                        sasl:
-                          jaas:
-                            config: ${KAFKA_COMMANDS_IN_SASL_JAAS_CONFIG:}
+            spring.cloud.stream.kafka.binder:
+              brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST_01:}
+              configuration:
+                sasl.jaas.config: ${KAFKA_COMMANDS_IN_SASL_JAAS_CONFIG:}
       bindings:
         consumerTimeline-in-0:
           binder: kafka-in
@@ -133,6 +115,38 @@ app:
     paginationSize: ${DELETE_PAGINATION_SIZE:100}
     delayTime: ${DELETE_DELAY_TIME:1000}
 
-management.endpoints:
-  web:
-    exposure.include: info, health
+management:
+  health:
+    mongo.enabled: ${HEALTH_MONGO_ENABLED:true}
+  endpoint:
+    health:
+      probes.enabled: true
+      group:
+        readiness.include: "*"
+        liveness.include: livenessState,diskSpace,ping,binders,streams
+      logging.slow-indicator-threshold: ${HEALTH_ACTUATOR_LOGGER_TIMEOUT_DURATION:PT1S}
+  endpoints:
+    jmx:
+      exposure.include: "*"
+    web:
+      exposure.include: info, health
+
+logging:
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    it.gov.pagopa: ${LOG_LEVEL_PAGOPA:INFO}
+    it.gov.pagopa.timeline: ${LOG_LEVEL_TIMELINE:INFO}
+    org.springframework.integration: ${LOG_LEVEL_SPRING_INTEGRATION:INFO}
+    org.springframework.security: ${LOG_LEVEL_SPRING_SECURITY:INFO}
+    org.springframework.ws: ${LOG_LEVEL_SPRING_WS:INFO}
+    org.springframework.cloud: ${LOG_LEVEL_SPRING_CLOUD:WARN}
+    org.springframework.data: ${LOG_LEVEL_SPRING_DATA:INFO}
+    org.springframework.hateoas: ${LOG_LEVEL_SPRING_HATEOAS:INFO}
+    org.springframework.boot: ${LOG_LEVEL_SPRING_BOOT:INFO}
+    org.springframework.boot.availability: ${LOG_LEVEL_SPRING_BOOT_AVAILABILITY:DEBUG}
+    org.springframework.kafka: ${LOG_LEVEL_SPRING_KAFKA:INFO}
+    org.springframework.batch: ${LOG_LEVEL_SPRING_BATCH:INFO}
+    io.swagger: ${LOG_LEVEL_IO_SWAGGER:WARN}
+    javax.persistence: ${LOG_LEVEL_JAVAX_PERSISTENCE:INFO}
+    org.hibernate: ${LOG_LEVEL_ORG_HIBERNATE:INFO}
+    org.mongodb.driver: ${LOG_LEVEL_MONGODB_DRIVER:WARN}
