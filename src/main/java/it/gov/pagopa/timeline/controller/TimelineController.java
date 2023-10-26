@@ -6,6 +6,7 @@ import it.gov.pagopa.timeline.dto.TimelineDTO;
 import java.time.LocalDateTime;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -31,7 +32,7 @@ public interface TimelineController {
   ResponseEntity<TimelineDTO> getTimeline(@PathVariable("initiativeId") String initiativeId,
       @PathVariable("userId") String userId,
       @RequestParam(required = false) String operationType,
-      @RequestParam(defaultValue = "0") Integer page,
+      @RequestParam(defaultValue = "0") @Min(value = 0, message = "Parameter [page] must be more than or equal to {value}") Integer page,
       @RequestParam(defaultValue = "3") @Max(value = 10, message = "Parameter [size] must be less than or equal to {value}") Integer size,
       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
       LocalDateTime dateFrom,

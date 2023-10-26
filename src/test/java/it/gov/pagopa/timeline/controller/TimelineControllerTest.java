@@ -44,6 +44,7 @@ class TimelineControllerTest {
   private static final String MASKED_PAN = "MASKED_PAN";
   private static final String BRAND_LOGO = "BAND_LOGO";
   private static final int PAGE = 0;
+  private static final int PAGE_KO = -3;
   private static final int SIZE = 3;
   private static final int SIZE_KO = 11;
   private static final String STATUS = "COMPLETED_OK";
@@ -204,6 +205,27 @@ class TimelineControllerTest {
 
     assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
     assertTrue(error.getMessage().equals("Parameter [size] must be less than or equal to 10"));
+  }
+
+  @Test
+  void getTimeline_ko_min_page() throws Exception {
+
+    MvcResult res =
+        mvc.perform(
+                MockMvcRequestBuilders.get(
+                        BASE_URL + INITIATIVE_ID + "/" + USER_ID)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .param("operationType", OPERATION_TYPE)
+                    .param("page", String.valueOf(PAGE_KO))
+                    .param("size", String.valueOf(SIZE))
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(MockMvcResultMatchers.status().isBadRequest())
+            .andReturn();
+
+    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+
+    assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
+    assertTrue(error.getMessage().equals("Parameter [page] must be more than or equal to 0"));
   }
 
   @Test
