@@ -20,6 +20,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -214,6 +216,20 @@ class TimelineServiceTest {
   }
 
   @Test
+  void getTimelineEmpty(){
+    List<Operation> operations = new ArrayList<>();
+
+    Mockito.when(timelineRepositoryMock.findByFilter(Mockito.any(Criteria.class), Mockito.any(Pageable.class))).thenReturn(operations);
+
+    try {
+      timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3,null,null);
+    }catch (TimelineException e){
+      assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
+      assertEquals("Timeline for the current user was not found", e.getMessage());
+    }
+  }
+
+  @Test
   void getTimelineWithNoFirstOperation_ok() {
     List<Operation> operations = new ArrayList<>();
     operations.add(OPERATION);
@@ -224,17 +240,6 @@ class TimelineServiceTest {
     TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3, null, null);
     assertFalse(resDto.getOperationList().isEmpty());
     assertEquals(resDto.getLastUpdate(), OPERATION.getOperationDate());
-  }
-
-  @Test
-  void getTimeline_ko() {
-    try {
-      TimelineDTO resDto = timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 0, 3,null,null);
-      assertNull(resDto.getLastUpdate());
-    } catch (TimelineException e) {
-      assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
-      assertEquals("No operations have been made on this initiative!", e.getMessage());
-    }
   }
 
   @Test

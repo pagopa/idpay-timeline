@@ -78,6 +78,11 @@ public class TimelineServiceImpl implements TimelineService {
         endDate);
     List<OperationDTO> operationListDTO = new ArrayList<>();
     List<Operation> operationList = timelineRepository.findByFilter(criteria, pageable);
+
+    if (operationList.isEmpty()){
+      throw new TimelineException(HttpStatus.NOT_FOUND.value() , "Timeline for the current user was not found");
+    }
+
     long count = timelineRepository.getCount(criteria);
     final Page<Operation> result = PageableExecutionUtils.getPage(operationList, pageable,
         () -> count);
