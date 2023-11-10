@@ -3923,19 +3923,22 @@
                         "key": "x-merchant-id",
                         "value": "{{merchantId}}",
                         "type": "text"
+                      },
+                      {
+                        "key": "x-acquirer-id",
+                        "value": "PAGOPA",
+                        "type": "text"
                       }
                     ],
                     "url": {
-                      "raw": "{{baseUrl}}/idpay/merchant/portal//transactions/:transactionId/confirm",
+                      "raw": "{{AKSAPIServerUrlGeneric}}/idpaypayment/idpay/payment/:transactionId/confirm",
                       "host": [
-                        "{{baseUrl}}"
+                        "{{AKSAPIServerUrlGeneric}}"
                       ],
                       "path": [
+                        "idpaypayment",
                         "idpay",
-                        "merchant",
-                        "portal",
-                        "",
-                        "transactions",
+                        "payment",
                         ":transactionId",
                         "confirm"
                       ],
