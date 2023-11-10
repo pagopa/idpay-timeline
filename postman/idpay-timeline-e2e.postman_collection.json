@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "d607ca35-b5e1-4fc0-acea-53e47b393bc3",
+    "_postman_id": "6026f57d-653b-4dd0-a94a-ef24d604f606",
     "name": "Timeline - e2e",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "25824330",
-    "_collection_link": "https://idpay-test-funzionali.postman.co/workspace/IDPay-Test-Funzionali~d5f80577-ab5d-4d50-87c4-a81b6bcba6bc/collection/26036679-d607ca35-b5e1-4fc0-acea-53e47b393bc3?action=share&source=collection_link&creator=25824330"
+    "_exporter_id": "21434036",
+    "_collection_link": "https://interstellar-water-820478.postman.co/workspace/My-Workspace~a329ddeb-86a1-48e4-820f-e30044868d3f/collection/21434036-6026f57d-653b-4dd0-a94a-ef24d604f606?action=share&source=collection_link&creator=21434036"
   },
   "item": [
     {
@@ -42,8 +42,14 @@
                 ],
                 "url": {
                   "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_1}}",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["rtd", "mock-io", "login"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rtd",
+                    "mock-io",
+                    "login"
+                  ],
                   "query": [
                     {
                       "key": "fiscalCode",
@@ -89,7 +95,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -156,7 +164,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=TRANSACTION&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -222,7 +232,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=PAID_REFUND&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -288,7 +300,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ADD_INSTRUMENT&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -354,7 +368,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=DELETE_INSTRUMENT&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -421,7 +437,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ADD_IBAN&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -487,7 +505,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ONBOARDING&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -525,12 +545,7 @@
                   "script": {
                     "exec": [
                       "pm.test(\"Timeline - Happy case - Get Timeline with filter by DateFrom - with a fake date - expect res status 200\", function () {\r",
-                      "    pm.response.to.have.status(200);\r",
-                      "});\r",
-                      "\r",
-                      "pm.test(\"Timeline - Happy case - Get Timeline with filter by DateFrom - with a fake date - expect field operationList to be empty\", function () {\r",
-                      "    let jsonResponse = pm.response.json()\r",
-                      "    pm.expect(jsonResponse.operationList.length).equals(0);\r",
+                      "    pm.response.to.have.status(404);\r",
                       "});"
                     ],
                     "type": "text/javascript"
@@ -552,7 +567,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateFrom=2023-07-01T00%3A00%3A00Z",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -622,7 +639,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateFrom=2023-03-01T00%3A00%3A00Z",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -693,7 +712,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=TRANSACTION&size=10&dateFrom=2023-03-01T00%3A00%3A00Z",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -762,7 +783,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateTo=2023-05-01T00%3A00%3A00Z",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -805,12 +828,7 @@
                   "script": {
                     "exec": [
                       "pm.test(\"Timeline - Happy case - Get Timeline - Filter by DateTo - with a fake date - expect res status 200\", function () {\r",
-                      "    pm.response.to.have.status(200);\r",
-                      "});\r",
-                      "\r",
-                      "pm.test(\"Timeline - Happy case - Get Timeline with filter by Event TRANSACTION and DateTo - with a fake date - expect field operationList to have 0 events\", function () {\r",
-                      "    let jsonResponse = pm.response.json()\r",
-                      "    pm.expect(jsonResponse.operationList.length).equals(0);\r",
+                      "    pm.response.to.have.status(404);\r",
                       "});"
                     ],
                     "type": "text/javascript"
@@ -819,7 +837,9 @@
                 {
                   "listen": "prerequest",
                   "script": {
-                    "exec": ["pm.variables.replaceIn(\"{{$randomUserName}}\")"],
+                    "exec": [
+                      "pm.variables.replaceIn(\"{{$randomUserName}}\")"
+                    ],
                     "type": "text/javascript"
                   }
                 }
@@ -839,7 +859,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateTo=2023-02-01T00%3A00%3A00Z",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -909,7 +931,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10&dateFrom=2023-03-01T00%3A00%3A00Z&dateTo=2023-05-01T00%3A00%3A00Z",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -956,13 +980,9 @@
                   "script": {
                     "exec": [
                       "pm.test(\"Timeline - Happy case - Get Timeline - Filter by page number - with a not existing page number - expect res status 200\", function () {\r",
-                      "    pm.response.to.have.status(200);\r",
+                      "    pm.response.to.have.status(404);\r",
                       "});\r",
-                      "\r",
-                      "pm.test(\"Timeline - Happy case - Get Timeline with filter by page number - with a not existing page number - expect field operationList to have 0 events\", function () {\r",
-                      "    let jsonResponse = pm.response.json()\r",
-                      "    pm.expect(jsonResponse.operationList.length).equals(0);\r",
-                      "});"
+                      ""
                     ],
                     "type": "text/javascript"
                   }
@@ -983,7 +1003,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=2&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1014,6 +1036,70 @@
         {
           "name": "Get Timeline Detail Rejected_Add_Instrument",
           "item": [
+            {
+              "name": "GET Timeline - OK Filter By Event REJECTED_DELETE Copy",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Timeline - Happy case - Get Timeline - Filter by operation Type for REJECTED_ADD_INSTRUMENT - expect res status 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Timeline - Happy case - Get Timeline - Filter by operation ID for REJECTED_ADD_INSTRUMENT - expect operation list to have one event and operationType to be REJECTED_ADD_INSTRUMENT\", function () {\r",
+                      "    let jsonResponse = pm.response.json()\r",
+                      "    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+                      "    pm.expect(jsonResponse.operationList[0].operationType).equals('REJECTED_ADD_INSTRUMENT');\r",
+                      "    pm.collectionVariables.set(\"rejected_add_instrument-op-id\", jsonResponse.operationList[0].operationId);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{tokenIO}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=REJECTED_ADD_INSTRUMENT&size=10",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "idpay",
+                    "timeline",
+                    "{{initiativeId timeline}}",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "operationType",
+                      "value": "REJECTED_ADD_INSTRUMENT"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
             {
               "name": "GET Timeline Detail - OK",
               "event": [
@@ -1048,13 +1134,15 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/63fe098801e27d382f80bc8a",
-                  "host": ["{{baseUrl}}"],
+                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{rejected_add_instrument-op-id}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
                     "{{initiativeId timeline}}",
-                    "63fe098801e27d382f80bc8a"
+                    "{{rejected_add_instrument-op-id}}"
                   ],
                   "query": [
                     {
@@ -1072,6 +1160,70 @@
         {
           "name": "Get Timeline Detail Rejected_Delete_Instrument",
           "item": [
+            {
+              "name": "GET Timeline - OK Filter By Event REJECTED_DELETE",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Timeline - Happy case - Get Timeline - Filter by operation Type for REJECTED_DELETE_INSTRUMENT - expect res status 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Timeline - Happy case - Get Timeline - Filter by operation ID for REJECTED_DELETE_INSTRUMENT - expect operation list to have one event and operationType to be REJECTED_DELETE_INSTRUMENT\", function () {\r",
+                      "    let jsonResponse = pm.response.json()\r",
+                      "    pm.expect(jsonResponse.operationList.length).equals(1);\r",
+                      "    pm.expect(jsonResponse.operationList[0].operationType).equals('REJECTED_DELETE_INSTRUMENT');\r",
+                      "    pm.collectionVariables.set(\"rejected_delete_instrument-op-id\", jsonResponse.operationList[0].operationId);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{tokenIO}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=REJECTED_DELETE_INSTRUMENT&size=10",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "idpay",
+                    "timeline",
+                    "{{initiativeId timeline}}",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "operationType",
+                      "value": "REJECTED_DELETE_INSTRUMENT"
+                    },
+                    {
+                      "key": "size",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
             {
               "name": "GET Timeline Detail - OK Copy",
               "event": [
@@ -1106,13 +1258,15 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/63fe099901e27d382f80bc8b",
-                  "host": ["{{baseUrl}}"],
+                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{rejected_delete_instrument-op-id}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
                     "{{initiativeId timeline}}",
-                    "63fe099901e27d382f80bc8b"
+                    "{{rejected_delete_instrument-op-id}}"
                   ],
                   "query": [
                     {
@@ -1167,7 +1321,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=TRANSACTION&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1227,7 +1383,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{transaction-op-id}}",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1287,7 +1445,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=REVERSAL&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1347,7 +1507,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{reversal-op-id}}",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1407,7 +1569,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ADD_INSTRUMENT&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1466,13 +1630,15 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/63fddfe5d5e50d32983d5d53",
-                  "host": ["{{baseUrl}}"],
+                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{add_instrument-op-id}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
                     "{{initiativeId timeline}}",
-                    "63fddfe5d5e50d32983d5d53"
+                    "{{add_instrument-op-id}}"
                   ],
                   "query": [
                     {
@@ -1527,7 +1693,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=DELETE_INSTRUMENT&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1587,7 +1755,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{delete_instrument-op-id}}",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1647,7 +1817,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ADD_IBAN&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1707,7 +1879,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{add_iban-op-id}}",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1767,7 +1941,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=ONBOARDING&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1827,7 +2003,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{onboarding-op-id}}",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1887,7 +2065,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=PAID_REFUND&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -1946,13 +2126,15 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/63fe083201e27d382f80bc88",
-                  "host": ["{{baseUrl}}"],
+                  "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{paid_refund-op-id}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
                     "{{initiativeId timeline}}",
-                    "63fe083201e27d382f80bc88"
+                    "{{paid_refund-op-id}}"
                   ],
                   "query": [
                     {
@@ -2007,7 +2189,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&operationType=REJECTED_REFUND&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -2067,7 +2251,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{rejected_refund-op-id}}",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -2102,7 +2288,9 @@
                         {
                           "listen": "prerequest",
                           "script": {
-                            "exec": [""],
+                            "exec": [
+                              ""
+                            ],
                             "type": "text/javascript"
                           }
                         },
@@ -2146,8 +2334,14 @@
                         },
                         "url": {
                           "raw": "{{baseUrlToken}}/welfare/token/test",
-                          "host": ["{{baseUrlToken}}"],
-                          "path": ["welfare", "token", "test"]
+                          "host": [
+                            "{{baseUrlToken}}"
+                          ],
+                          "path": [
+                            "welfare",
+                            "token",
+                            "test"
+                          ]
                         }
                       },
                       "response": []
@@ -2226,8 +2420,12 @@
                         },
                         "url": {
                           "raw": "{{baseUrlInitiative}}/info",
-                          "host": ["{{baseUrlInitiative}}"],
-                          "path": ["info"]
+                          "host": [
+                            "{{baseUrlInitiative}}"
+                          ],
+                          "path": [
+                            "info"
+                          ]
                         },
                         "description": "Save initiative and first subset of data 'general info'"
                       },
@@ -2314,8 +2512,13 @@
                         },
                         "url": {
                           "raw": "{{baseUrlInitiative}}/:initiativeId_exhausted/general",
-                          "host": ["{{baseUrlInitiative}}"],
-                          "path": [":initiativeId_exhausted", "general"],
+                          "host": [
+                            "{{baseUrlInitiative}}"
+                          ],
+                          "path": [
+                            ":initiativeId_exhausted",
+                            "general"
+                          ],
                           "variable": [
                             {
                               "key": "initiativeId_exhausted",
@@ -2366,8 +2569,13 @@
                         },
                         "url": {
                           "raw": "{{baseUrlInitiative}}/{{initiativeId_discount}}/beneficiary",
-                          "host": ["{{baseUrlInitiative}}"],
-                          "path": ["{{initiativeId_discount}}", "beneficiary"]
+                          "host": [
+                            "{{baseUrlInitiative}}"
+                          ],
+                          "path": [
+                            "{{initiativeId_discount}}",
+                            "beneficiary"
+                          ]
                         }
                       },
                       "response": []
@@ -2453,8 +2661,13 @@
                         },
                         "url": {
                           "raw": "{{baseUrlInitiative}}/:initiativeId_discount/reward",
-                          "host": ["{{baseUrlInitiative}}"],
-                          "path": [":initiativeId_discount", "reward"],
+                          "host": [
+                            "{{baseUrlInitiative}}"
+                          ],
+                          "path": [
+                            ":initiativeId_discount",
+                            "reward"
+                          ],
                           "variable": [
                             {
                               "key": "initiativeId_discount",
@@ -2575,8 +2788,13 @@
                         },
                         "url": {
                           "raw": "{{baseUrlInitiative}}/:initiativeId_exhausted/refund",
-                          "host": ["{{baseUrlInitiative}}"],
-                          "path": [":initiativeId_exhausted", "refund"],
+                          "host": [
+                            "{{baseUrlInitiative}}"
+                          ],
+                          "path": [
+                            ":initiativeId_exhausted",
+                            "refund"
+                          ],
                           "variable": [
                             {
                               "key": "initiativeId_exhausted",
@@ -2598,7 +2816,9 @@
                         {
                           "listen": "prerequest",
                           "script": {
-                            "exec": [""],
+                            "exec": [
+                              ""
+                            ],
                             "type": "text/javascript"
                           }
                         },
@@ -2644,8 +2864,14 @@
                         },
                         "url": {
                           "raw": "{{baseUrlToken}}/welfare/token/test",
-                          "host": ["{{baseUrlToken}}"],
-                          "path": ["welfare", "token", "test"]
+                          "host": [
+                            "{{baseUrlToken}}"
+                          ],
+                          "path": [
+                            "welfare",
+                            "token",
+                            "test"
+                          ]
                         }
                       },
                       "response": []
@@ -2698,8 +2924,13 @@
                         ],
                         "url": {
                           "raw": "{{baseUrlInitiative}}/{{initiativeId_discount}}/approved",
-                          "host": ["{{baseUrlInitiative}}"],
-                          "path": ["{{initiativeId_discount}}", "approved"]
+                          "host": [
+                            "{{baseUrlInitiative}}"
+                          ],
+                          "path": [
+                            "{{initiativeId_discount}}",
+                            "approved"
+                          ]
                         }
                       },
                       "response": []
@@ -2715,7 +2946,9 @@
                         {
                           "listen": "prerequest",
                           "script": {
-                            "exec": [""],
+                            "exec": [
+                              ""
+                            ],
                             "type": "text/javascript"
                           }
                         },
@@ -2761,8 +2994,14 @@
                         },
                         "url": {
                           "raw": "{{baseUrlToken}}/welfare/token/test",
-                          "host": ["{{baseUrlToken}}"],
-                          "path": ["welfare", "token", "test"]
+                          "host": [
+                            "{{baseUrlToken}}"
+                          ],
+                          "path": [
+                            "welfare",
+                            "token",
+                            "test"
+                          ]
                         }
                       },
                       "response": []
@@ -2829,8 +3068,13 @@
                         "header": [],
                         "url": {
                           "raw": "{{baseUrlInitiative}}/{{initiativeId_discount}}/published",
-                          "host": ["{{baseUrlInitiative}}"],
-                          "path": ["{{initiativeId_discount}}", "published"]
+                          "host": [
+                            "{{baseUrlInitiative}}"
+                          ],
+                          "path": [
+                            "{{initiativeId_discount}}",
+                            "published"
+                          ]
                         }
                       },
                       "response": []
@@ -2846,7 +3090,9 @@
                         {
                           "listen": "prerequest",
                           "script": {
-                            "exec": [""],
+                            "exec": [
+                              ""
+                            ],
                             "type": "text/javascript"
                           }
                         },
@@ -2890,8 +3136,14 @@
                         },
                         "url": {
                           "raw": "{{baseUrlToken}}/welfare/token/test",
-                          "host": ["{{baseUrlToken}}"],
-                          "path": ["welfare", "token", "test"]
+                          "host": [
+                            "{{baseUrlToken}}"
+                          ],
+                          "path": [
+                            "welfare",
+                            "token",
+                            "test"
+                          ]
                         }
                       },
                       "response": []
@@ -2941,7 +3193,9 @@
                         },
                         "url": {
                           "raw": "{{baseUrlToken}}/merchant/initiative/{{initiativeId_discount}}/upload",
-                          "host": ["{{baseUrlToken}}"],
+                          "host": [
+                            "{{baseUrlToken}}"
+                          ],
                           "path": [
                             "merchant",
                             "initiative",
@@ -2994,7 +3248,9 @@
                         {
                           "listen": "prerequest",
                           "script": {
-                            "exec": ["setTimeout(() => {}, 10000);"],
+                            "exec": [
+                              "setTimeout(() => {}, 10000);"
+                            ],
                             "type": "text/javascript"
                           }
                         }
@@ -3014,7 +3270,9 @@
                         "header": [],
                         "url": {
                           "raw": "{{baseUrlMerchant}}/initiative/{{initiativeId_discount}}/merchants",
-                          "host": ["{{baseUrlMerchant}}"],
+                          "host": [
+                            "{{baseUrlMerchant}}"
+                          ],
                           "path": [
                             "initiative",
                             "{{initiativeId_discount}}",
@@ -3051,7 +3309,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": [""],
+                        "exec": [
+                          ""
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -3075,8 +3335,14 @@
                     ],
                     "url": {
                       "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_1}}",
-                      "host": ["{{baseUrl}}"],
-                      "path": ["rtd", "mock-io", "login"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rtd",
+                        "mock-io",
+                        "login"
+                      ],
                       "query": [
                         {
                           "key": "fiscalCode",
@@ -3137,8 +3403,14 @@
                     },
                     "url": {
                       "raw": "{{baseUrl}}/idpay/onboarding/",
-                      "host": ["{{baseUrl}}"],
-                      "path": ["idpay", "onboarding", ""]
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "idpay",
+                        "onboarding",
+                        ""
+                      ]
                     }
                   },
                   "response": []
@@ -3193,8 +3465,14 @@
                     },
                     "url": {
                       "raw": "{{baseUrl}}/idpay/onboarding/initiative",
-                      "host": ["{{baseUrl}}"],
-                      "path": ["idpay", "onboarding", "initiative"]
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "idpay",
+                        "onboarding",
+                        "initiative"
+                      ]
                     }
                   },
                   "response": []
@@ -3238,8 +3516,14 @@
                     },
                     "url": {
                       "raw": "{{baseUrl}}/idpay/onboarding/consent",
-                      "host": ["{{baseUrl}}"],
-                      "path": ["idpay", "onboarding", "consent"]
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "idpay",
+                        "onboarding",
+                        "consent"
+                      ]
                     }
                   },
                   "response": []
@@ -3255,7 +3539,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 10000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 10000);"
+                        ],
                         "type": "text/javascript"
                       }
                     },
@@ -3302,8 +3588,14 @@
                     },
                     "url": {
                       "raw": "{{baseUrlToken}}/merchant/token/test",
-                      "host": ["{{baseUrlToken}}"],
-                      "path": ["merchant", "token", "test"]
+                      "host": [
+                        "{{baseUrlToken}}"
+                      ],
+                      "path": [
+                        "merchant",
+                        "token",
+                        "test"
+                      ]
                     }
                   },
                   "response": []
@@ -3383,8 +3675,15 @@
                     },
                     "url": {
                       "raw": "{{baseUrl}}/idpay/merchant/portal/transactions",
-                      "host": ["{{baseUrl}}"],
-                      "path": ["idpay", "merchant", "portal", "transactions"]
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "idpay",
+                        "merchant",
+                        "portal",
+                        "transactions"
+                      ]
                     }
                   },
                   "response": []
@@ -3409,7 +3708,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 10000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 10000);"
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -3430,8 +3731,14 @@
                     ],
                     "url": {
                       "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_1}}",
-                      "host": ["{{baseUrl}}"],
-                      "path": ["rtd", "mock-io", "login"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rtd",
+                        "mock-io",
+                        "login"
+                      ],
                       "query": [
                         {
                           "key": "fiscalCode",
@@ -3467,7 +3774,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 20000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 20000);"
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -3487,7 +3796,9 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/payment/qr-code/:trxCode/relate-user",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "payment",
@@ -3533,7 +3844,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 7000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 7000);"
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -3553,7 +3866,9 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/payment/qr-code/:trxCode/authorize",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "payment",
@@ -3608,17 +3923,22 @@
                         "key": "x-merchant-id",
                         "value": "{{merchantId}}",
                         "type": "text"
+                      },
+                      {
+                        "key": "x-acquirer-id",
+                        "value": "PAGOPA",
+                        "type": "text"
                       }
                     ],
                     "url": {
-                      "raw": "{{baseUrl}}/idpay/merchant/portal//transactions/:transactionId/confirm",
-                      "host": ["{{baseUrl}}"],
+                      "raw": "{{AKSAPIServerUrlGeneric}}/idpaypayment/idpay/payment/:transactionId/confirm",
+                      "host": [
+                        "{{AKSAPIServerUrlGeneric}}"
+                      ],
                       "path": [
+                        "idpaypayment",
                         "idpay",
-                        "merchant",
-                        "portal",
-                        "",
-                        "transactions",
+                        "payment",
                         ":transactionId",
                         "confirm"
                       ],
@@ -3643,7 +3963,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["//setTimeout(() => {}, 10000);"],
+                        "exec": [
+                          "//setTimeout(() => {}, 10000);"
+                        ],
                         "type": "text/javascript"
                       }
                     },
@@ -3690,8 +4012,14 @@
                     },
                     "url": {
                       "raw": "{{baseUrlToken}}/merchant/token/test",
-                      "host": ["{{baseUrlToken}}"],
-                      "path": ["merchant", "token", "test"]
+                      "host": [
+                        "{{baseUrlToken}}"
+                      ],
+                      "path": [
+                        "merchant",
+                        "token",
+                        "test"
+                      ]
                     }
                   },
                   "response": []
@@ -3779,8 +4107,15 @@
                     },
                     "url": {
                       "raw": "{{baseUrl}}/idpay/merchant/portal/transactions",
-                      "host": ["{{baseUrl}}"],
-                      "path": ["idpay", "merchant", "portal", "transactions"]
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "idpay",
+                        "merchant",
+                        "portal",
+                        "transactions"
+                      ]
                     }
                   },
                   "response": []
@@ -3791,7 +4126,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 10000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 10000);"
+                        ],
                         "type": "text/javascript"
                       }
                     },
@@ -3826,8 +4163,14 @@
                     ],
                     "url": {
                       "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_1}}",
-                      "host": ["{{baseUrl}}"],
-                      "path": ["rtd", "mock-io", "login"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rtd",
+                        "mock-io",
+                        "login"
+                      ],
                       "query": [
                         {
                           "key": "fiscalCode",
@@ -3863,7 +4206,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 10000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 10000);"
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -3883,7 +4228,9 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/payment/qr-code/:trxCode/relate-user",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "payment",
@@ -3907,7 +4254,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 10000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 10000);"
+                        ],
                         "type": "text/javascript"
                       }
                     },
@@ -3949,7 +4298,9 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/payment/qr-code/:trxCode/authorize",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "payment",
@@ -3984,7 +4335,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 15000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 15000);"
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -4017,7 +4370,9 @@
                     ],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/merchant/portal/transactions/:transactionId",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "merchant",
@@ -4065,7 +4420,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 8000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 8000);"
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -4085,8 +4442,14 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}",
-                      "host": ["{{baseUrl}}"],
-                      "path": ["idpay", "timeline", "{{initiativeId_discount}}"]
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "idpay",
+                        "timeline",
+                        "{{initiativeId_discount}}"
+                      ]
                     }
                   },
                   "response": []
@@ -4128,7 +4491,9 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}?operationType=AUTHORIZED",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "timeline",
@@ -4180,7 +4545,9 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}?operationType=CANCELLED",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "timeline",
@@ -4220,7 +4587,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 8000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 8000);"
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -4240,7 +4609,9 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/{{transaction-op-id-authorized}}",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "timeline",
@@ -4282,7 +4653,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 8000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 8000);"
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -4302,7 +4675,9 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/{{transaction-op-id-rewarded}}",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "timeline",
@@ -4344,7 +4719,9 @@
                     {
                       "listen": "prerequest",
                       "script": {
-                        "exec": ["setTimeout(() => {}, 8000);"],
+                        "exec": [
+                          "setTimeout(() => {}, 8000);"
+                        ],
                         "type": "text/javascript"
                       }
                     }
@@ -4364,7 +4741,9 @@
                     "header": [],
                     "url": {
                       "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/{{transaction-op-id-cancelled}}",
-                      "host": ["{{baseUrl}}"],
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
                       "path": [
                         "idpay",
                         "timeline",
@@ -4407,7 +4786,11 @@
                   "host": [
                     "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative"
                   ],
-                  "path": ["idpay", "initiative", "{{initiativeId_discount}}"]
+                  "path": [
+                    "idpay",
+                    "initiative",
+                    "{{initiativeId_discount}}"
+                  ]
                 }
               },
               "response": []
@@ -4451,8 +4834,14 @@
                 ],
                 "url": {
                   "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_1}}",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["rtd", "mock-io", "login"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rtd",
+                    "mock-io",
+                    "login"
+                  ],
                   "query": [
                     {
                       "key": "fiscalCode",
@@ -4499,7 +4888,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/{{CF_1}}",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -4558,7 +4949,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=100",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -4618,8 +5011,14 @@
                 ],
                 "url": {
                   "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{test cf}}",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["rtd", "mock-io", "login"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rtd",
+                    "mock-io",
+                    "login"
+                  ],
                   "query": [
                     {
                       "key": "fiscalCode",
@@ -4665,7 +5064,9 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId timeline}}/?page=0&size=10",
-                  "host": ["{{baseUrl}}"],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "idpay",
                     "timeline",
@@ -4711,14 +5112,18 @@
       "listen": "prerequest",
       "script": {
         "type": "text/javascript",
-        "exec": [""]
+        "exec": [
+          ""
+        ]
       }
     },
     {
       "listen": "test",
       "script": {
         "type": "text/javascript",
-        "exec": [""]
+        "exec": [
+          ""
+        ]
       }
     }
   ],
@@ -4737,7 +5142,7 @@
     },
     {
       "key": "initiativeId timeline",
-      "value": "63fdd546fea3f35a5644e735"
+      "value": "654d0a08dde3f11c05e735c2"
     },
     {
       "key": "transaction-op-id",
@@ -4922,6 +5327,14 @@
     },
     {
       "key": "transaction-op-id-rewarded",
+      "value": ""
+    },
+    {
+      "key": "rejected_delete_instrument-op-id",
+      "value": ""
+    },
+    {
+      "key": "rejected_add_instrument-op-id",
       "value": ""
     }
   ]
