@@ -1,6 +1,7 @@
 package it.gov.pagopa.common.web.exception;
 
 import it.gov.pagopa.common.web.dto.ErrorDTO;
+import it.gov.pagopa.timeline.constants.TimelineConstants;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ public class ValidationExceptionHandler {
         ErrorManager.getRequestDetails(request), message);
     log.debug("Something went wrong while validating http request", ex);
 
-    return new ErrorDTO(HttpStatus.BAD_REQUEST.value(), message);
+    return new ErrorDTO(TimelineConstants.TIMELINE_INVALID_REQUEST, message);
   }
 
 
@@ -53,6 +54,6 @@ public class ValidationExceptionHandler {
         ErrorManager.getRequestDetails(request), message);
     log.debug("Something went wrong handling request", ex);
 
-        return new ErrorDTO(HttpStatus.BAD_REQUEST.value(), message);
+        return new ErrorDTO(TimelineConstants.TIMELINE_INVALID_REQUEST, message);
   }
 }
