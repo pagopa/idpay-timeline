@@ -5,7 +5,9 @@ import it.gov.pagopa.timeline.dto.*;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
 import it.gov.pagopa.timeline.enums.ChannelTransaction;
 import it.gov.pagopa.timeline.event.producer.TimelineProducer;
-import it.gov.pagopa.timeline.exception.TimelineException;
+import it.gov.pagopa.timeline.exception.custom.RefundsNotFoundException;
+import it.gov.pagopa.timeline.exception.custom.TimelineDetailNotFoundException;
+import it.gov.pagopa.timeline.exception.custom.UserNotFoundException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
 import it.gov.pagopa.timeline.utils.AuditUtilities;
@@ -19,7 +21,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.data.util.Pair;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -60,8 +61,7 @@ public class TimelineServiceImpl implements TimelineService {
     Operation operation = timelineRepository.findByInitiativeIdAndOperationIdAndUserId(
         initiativeId, operationId, userId).orElseThrow(
         () ->
-            new TimelineException(
-                HttpStatus.NOT_FOUND.value(), "Cannot find the requested operation!"));
+            new TimelineDetailNotFoundException("Cannot find the detail of timeline on initiative [%s]".formatted(initiativeId)));
     performanceLog(startTime, "GET_TIMELINE_DETAIL");
     return operationMapper.toDetailOperationDTO(operation);
   }
@@ -80,7 +80,7 @@ public class TimelineServiceImpl implements TimelineService {
     List<Operation> operationList = timelineRepository.findByFilter(criteria, pageable);
 
     if (operationList.isEmpty()){
-      throw new TimelineException(HttpStatus.NOT_FOUND.value() , "Timeline for the current user was not found");
+      throw new UserNotFoundException("Timeline for the current user and initiative [%s] was not found".formatted(initiativeId));
     }
 
     long count = timelineRepository.getCount(criteria);
@@ -149,8 +149,7 @@ public class TimelineServiceImpl implements TimelineService {
     List<OperationDTO> operationList = new ArrayList<>();
     if (timeline.isEmpty()) {
       performanceLog(startTime, "GET_REFUNDS");
-      throw new TimelineException(HttpStatus.NOT_FOUND.value(),
-          "No refunds have been rewarded on this initiative!");
+      throw new RefundsNotFoundException("No refunds have been rewarded for the current user and initiative [%s]".formatted(initiativeId));
     }
     timeline.forEach(operation ->
         operationList.add(operationMapper.toOperationDTO(operation))
