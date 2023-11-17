@@ -1,18 +1,15 @@
 package it.gov.pagopa.timeline.controller;
 
-import static com.mongodb.assertions.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.common.web.dto.ErrorDTO;
+import it.gov.pagopa.timeline.configuration.ServiceExceptionConfig;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
-import it.gov.pagopa.timeline.exception.TimelineException;
+import it.gov.pagopa.timeline.exception.custom.RefundsNotFoundException;
+import it.gov.pagopa.timeline.exception.custom.TimelineDetailNotFoundException;
+import it.gov.pagopa.timeline.exception.custom.UserNotFoundException;
 import it.gov.pagopa.timeline.service.TimelineService;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -21,16 +18,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import static com.mongodb.assertions.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(
-    value = {TimelineController.class},
+    value = {TimelineController.class, ServiceExceptionConfig.class},
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
 class TimelineControllerTest {
 
@@ -94,7 +96,7 @@ class TimelineControllerTest {
   void getTimelineDetail_not_found() throws Exception {
 
     Mockito.doThrow(
-            new TimelineException(HttpStatus.NOT_FOUND.value(), "Cannot find the requested operation!"))
+            new TimelineDetailNotFoundException("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID)))
         .when(timelineServiceMock)
         .getTimelineDetail(INITIATIVE_ID, OPERATION_ID, USER_ID);
 
@@ -109,8 +111,8 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
-    assertEquals("Cannot find the requested operation!", error.getMessage());
+    assertEquals(TimelineConstants.TIMELINE_DETAIL_NOT_FOUND, error.getCode());
+    assertEquals("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID), error.getMessage());
   }
 
   @Test
@@ -140,7 +142,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
+    assertEquals(TimelineConstants.TIMELINE_INVALID_REQUEST, error.getCode());
     assertTrue(error.getMessage().contains(TimelineConstants.ERROR_MANDATORY_FIELD));
   }
 
@@ -162,8 +164,7 @@ class TimelineControllerTest {
   void getTimeline_not_found() throws Exception {
 
     Mockito.doThrow(
-            new TimelineException(HttpStatus.NOT_FOUND.value(),
-                "No operations have been made on this initiative!"))
+            new UserNotFoundException("Timeline for the current user and initiative [%s] was not found".formatted(INITIATIVE_ID)))
         .when(timelineServiceMock)
         .getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, PAGE, SIZE,null,null);
 
@@ -181,8 +182,8 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
-    assertEquals("No operations have been made on this initiative!", error.getMessage());
+    assertEquals(TimelineConstants.TIMELINE_USER_NOT_FOUND, error.getCode());
+    assertEquals("Timeline for the current user and initiative [%s] was not found".formatted(INITIATIVE_ID), error.getMessage());
   }
 
   @Test
@@ -202,7 +203,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
+    assertEquals(TimelineConstants.TIMELINE_INVALID_REQUEST, error.getCode());
     assertTrue(error.getMessage().equals("Parameter [size] must be less than or equal to 10"));
   }
 
@@ -221,8 +222,7 @@ class TimelineControllerTest {
   void getRefunds_not_found() throws Exception {
 
     Mockito.doThrow(
-            new TimelineException(HttpStatus.NOT_FOUND.value(),
-                "No refunds have been rewarded on this initiative!"))
+            new RefundsNotFoundException("No refunds have been rewarded for the current user and initiative [%s]".formatted(INITIATIVE_ID)))
         .when(timelineServiceMock)
         .getRefunds(INITIATIVE_ID, USER_ID);
 
@@ -237,7 +237,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(HttpStatus.NOT_FOUND.value(), error.getCode());
-    assertEquals("No refunds have been rewarded on this initiative!", error.getMessage());
+    assertEquals(TimelineConstants.TIMELINE_REFUNDS_NOT_FOUND, error.getCode());
+    assertEquals("No refunds have been rewarded for the current user and initiative [%s]".formatted(INITIATIVE_ID), error.getMessage());
   }
 }
