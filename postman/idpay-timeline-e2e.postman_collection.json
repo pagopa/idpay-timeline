@@ -923,7 +923,7 @@
                         {
                           "key": "file",
                           "type": "file",
-                          "src": "/C:/Users/ELAMANGZ4/Downloads/Esercente di test IdPay.csv"
+                          "src": "./postman/example_merchant_valid.csv"
                         }
                       ]
                     },
