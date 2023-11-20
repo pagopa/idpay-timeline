@@ -1856,7 +1856,7 @@
                           "listen": "prerequest",
                           "script": {
                             "exec": [
-                              "setTimeout(() => {}, 10000);"
+                              "setTimeout(() => {}, 15000);"
                             ],
                             "type": "text/javascript"
                           }
@@ -2595,7 +2595,7 @@
                           "listen": "prerequest",
                           "script": {
                             "exec": [
-                              "setTimeout(() => {}, 40000);"
+                              "setTimeout(() => {}, 60000);"
                             ],
                             "type": "text/javascript"
                           }
@@ -2666,7 +2666,7 @@
                           "listen": "prerequest",
                           "script": {
                             "exec": [
-                              "setTimeout(() => {}, 8000);"
+                              "setTimeout(() => {}, 20000);"
                             ],
                             "type": "text/javascript"
                           }
@@ -4557,7 +4557,7 @@
                           "\r",
                           "pm.collectionVariables.set(\"randomNum\", Math.floor(Math.random() * 1000))\r",
                           "\r",
-                          "setTimeout(() => {}, 3000);"
+                          "setTimeout(() => {}, 5000);"
                         ],
                         "type": "text/javascript"
                       }
@@ -4693,6 +4693,15 @@
                         ],
                         "type": "text/javascript"
                       }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          "setTimeout(() => {}, 5000);"
+                        ],
+                        "type": "text/javascript"
+                      }
                     }
                   ],
                   "request": {
@@ -4759,7 +4768,7 @@
                       "listen": "prerequest",
                       "script": {
                         "exec": [
-                          "setTimeout(() => {}, 10000);"
+                          "setTimeout(() => {}, 15000);"
                         ],
                         "type": "text/javascript"
                       }
@@ -5668,7 +5677,7 @@
                           "listen": "prerequest",
                           "script": {
                             "exec": [
-                              "setTimeout(() => {}, 10000);"
+                              "setTimeout(() => {}, 15000);"
                             ],
                             "type": "text/javascript"
                           }
@@ -8298,7 +8307,7 @@
                       "listen": "prerequest",
                       "script": {
                         "exec": [
-                          "setTimeout(() => {}, 10000);"
+                          "setTimeout(() => {}, 20000);"
                         ],
                         "type": "text/javascript"
                       }
@@ -8714,7 +8723,7 @@
                           "listen": "prerequest",
                           "script": {
                             "exec": [
-                              "setTimeout(() => {}, 10000);"
+                              "setTimeout(() => {}, 15000);"
                             ],
                             "type": "text/javascript"
                           }
