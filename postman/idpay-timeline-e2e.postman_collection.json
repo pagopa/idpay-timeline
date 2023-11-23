@@ -4097,7 +4097,7 @@
                         "exec": [
                           "\r",
                           "if( pm.response.code != 200){\r",
-                          "   retryRequest(postman,pm,setTimeout,1000);\r",
+                          "   retryRequest(postman,pm,setTimeout);\r",
                           "} else {\r",
                           "    let textResponse = pm.response.text()\r",
                           "    pm.test('Payment - Happy case - Initiative creation - Generate Portal Token (Merchant)', () => {\r",
@@ -4612,7 +4612,7 @@
                       "script": {
                         "exec": [
                           "if( pm.response.code != 200){\r",
-                          "   retryRequest(postman,pm,setTimeout,1000);\r",
+                          "   retryRequest(postman,pm,setTimeout);\r",
                           "} else {\r",
                           "    let textResponse = pm.response.text()\r",
                           "    pm.test('Payment - Happy case - Initiative creation - Generate Portal Token (Merchant)', () => {\r",
