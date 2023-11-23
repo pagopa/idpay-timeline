@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "9d60c2d8-4cdc-4d13-a707-8ca6e18cac31",
-    "name": "Timeline - e2e Copy",
+    "name": "Timeline - e2e",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "26204012",
     "_collection_link": "https://idpay-test-funzionali.postman.co/workspace/IDPay-Test-Funzionali~d5f80577-ab5d-4d50-87c4-a81b6bcba6bc/collection/26204012-9d60c2d8-4cdc-4d13-a707-8ca6e18cac31?action=share&source=collection_link&creator=26204012"
@@ -4155,7 +4155,8 @@
                       "script": {
                         "exec": [
                           "if( pm.response.code != 201){\r",
-                          "   retryRequest(postman,pm,setTimeout,5000);\r",
+                          "   retryRequest(postman,pm,setTimeout,8000);\r",
+                          "   console.log(\"Create transaction have status \"+ pm.response.code );\r",
                           "} else {\r",
                           "    pm.test(\"Payment - Happy case: [ACQUIRER] Create transaction [QR-CODE]\", function () {\r",
                           "        pm.response.to.have.status(201);\r",
@@ -4313,7 +4314,7 @@
                           "let jsonResponse = pm.response.json();\r",
                           "\r",
                           "if( pm.response.code != 200 || jsonResponse.status != \"IDENTIFIED\"){\r",
-                          "   retryRequest(postman,pm,setTimeout,3000);\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
                           "} else {\r",
                           "    pm.test(\"Payment - Happy case: [IO] Pre-Authorize transaction [QR-CODE]\", function () {\r",
                           "        pm.response.to.have.status(200);\r",
@@ -4385,7 +4386,7 @@
                           "let jsonResponse = pm.response.json();\r",
                           "\r",
                           "if( pm.response.code != 200 || jsonResponse.status != \"AUTHORIZED\"){\r",
-                          "   retryRequest(postman,pm,setTimeout,3000);\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
                           "} else {\r",
                           "\r",
                           "    pm.test(\"Payment - Happy case: [IO] Authorize transaction [QR-CODE]\", function () {\r",
@@ -4535,7 +4536,7 @@
                           "let jsonResponse = pm.response.json();\r",
                           "\r",
                           "if( pm.response.code != 200 || jsonResponse.status != \"REWARDED\"){\r",
-                          "   retryRequest(postman,pm,setTimeout,3000);\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
                           "} else {\r",
                           "    pm.test(\"Payment - Happy case: [ACQUIRER] Confirm transaction [QR-CODE]\", function () {\r",
                           "        pm.response.to.have.status(200);\r",
