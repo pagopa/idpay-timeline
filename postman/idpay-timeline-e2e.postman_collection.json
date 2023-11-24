@@ -2859,7 +2859,7 @@
                       }
                     ],
                     "url": {
-                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE}}",
+                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE_1}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
@@ -2871,7 +2871,7 @@
                       "query": [
                         {
                           "key": "fiscalCode",
-                          "value": "{{CF_FAKE}}"
+                          "value": "{{CF_FAKE_1}}"
                         }
                       ]
                     }
@@ -3005,15 +3005,21 @@
                     "method": "GET",
                     "header": [],
                     "url": {
-                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/{{operationId}}",
+                      "raw": "{{baseUrl}}/idpay/timeline/:initiativeIdFake/{{operationId}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
                       "path": [
                         "idpay",
                         "timeline",
-                        "{{initiativeId_discount}}",
+                        ":initiativeIdFake",
                         "{{operationId}}"
+                      ],
+                      "variable": [
+                        {
+                          "key": "initiativeIdFake",
+                          "value": "{{initiativeId_discount}}"
+                        }
                       ]
                     }
                   },
@@ -4356,7 +4362,7 @@
                       "script": {
                         "exec": [
                           "if( pm.response.code != 201){\r",
-                          "   retryRequest(postman,pm,setTimeout,5000);\r",
+                          "   retryRequest(postman,pm,setTimeout,3000);\r",
                           "  \r",
                           "} else {\r",
                           "    pm.test(\"Payment - Happy case: [ACQUIRER] Create transaction [QR-CODE]\", function () {\r",
@@ -4515,7 +4521,7 @@
                           "let jsonResponse = pm.response.json();\r",
                           "\r",
                           "if( pm.response.code != 200 || jsonResponse.status != \"IDENTIFIED\"){\r",
-                          "   retryRequest(postman,pm,setTimeout,7000);\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
                           "} else {\r",
                           "    pm.test(\"Payment - Happy case: [IO] Pre-Authorize transaction [QR-CODE]\", function () {\r",
                           "        pm.response.to.have.status(200);\r",
@@ -6650,7 +6656,7 @@
                       }
                     ],
                     "url": {
-                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE}}",
+                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE_1}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
@@ -6662,7 +6668,7 @@
                       "query": [
                         {
                           "key": "fiscalCode",
-                          "value": "{{CF_FAKE}}"
+                          "value": "{{CF_FAKE_1}}"
                         }
                       ]
                     }
@@ -6796,15 +6802,21 @@
                     "method": "GET",
                     "header": [],
                     "url": {
-                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/{{operationId}}",
+                      "raw": "{{baseUrl}}/idpay/timeline/:initiativeIdFake/{{operationId}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
                       "path": [
                         "idpay",
                         "timeline",
-                        "{{initiativeId_discount}}",
+                        ":initiativeIdFake",
                         "{{operationId}}"
+                      ],
+                      "variable": [
+                        {
+                          "key": "initiativeIdFake",
+                          "value": "{{initiativeId_discount}}"
+                        }
                       ]
                     }
                   },
@@ -9770,7 +9782,7 @@
                       }
                     ],
                     "url": {
-                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE}}",
+                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE_1}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
@@ -9782,7 +9794,7 @@
                       "query": [
                         {
                           "key": "fiscalCode",
-                          "value": "{{CF_FAKE}}"
+                          "value": "{{CF_FAKE_1}}"
                         }
                       ]
                     }
@@ -9916,15 +9928,21 @@
                     "method": "GET",
                     "header": [],
                     "url": {
-                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/{{operationId}}",
+                      "raw": "{{baseUrl}}/idpay/timeline/:initiativeIdFake/{{operationId}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
                       "path": [
                         "idpay",
                         "timeline",
-                        "{{initiativeId_discount}}",
+                        ":initiativeIdFake",
                         "{{operationId}}"
+                      ],
+                      "variable": [
+                        {
+                          "key": "initiativeIdFake",
+                          "value": "{{initiativeId_discount}}"
+                        }
                       ]
                     }
                   },
@@ -13214,7 +13232,7 @@
                       }
                     ],
                     "url": {
-                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE}}",
+                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE_1}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
@@ -13226,7 +13244,7 @@
                       "query": [
                         {
                           "key": "fiscalCode",
-                          "value": "{{CF_FAKE}}"
+                          "value": "{{CF_FAKE_1}}"
                         }
                       ]
                     }
@@ -13360,15 +13378,21 @@
                     "method": "GET",
                     "header": [],
                     "url": {
-                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/{{operationId}}",
+                      "raw": "{{baseUrl}}/idpay/timeline/:initiativeIdFake/{{operationId}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
                       "path": [
                         "idpay",
                         "timeline",
-                        "{{initiativeId_discount}}",
+                        ":initiativeIdFake",
                         "{{operationId}}"
+                      ],
+                      "variable": [
+                        {
+                          "key": "initiativeIdFake",
+                          "value": "{{initiativeId_discount}}"
+                        }
                       ]
                     }
                   },
