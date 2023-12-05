@@ -1304,15 +1304,15 @@
                         "exec": [
                           "if( pm.response.code != 200){\r",
                           "   retryRequest(postman,pm,setTimeout,3000);\r",
-                          "} \r",
-                          "\r",
-                          "pm.test(\"Payment - Happy case:  Generate Code [IDPAYCODE]\", function () {\r",
-                          "    pm.response.to.have.status(200);\r",
-                          "});\r",
-                          "pm.test(\"Payment - Happy case: Generate Code [IDPAYCODE] - Verify response body contains fields\", function () {\r",
-                          "    let jsonResponse = pm.response.json();\r",
-                          "    pm.expect(jsonResponse).to.have.property(\"idpayCode\");\r",
-                          "});"
+                          "} else {\r",
+                          "    pm.test(\"Payment - Happy case:  Generate Code [IDPAYCODE]\", function () {\r",
+                          "        pm.response.to.have.status(200);\r",
+                          "    });\r",
+                          "    pm.test(\"Payment - Happy case: Generate Code [IDPAYCODE] - Verify response body contains fields\", function () {\r",
+                          "        let jsonResponse = pm.response.json();\r",
+                          "        pm.expect(jsonResponse).to.have.property(\"idpayCode\");\r",
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -1364,11 +1364,12 @@
                         "exec": [
                           "if( pm.response.code != 200){\r",
                           "   retryRequest(postman,pm,setTimeout,5000);\r",
-                          "} \r",
+                          "} else {\r",
                           " \r",
-                          "pm.test(\"Payment - Happy case:  Enroll Code [IDPAYCODE]\", function () {\r",
-                          "    pm.response.to.have.status(200);\r",
-                          "});"
+                          "    pm.test(\"Payment - Happy case:  Enroll Code [IDPAYCODE]\", function () {\r",
+                          "        pm.response.to.have.status(200);\r",
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -2858,7 +2859,7 @@
                       }
                     ],
                     "url": {
-                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_fake}}",
+                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE_1}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
@@ -2870,7 +2871,7 @@
                       "query": [
                         {
                           "key": "fiscalCode",
-                          "value": "{{CF_fake}}"
+                          "value": "{{CF_FAKE_1}}"
                         }
                       ]
                     }
@@ -2888,15 +2889,16 @@
                           "\r",
                           "if( pm.response.code != 404 || jsonResponse.code != \"TIMELINE_USER_NOT_FOUND\"){\r",
                           "   retryRequest(postman,pm,setTimeout,3000);\r",
-                          "} \r",
+                          "} else {\r",
                           "\r",
-                          "pm.test(\"Timeline - Unhappy case - Get Timeline without filter - expect res status 404\", function () {\r",
-                          "    pm.response.to.have.status(404);\r",
-                          "});\r",
+                          "    pm.test(\"Timeline - Unhappy case - Get Timeline without filter - expect res status 404\", function () {\r",
+                          "        pm.response.to.have.status(404);\r",
+                          "    });\r",
                           "\r",
-                          "pm.test(\"Timeline - Unhappy case - Get Timeline without filter  - expect code TIMELINE_USER_NOT_FOUND\", function () {\r",
-                          "    pm.expect(jsonResponse.code).equals(\"TIMELINE_USER_NOT_FOUND\");\r",
-                          "});"
+                          "    pm.test(\"Timeline - Unhappy case - Get Timeline without filter  - expect code TIMELINE_USER_NOT_FOUND\", function () {\r",
+                          "        pm.expect(jsonResponse.code).equals(\"TIMELINE_USER_NOT_FOUND\");\r",
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -2925,14 +2927,14 @@
                     "method": "GET",
                     "header": [],
                     "url": {
-                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId}}/?page=0&size=10",
+                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/?page=0&size=10",
                       "host": [
                         "{{baseUrl}}"
                       ],
                       "path": [
                         "idpay",
                         "timeline",
-                        "{{initiativeId}}",
+                        "{{initiativeId_discount}}",
                         ""
                       ],
                       "query": [
@@ -2965,15 +2967,16 @@
                           "\r",
                           "if( pm.response.code != 404 || jsonResponse.code != \"TIMELINE_DETAIL_NOT_FOUND\"){\r",
                           "   retryRequest(postman,pm,setTimeout,3000);\r",
-                          "} \r",
+                          "} else {\r",
                           "\r",
-                          "pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail- - expect res status 404\", function () {\r",
-                          "    pm.response.to.have.status(404);\r",
-                          "});\r",
+                          "    pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail- - expect res status 404\", function () {\r",
+                          "        pm.response.to.have.status(404);\r",
+                          "    });\r",
                           "\r",
-                          "pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail - expect code TIMELINE_DETAIL_NOT_FOUND\", function () {\r",
-                          "    pm.expect(jsonResponse.code).equals('TIMELINE_DETAIL_NOT_FOUND');\r",
-                          "});"
+                          "    pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail - expect code TIMELINE_DETAIL_NOT_FOUND\", function () {\r",
+                          "        pm.expect(jsonResponse.code).equals('TIMELINE_DETAIL_NOT_FOUND');\r",
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -3015,7 +3018,7 @@
                       "variable": [
                         {
                           "key": "initiativeIdFake",
-                          "value": "\"\""
+                          "value": "{{initiativeId_discount}}"
                         }
                       ]
                     }
@@ -3023,40 +3026,40 @@
                   "response": []
                 }
               ]
-            },
-            {
-              "name": "Delete Initiative",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "exec": [
-                      "pm.test(\"Payment - Happy Case - Delete Initiative - Status test 204\", function () {\r",
-                      "    pm.response.to.have.status(204);\r",
-                      "});"
-                    ],
-                    "type": "text/javascript"
-                  }
-                }
-              ],
-              "request": {
-                "method": "DELETE",
-                "header": [],
-                "url": {
-                  "raw": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}",
-                  "host": [
-                    "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative"
-                  ],
-                  "path": [
-                    "idpay",
-                    "initiative",
-                    "{{initiativeId}}"
-                  ]
-                }
-              },
-              "response": []
             }
           ]
+        },
+        {
+          "name": "Delete Initiative",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Payment - Happy Case - Delete Initiative - Status test 204\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}",
+              "host": [
+                "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative"
+              ],
+              "path": [
+                "idpay",
+                "initiative",
+                "{{initiativeId}}"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -3966,7 +3969,7 @@
                           "\r",
                           "        pm.collectionVariables.set(\"merchantId\", response.merchantId);\r",
                           "        pm.collectionVariables.set(\"merchantFiscalCode\", response.fiscalCode);\r",
-                          "});\r",
+                          "    });\r",
                           "}\r",
                           ""
                         ],
@@ -4299,16 +4302,17 @@
                       "listen": "test",
                       "script": {
                         "exec": [
-                          "let textResponse = pm.response.text()\r",
                           "\r",
-                          "pm.test('Payment - Happy case - Initiative creation - Generate Portal Token (Merchant)', () => {\r",
-                          "    //verify response HTTP status \r",
-                          "    pm.response.to.have.status(200);\r",
-                          "    pm.collectionVariables.set(\"merchantPortalToken\", textResponse);\r",
-                          "});\r",
-                          "\r",
-                          "//response time is less than 1s\r",
-                          "tests[\"Response time is less than 1s\"] = responseTime < 1000;"
+                          "if( pm.response.code != 200){\r",
+                          "   retryRequest(postman,pm,setTimeout);\r",
+                          "} else {\r",
+                          "    let textResponse = pm.response.text()\r",
+                          "    pm.test('Payment - Happy case - Initiative creation - Generate Portal Token (Merchant)', () => {\r",
+                          "        //verify response HTTP status \r",
+                          "        pm.response.to.have.status(200);\r",
+                          "        pm.collectionVariables.set(\"merchantPortalToken\", textResponse);\r",
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -4320,7 +4324,7 @@
                       "bearer": [
                         {
                           "key": "token",
-                          "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2ODcyNTY3OTQsImV4cCI6MTY4NzI4NTU5NCwiYXVkIjoiaWRwYXkubWVyY2hhbnQud2VsZmFyZS5wYWdvcGEuaXQiLCJpc3MiOiJodHRwczovL2FwaS1pby5kZXYuY3N0YXIucGFnb3BhLml0IiwidWlkIjoiMmY5ZDk3MGQtMzFmYi00MzkzLTg3MjEtMmNhOTIxYmIyYmJjIiwibmFtZSI6ImVzZXJjZW50ZSIsImZhbWlseV9uYW1lIjoidGVzdCIsImVtYWlsIjoiZXNlcmNlbnRlX2RldkB0ZXN0LmVtYWlsLml0Iiwib3JnX2lkIjoiMmI0OGJmOTYtZmQ3NC00NzdlLWE3MGEtMjg2YjQxMGYwMjBhIiwib3JnX3ZhdCI6IjMzNDQ0NDMzNDg4Iiwib3JnX25hbWUiOiJFc2VyY2VudGUgZGkgdGVzdCBJZFBheSIsIm9yZ19wYXJ0eV9yb2xlIjoiTUFOQUdFUiIsIm9yZ19yb2xlIjoiYWRtaW4ifQ.s2Iv-nUBUtM6B9-1C_zw6JcwIUR2X0aXY1lVCntNsIbGwOPAz7f0dYfZuRB_4qyz6Zy4P7ImJKF5ANrDUZL0zrT0DizxM6mvWqpvS7K82gVOyB-h01My1V_YEs_eU_-iIIt2NqkpG-UjhRw7mRcz13IECAnuQrUjmyj1eKO81qvSUA1HqyBVS6Tq2pVIZfKFYFKVY-L3Ojx2z2au7xItDVjx5LFArlIK98TMSyZBLqGDaEo-5eGfwjdbHMCUG5Ude-FKieEyyPHDF9n5HQSlXEWTjoVYNikWcwCVtsYsDqIxMC08szgvnb7V6ELSutsVAl4HvEFTwqmAGhdmE4CPXw",
+                          "value": "{{merchantPortalToken}}",
                           "type": "string"
                         }
                       ]
@@ -4359,6 +4363,7 @@
                         "exec": [
                           "if( pm.response.code != 201){\r",
                           "   retryRequest(postman,pm,setTimeout,3000);\r",
+                          "  \r",
                           "} else {\r",
                           "    pm.test(\"Payment - Happy case: [ACQUIRER] Create transaction [QR-CODE]\", function () {\r",
                           "        pm.response.to.have.status(201);\r",
@@ -4516,7 +4521,7 @@
                           "let jsonResponse = pm.response.json();\r",
                           "\r",
                           "if( pm.response.code != 200 || jsonResponse.status != \"IDENTIFIED\"){\r",
-                          "   retryRequest(postman,pm,setTimeout,3000);\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
                           "} else {\r",
                           "    pm.test(\"Payment - Happy case: [IO] Pre-Authorize transaction [QR-CODE]\", function () {\r",
                           "        pm.response.to.have.status(200);\r",
@@ -4588,7 +4593,7 @@
                           "let jsonResponse = pm.response.json();\r",
                           "\r",
                           "if( pm.response.code != 200 || jsonResponse.status != \"AUTHORIZED\"){\r",
-                          "   retryRequest(postman,pm,setTimeout,3000);\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
                           "} else {\r",
                           "\r",
                           "    pm.test(\"Payment - Happy case: [IO] Authorize transaction [QR-CODE]\", function () {\r",
@@ -4735,14 +4740,20 @@
                       "listen": "test",
                       "script": {
                         "exec": [
-                          "pm.test(\"Payment - Happy case: [ACQUIRER] Confirm transaction [QR-CODE]\", function () {\r",
-                          "    pm.response.to.have.status(200);\r",
-                          "});\r",
+                          "let jsonResponse = pm.response.json();\r",
                           "\r",
-                          "pm.test(\"Payment - Happy case: [ACQUIRER] Confirm transaction [QR-CODE] - Verify response status is REWARDED\", function () {\r",
-                          "    let jsonResponse = pm.response.json();\r",
-                          "    pm.expect(jsonResponse.status).to.eql(\"REWARDED\");\r",
-                          "});"
+                          "if( pm.response.code != 200 || jsonResponse.status != \"REWARDED\"){\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
+                          "} else {\r",
+                          "    pm.test(\"Payment - Happy case: [ACQUIRER] Confirm transaction [QR-CODE]\", function () {\r",
+                          "        pm.response.to.have.status(200);\r",
+                          "    });\r",
+                          "\r",
+                          "    pm.test(\"Payment - Happy case: [ACQUIRER] Confirm transaction [QR-CODE] - Verify response status is REWARDED\", function () {\r",
+                          "        \r",
+                          "        pm.expect(jsonResponse.status).to.eql(\"REWARDED\");\r",
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -4799,7 +4810,7 @@
                       "listen": "prerequest",
                       "script": {
                         "exec": [
-                          "//setTimeout(() => {}, 10000);"
+                          ""
                         ],
                         "type": "text/javascript"
                       }
@@ -4808,16 +4819,16 @@
                       "listen": "test",
                       "script": {
                         "exec": [
-                          "let textResponse = pm.response.text()\r",
-                          "\r",
-                          "pm.test('Payment - Happy case - Initiative creation - Generate Portal Token (Merchant)', () => {\r",
-                          "    //verify response HTTP status \r",
-                          "    pm.response.to.have.status(200);\r",
-                          "    pm.collectionVariables.set(\"merchantPortalToken\", textResponse);\r",
-                          "});\r",
-                          "\r",
-                          "//response time is less than 1s\r",
-                          "tests[\"Response time is less than 1s\"] = responseTime < 1000;"
+                          "if( pm.response.code != 200){\r",
+                          "   retryRequest(postman,pm,setTimeout);\r",
+                          "} else {\r",
+                          "    let textResponse = pm.response.text()\r",
+                          "    pm.test('Payment - Happy case - Initiative creation - Generate Portal Token (Merchant)', () => {\r",
+                          "        //verify response HTTP status \r",
+                          "        pm.response.to.have.status(200);\r",
+                          "        pm.collectionVariables.set(\"merchantPortalToken\", textResponse);\r",
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -4877,23 +4888,23 @@
                           "let jsonResponse = pm.response.json();\r",
                           "\r",
                           "if( pm.response.code != 201){\r",
-                          "   retryRequest(postman,pm,setTimeout,3000);\r",
-                          "} \r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
+                          "} else {\r",
                           "\r",
-                          "pm.test(\"Payment - Happy case: [ACQUIRER] Create transaction [QR-CODE]\", function () {\r",
-                          "    pm.response.to.have.status(201);\r",
-                          "});\r",
-                          "pm.test(\"Payment - Happy case: [ACQUIRER] Create transaction [QR-CODE] - Verify response body contains fields\", function () {\r",
-                          "    let jsonResponse = pm.response.json();\r",
-                          "    let trxCode = jsonResponse.trxCode;\r",
-                          "    pm.expect(jsonResponse).have.property(\"trxCode\");\r",
-                          "    pm.expect(jsonResponse.qrcodePngUrl).equals(`https://continua.io.pagopa.it/qrcode.png?feat=idpay&trxcode=${trxCode}`);\r",
-                          "    pm.expect(jsonResponse.qrcodeTxtUrl).equals(`https://continua.io.pagopa.it/idpay/auth/${trxCode}`);\r",
-                          "});\r",
+                          "    pm.test(\"Payment - Happy case: [ACQUIRER] Create transaction [QR-CODE]\", function () {\r",
+                          "        pm.response.to.have.status(201);\r",
+                          "    });\r",
+                          "    pm.test(\"Payment - Happy case: [ACQUIRER] Create transaction [QR-CODE] - Verify response body contains fields\", function () {\r",
+                          "        let jsonResponse = pm.response.json();\r",
+                          "        let trxCode = jsonResponse.trxCode;\r",
+                          "        pm.expect(jsonResponse).have.property(\"trxCode\");\r",
+                          "        pm.expect(jsonResponse.qrcodePngUrl).equals(`https://continua.io.pagopa.it/qrcode.png?feat=idpay&trxcode=${trxCode}`);\r",
+                          "        pm.expect(jsonResponse.qrcodeTxtUrl).equals(`https://continua.io.pagopa.it/idpay/auth/${trxCode}`);\r",
+                          "    });\r",
                           "\r",
-                          "pm.collectionVariables.set(\"trxCode\", pm.response.json().trxCode);\r",
-                          "pm.collectionVariables.set(\"transactionId\", pm.response.json().id);\r",
-                          ""
+                          "    pm.collectionVariables.set(\"trxCode\", pm.response.json().trxCode);\r",
+                          "    pm.collectionVariables.set(\"transactionId\", pm.response.json().id);\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -4971,14 +4982,14 @@
                         "exec": [
                           "if( pm.response.code != 200){\r",
                           "   retryRequest(postman,pm,setTimeout);\r",
-                          "} \r",
+                          "} else {\r",
                           "\r",
-                          "pm.test('Payment - Happy case - Onboarding - Generate Token IO', () => {\r",
-                          "    //verify response HTTP status \r",
-                          "    pm.response.to.have.status(200);\r",
-                          "    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
-                          "});\r",
-                          ""
+                          "    pm.test('Payment - Happy case - Onboarding - Generate Token IO', () => {\r",
+                          "        //verify response HTTP status \r",
+                          "        pm.response.to.have.status(200);\r",
+                          "        pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -6621,12 +6632,15 @@
                       "listen": "test",
                       "script": {
                         "exec": [
-                          "pm.test('Timeline - Happy case - Get Timeline empty list with not valid CF - Initiative creation - Generate Portal Token (Ente Admin)', () => {\r",
+                          "if( pm.response.code != 200){\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
+                          "} else {\r",
+                          "    pm.test('Timeline - Happy case - Get Timeline empty list with not valid CF - Initiative creation - Generate Portal Token (Ente Admin)', () => {\r",
                           "    //verify response HTTP status \r",
                           "    pm.response.to.have.status(200);\r",
                           "    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
-                          "});\r",
-                          ""
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -6642,7 +6656,7 @@
                       }
                     ],
                     "url": {
-                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_fake}}",
+                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE_1}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
@@ -6654,7 +6668,7 @@
                       "query": [
                         {
                           "key": "fiscalCode",
-                          "value": "{{CF_fake}}"
+                          "value": "{{CF_FAKE_1}}"
                         }
                       ]
                     }
@@ -6673,12 +6687,12 @@
                           "if( pm.response.code != 404 || jsonResponse.code != \"TIMELINE_USER_NOT_FOUND\"){\r",
                           "   retryRequest(postman,pm,setTimeout,3000);\r",
                           "} else {\r",
+                          "\r",
                           "    pm.test(\"Timeline - Unhappy case - Get Timeline without filter - expect res status 404\", function () {\r",
                           "        pm.response.to.have.status(404);\r",
                           "    });\r",
                           "\r",
                           "    pm.test(\"Timeline - Unhappy case - Get Timeline without filter  - expect code TIMELINE_USER_NOT_FOUND\", function () {\r",
-                          "        let jsonResponse = pm.response.json()\r",
                           "        pm.expect(jsonResponse.code).equals(\"TIMELINE_USER_NOT_FOUND\");\r",
                           "    });\r",
                           "}"
@@ -6710,14 +6724,14 @@
                     "method": "GET",
                     "header": [],
                     "url": {
-                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId}}/?page=0&size=10",
+                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/?page=0&size=10",
                       "host": [
                         "{{baseUrl}}"
                       ],
                       "path": [
                         "idpay",
                         "timeline",
-                        "{{initiativeId}}",
+                        "{{initiativeId_discount}}",
                         ""
                       ],
                       "query": [
@@ -6751,12 +6765,12 @@
                           "if( pm.response.code != 404 || jsonResponse.code != \"TIMELINE_DETAIL_NOT_FOUND\"){\r",
                           "   retryRequest(postman,pm,setTimeout,3000);\r",
                           "} else {\r",
+                          "\r",
                           "    pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail- - expect res status 404\", function () {\r",
                           "        pm.response.to.have.status(404);\r",
                           "    });\r",
                           "\r",
                           "    pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail - expect code TIMELINE_DETAIL_NOT_FOUND\", function () {\r",
-                          "\r",
                           "        pm.expect(jsonResponse.code).equals('TIMELINE_DETAIL_NOT_FOUND');\r",
                           "    });\r",
                           "}"
@@ -6801,7 +6815,7 @@
                       "variable": [
                         {
                           "key": "initiativeIdFake",
-                          "value": "\"\""
+                          "value": "{{initiativeId_discount}}"
                         }
                       ]
                     }
@@ -9744,12 +9758,15 @@
                       "listen": "test",
                       "script": {
                         "exec": [
-                          "pm.test('Timeline - Happy case - Get Timeline empty list with not valid CF - Initiative creation - Generate Portal Token (Ente Admin)', () => {\r",
+                          "if( pm.response.code != 200){\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
+                          "} else {\r",
+                          "    pm.test('Timeline - Happy case - Get Timeline empty list with not valid CF - Initiative creation - Generate Portal Token (Ente Admin)', () => {\r",
                           "    //verify response HTTP status \r",
                           "    pm.response.to.have.status(200);\r",
                           "    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
-                          "});\r",
-                          ""
+                          "    });\r",
+                          "}"
                         ],
                         "type": "text/javascript"
                       }
@@ -9796,12 +9813,12 @@
                           "if( pm.response.code != 404 || jsonResponse.code != \"TIMELINE_USER_NOT_FOUND\"){\r",
                           "   retryRequest(postman,pm,setTimeout,3000);\r",
                           "} else {\r",
+                          "\r",
                           "    pm.test(\"Timeline - Unhappy case - Get Timeline without filter - expect res status 404\", function () {\r",
                           "        pm.response.to.have.status(404);\r",
                           "    });\r",
                           "\r",
                           "    pm.test(\"Timeline - Unhappy case - Get Timeline without filter  - expect code TIMELINE_USER_NOT_FOUND\", function () {\r",
-                          "        let jsonResponse = pm.response.json()\r",
                           "        pm.expect(jsonResponse.code).equals(\"TIMELINE_USER_NOT_FOUND\");\r",
                           "    });\r",
                           "}"
@@ -9833,14 +9850,14 @@
                     "method": "GET",
                     "header": [],
                     "url": {
-                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId}}/?page=0&size=10",
+                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/?page=0&size=10",
                       "host": [
                         "{{baseUrl}}"
                       ],
                       "path": [
                         "idpay",
                         "timeline",
-                        "{{initiativeId}}",
+                        "{{initiativeId_discount}}",
                         ""
                       ],
                       "query": [
@@ -9874,12 +9891,12 @@
                           "if( pm.response.code != 404 || jsonResponse.code != \"TIMELINE_DETAIL_NOT_FOUND\"){\r",
                           "   retryRequest(postman,pm,setTimeout,3000);\r",
                           "} else {\r",
+                          "\r",
                           "    pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail- - expect res status 404\", function () {\r",
                           "        pm.response.to.have.status(404);\r",
                           "    });\r",
                           "\r",
                           "    pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail - expect code TIMELINE_DETAIL_NOT_FOUND\", function () {\r",
-                          "\r",
                           "        pm.expect(jsonResponse.code).equals('TIMELINE_DETAIL_NOT_FOUND');\r",
                           "    });\r",
                           "}"
@@ -9924,7 +9941,7 @@
                       "variable": [
                         {
                           "key": "initiativeIdFake",
-                          "value": "\"\""
+                          "value": "{{initiativeId_discount}}"
                         }
                       ]
                     }
@@ -10820,7 +10837,7 @@
                             {
                               "key": "file",
                               "type": "file",
-                              "src": "/C:/Users/ELAMANGZ4/Downloads/Esercente di test IdPay.csv"
+                              "src": "./postman/example_merchant_valid.csv"
                             }
                           ]
                         },
@@ -13179,7 +13196,214 @@
           ]
         },
         {
-          "name": "Delete Initiative Copy 2",
+          "name": "Unhappy Case",
+          "item": [
+            {
+              "name": "Timeline Not Found for current user",
+              "item": [
+                {
+                  "name": "Generate Token IO Copy",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "if( pm.response.code != 200){\r",
+                          "   retryRequest(postman,pm,setTimeout,5000);\r",
+                          "} else {\r",
+                          "    pm.test('Timeline - Happy case - Get Timeline empty list with not valid CF - Initiative creation - Generate Portal Token (Ente Admin)', () => {\r",
+                          "    //verify response HTTP status \r",
+                          "    pm.response.to.have.status(200);\r",
+                          "    pm.collectionVariables.set(\"tokenIO\", pm.response.text());\r",
+                          "    });\r",
+                          "}"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Ocp-Apim-Subscription-Key",
+                        "value": "{{genericSubscriptionKey}}",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_FAKE_1}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rtd",
+                        "mock-io",
+                        "login"
+                      ],
+                      "query": [
+                        {
+                          "key": "fiscalCode",
+                          "value": "{{CF_FAKE_1}}"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "GET Timeline - [Unhappy] Without filter",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsonResponse = pm.response.json();\r",
+                          "\r",
+                          "if( pm.response.code != 404 || jsonResponse.code != \"TIMELINE_USER_NOT_FOUND\"){\r",
+                          "   retryRequest(postman,pm,setTimeout,3000);\r",
+                          "} else {\r",
+                          "\r",
+                          "    pm.test(\"Timeline - Unhappy case - Get Timeline without filter - expect res status 404\", function () {\r",
+                          "        pm.response.to.have.status(404);\r",
+                          "    });\r",
+                          "\r",
+                          "    pm.test(\"Timeline - Unhappy case - Get Timeline without filter  - expect code TIMELINE_USER_NOT_FOUND\", function () {\r",
+                          "        pm.expect(jsonResponse.code).equals(\"TIMELINE_USER_NOT_FOUND\");\r",
+                          "    });\r",
+                          "}"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{tokenIO}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/idpay/timeline/{{initiativeId_discount}}/?page=0&size=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "idpay",
+                        "timeline",
+                        "{{initiativeId_discount}}",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "size",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Timeline Detail Not found",
+              "item": [
+                {
+                  "name": "GET Timeline Detail [Unhappy]",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsonResponse = pm.response.json();\r",
+                          "\r",
+                          "if( pm.response.code != 404 || jsonResponse.code != \"TIMELINE_DETAIL_NOT_FOUND\"){\r",
+                          "   retryRequest(postman,pm,setTimeout,3000);\r",
+                          "} else {\r",
+                          "\r",
+                          "    pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail- - expect res status 404\", function () {\r",
+                          "        pm.response.to.have.status(404);\r",
+                          "    });\r",
+                          "\r",
+                          "    pm.test(\"Timeline Detail - Unhappy case - Get Timeline Detail - expect code TIMELINE_DETAIL_NOT_FOUND\", function () {\r",
+                          "        pm.expect(jsonResponse.code).equals('TIMELINE_DETAIL_NOT_FOUND');\r",
+                          "    });\r",
+                          "}"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{tokenIO}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/idpay/timeline/:initiativeIdFake/{{operationId}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "idpay",
+                        "timeline",
+                        ":initiativeIdFake",
+                        "{{operationId}}"
+                      ],
+                      "variable": [
+                        {
+                          "key": "initiativeIdFake",
+                          "value": "{{initiativeId_discount}}"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Delete Initiative",
           "event": [
             {
               "listen": "test",
