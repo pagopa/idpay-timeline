@@ -4,7 +4,9 @@ import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.*;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
 import it.gov.pagopa.timeline.event.producer.TimelineProducer;
-import it.gov.pagopa.timeline.exception.TimelineException;
+import it.gov.pagopa.timeline.exception.custom.RefundsNotFoundException;
+import it.gov.pagopa.timeline.exception.custom.TimelineDetailNotFoundException;
+import it.gov.pagopa.timeline.exception.custom.UserNotFoundException;
 import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
 import it.gov.pagopa.timeline.utils.AuditUtilities;
@@ -22,7 +24,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -30,10 +31,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -166,7 +170,7 @@ class TimelineServiceTest {
       DetailOperationDTO actual = timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
       assertEquals(DETAIL_OPERATION_DTO, actual);
-    } catch (TimelineException e) {
+    } catch (TimelineDetailNotFoundException e) {
       Assertions.fail();
     }
   }
@@ -181,9 +185,9 @@ class TimelineServiceTest {
       timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
       Assertions.fail();
-    } catch (TimelineException e) {
-      assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
-      assertEquals("Cannot find the requested operation!", e.getMessage());
+    } catch (TimelineDetailNotFoundException e) {
+      assertEquals(TimelineConstants.TIMELINE_DETAIL_NOT_FOUND, e.getCode());
+      assertEquals("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID), e.getMessage());
     }
   }
 
@@ -223,9 +227,9 @@ class TimelineServiceTest {
 
     try {
       timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3,null,null);
-    }catch (TimelineException e){
-      assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
-      assertEquals("Timeline for the current user was not found", e.getMessage());
+    }catch (UserNotFoundException e){
+      assertEquals(TimelineConstants.TIMELINE_USER_NOT_FOUND, e.getCode());
+      assertEquals("Timeline for the current user and initiative [%s] was not found".formatted(INITIATIVE_ID), e.getMessage());
     }
   }
 
@@ -286,9 +290,9 @@ class TimelineServiceTest {
         .thenReturn(new ArrayList<>());
     try {
       timelineService.getRefunds(INITIATIVE_ID, USER_ID);
-    } catch (TimelineException e) {
-      assertEquals(HttpStatus.NOT_FOUND.value(), e.getCode());
-      assertEquals("No refunds have been rewarded on this initiative!", e.getMessage());
+    } catch (RefundsNotFoundException e) {
+      assertEquals(TimelineConstants.TIMELINE_REFUNDS_NOT_FOUND, e.getCode());
+      assertEquals("No refunds have been rewarded for the current user and initiative [%s]".formatted(INITIATIVE_ID), e.getMessage());
     }
   }
 
