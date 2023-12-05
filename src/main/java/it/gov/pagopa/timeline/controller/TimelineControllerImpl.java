@@ -5,7 +5,7 @@ import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.service.TimelineService;
 import java.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TimelineControllerImpl implements TimelineController {
 
-  @Autowired
-  TimelineService timelineService;
+  private final TimelineService timelineService;
+
+  public TimelineControllerImpl(TimelineService timelineService) {
+    this.timelineService = timelineService;
+  }
 
   @Override
   public ResponseEntity<DetailOperationDTO> getTimelineDetail(String initiativeId,
