@@ -1,6 +1,7 @@
 package it.gov.pagopa.timeline.exception;
 
 import it.gov.pagopa.common.web.dto.ErrorDTO;
+import it.gov.pagopa.timeline.constants.TimelineConstants;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -26,7 +27,7 @@ public class ControllerExceptionHandler {
     );
     String message = String.join(" - ", errors);
     return new ResponseEntity<>(
-        new ErrorDTO(HttpStatus.BAD_REQUEST.value(), message),
+        new ErrorDTO(TimelineConstants.TIMELINE_INVALID_REQUEST, message),
         HttpStatus.BAD_REQUEST);
   }
 
