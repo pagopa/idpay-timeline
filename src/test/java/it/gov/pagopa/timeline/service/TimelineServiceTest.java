@@ -291,7 +291,7 @@ class TimelineServiceTest {
     try {
       timelineService.getRefunds(INITIATIVE_ID, USER_ID);
     } catch (RefundsNotFoundException e) {
-//      assertEquals(TimelineCostants.ExceptionCode.TIMELINE_INITIATIVE_NOT_REFUND, e.getCode());
+      assertEquals(TimelineConstants.TIMELINE_REFUNDS_NOT_FOUND, e.getCode());
       assertEquals("No refunds have been rewarded for the current user and initiative [%s]".formatted(INITIATIVE_ID), e.getMessage());
     }
   }
