@@ -12,7 +12,6 @@ import it.gov.pagopa.timeline.model.Operation;
 import it.gov.pagopa.timeline.repository.TimelineRepository;
 import it.gov.pagopa.timeline.utils.AuditUtilities;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,16 +30,10 @@ import java.util.*;
 @SuppressWarnings("BusyWait")
 public class TimelineServiceImpl implements TimelineService {
 
-  @Autowired
-  TimelineRepository timelineRepository;
-
-  @Autowired
-  OperationMapper operationMapper;
-
-  @Autowired
-  TimelineProducer timelineProducer;
-  @Autowired
-  AuditUtilities auditUtilities;
+  private final TimelineRepository timelineRepository;
+  private final OperationMapper operationMapper;
+  private final TimelineProducer timelineProducer;
+  private final AuditUtilities auditUtilities;
 
   private static final Set<Pair<String, String>> ignoreCombinations = Set.of(
       Pair.of(TimelineConstants.TRX_STATUS_AUTHORIZED, TimelineConstants.TRX_STATUS_REWARDED),
@@ -52,6 +45,13 @@ public class TimelineServiceImpl implements TimelineService {
   private int pageSize;
   @Value("${app.delete.delayTime}")
   private long delay;
+
+  public TimelineServiceImpl(TimelineRepository timelineRepository, OperationMapper operationMapper, TimelineProducer timelineProducer, AuditUtilities auditUtilities) {
+    this.timelineRepository = timelineRepository;
+    this.operationMapper = operationMapper;
+    this.timelineProducer = timelineProducer;
+    this.auditUtilities = auditUtilities;
+  }
 
   @Override
   public DetailOperationDTO getTimelineDetail(String initiativeId, String operationId,
