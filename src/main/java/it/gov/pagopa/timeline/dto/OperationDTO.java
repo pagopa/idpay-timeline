@@ -41,5 +41,7 @@ public class OperationDTO {
 
   private String businessName;
 
+  private String instrumentType;
+
 }
 

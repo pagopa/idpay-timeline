@@ -83,6 +83,7 @@ class OperationMapperTest {
     OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
     OPERATION_DTO.setStatus(STATUS);
     OPERATION_DTO.setBusinessName(BUSINESS_NAME);
+    OPERATION_DTO.setInstrumentType(INSTRUMENT_TYPE);
 
     DETAIL_OPERATION_DTO.setOperationType(OPERATION_TYPE);
     DETAIL_OPERATION_DTO.setEventId(EVENT_ID);
