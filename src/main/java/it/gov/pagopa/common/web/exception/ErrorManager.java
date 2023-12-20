@@ -16,7 +16,7 @@ public class ErrorManager {
   private static final ErrorDTO defaultErrorDTO;
 
   static {
-    defaultErrorDTO = new ErrorDTO(TimelineConstants.TIMELINE_GENERIC_ERROR, "Something gone wrong");
+    defaultErrorDTO = new ErrorDTO(TimelineConstants.ExceptionCode.TIMELINE_GENERIC_ERROR, "Something gone wrong");
   }
 
   @ExceptionHandler(RuntimeException.class)

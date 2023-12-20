@@ -67,7 +67,7 @@ public class MongoExceptionHandler {
     }
 
     return bodyBuilder
-            .body(new ErrorDTO(TimelineConstants.TIMELINE_TOO_MANY_REQUESTS, "TOO_MANY_REQUESTS"));
+            .body(new ErrorDTO(TimelineConstants.ExceptionCode.TIMELINE_TOO_MANY_REQUESTS, "TOO_MANY_REQUESTS"));
   }
 
 }
