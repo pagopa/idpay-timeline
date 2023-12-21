@@ -25,7 +25,7 @@ public class ValidationExceptionHandler {
 
     public ValidationExceptionHandler(@Nullable ErrorDTO templateValidationErrorDTO) {
         this.templateValidationErrorDTO = Optional.ofNullable(templateValidationErrorDTO)
-                .orElse(new ErrorDTO("INVALID_REQUESTS", "Invalid requests"));
+                .orElse(new ErrorDTO("INVALID_REQUEST", "Invalid request"));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -35,21 +35,16 @@ public class ValidationExceptionHandler {
 
         String message = ex.getBindingResult().getAllErrors().stream()
                 .map(error -> {
-                    String fieldName = error instanceof FieldError fieldErrorInput
-                            ? fieldErrorInput.getField()
-                            : error.getObjectName();
+                    String fieldName = ((FieldError) error).getField();
                     String errorMessage = error.getDefaultMessage();
-
                     return String.format("[%s]: %s", fieldName, errorMessage);
                 }).collect(Collectors.joining("; "));
 
         log.info("A MethodArgumentNotValidException occurred handling request {}: HttpStatus 400 - {}",
                 ErrorManager.getRequestDetails(request), message);
         log.debug("Something went wrong while validating http request", ex);
-
         return new ErrorDTO(templateValidationErrorDTO.getCode(), message);
     }
-
 
     @ExceptionHandler(MissingRequestHeaderException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -61,7 +56,6 @@ public class ValidationExceptionHandler {
         log.info("A MissingRequestHeaderException occurred handling request {}: HttpStatus 400 - {}",
                 ErrorManager.getRequestDetails(request), message);
         log.debug("Something went wrong handling request", ex);
-
         return new ErrorDTO(templateValidationErrorDTO.getCode(), message);
     }
 }

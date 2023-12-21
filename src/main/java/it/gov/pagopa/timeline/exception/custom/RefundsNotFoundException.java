@@ -1,7 +1,7 @@
 package it.gov.pagopa.timeline.exception.custom;
 
 import it.gov.pagopa.common.web.exception.ServiceException;
-import it.gov.pagopa.common.web.exception.ServiceExceptionResponse;
+import it.gov.pagopa.common.web.exception.ServiceExceptionPayload;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 
 public class RefundsNotFoundException extends ServiceException {
@@ -15,7 +15,7 @@ public class RefundsNotFoundException extends ServiceException {
         this(code, message, null, false, null);
     }
 
-    public RefundsNotFoundException(String code, String message, ServiceExceptionResponse response, boolean printStackTrace, Throwable ex) {
+    public RefundsNotFoundException(String code, String message, ServiceExceptionPayload response, boolean printStackTrace, Throwable ex) {
         super(code,message,response,printStackTrace,ex);
     }
 }
