@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.common.web.dto.ErrorDTO;
 import it.gov.pagopa.common.web.exception.ServiceException;
 import it.gov.pagopa.timeline.configuration.ServiceExceptionConfig;
+import it.gov.pagopa.timeline.configuration.TimelineErrorManagerConfig;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
@@ -34,7 +35,7 @@ import static org.mockito.Mockito.doThrow;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(
-    value = {TimelineController.class, ServiceExceptionConfig.class},
+    value = {TimelineController.class, ServiceExceptionConfig.class, TimelineErrorManagerConfig.class},
     excludeAutoConfiguration = SecurityAutoConfiguration.class)
 class TimelineControllerTest {
 
@@ -70,6 +71,8 @@ class TimelineControllerTest {
           INSTRUMENT_ID, "", "", "", "", "", null, null,
           new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS,
           REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
+
+
 
   @MockBean
   TimelineService timelineServiceMock;
@@ -113,7 +116,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(TimelineConstants.TIMELINE_DETAIL_NOT_FOUND, error.getCode());
+    assertEquals(TimelineConstants.ExceptionCode.TIMELINE_DETAIL_NOT_FOUND, error.getCode());
     assertEquals("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID), error.getMessage());
   }
 
@@ -144,7 +147,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(TimelineConstants.TIMELINE_INVALID_REQUEST, error.getCode());
+    assertEquals(TimelineConstants.ExceptionCode.TIMELINE_INVALID_REQUEST, error.getCode());
     assertTrue(error.getMessage().contains(TimelineConstants.ERROR_MANDATORY_FIELD));
   }
 
@@ -184,7 +187,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(TimelineConstants.TIMELINE_USER_NOT_FOUND, error.getCode());
+    assertEquals(TimelineConstants.ExceptionCode.TIMELINE_USER_NOT_FOUND, error.getCode());
     assertEquals("Timeline for the current user and initiative [%s] was not found".formatted(INITIATIVE_ID), error.getMessage());
   }
 
@@ -205,7 +208,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(TimelineConstants.TIMELINE_INVALID_REQUEST, error.getCode());
+    assertEquals(TimelineConstants.ExceptionCode.TIMELINE_INVALID_REQUEST, error.getCode());
     assertTrue(error.getMessage().equals("Parameter [size] must be less than or equal to 10"));
   }
 
@@ -239,14 +242,14 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(TimelineConstants.TIMELINE_REFUNDS_NOT_FOUND, error.getCode());
+    assertEquals(TimelineConstants.ExceptionCode.TIMELINE_REFUNDS_NOT_FOUND, error.getCode());
     assertEquals("No refunds have been rewarded for the current user and initiative [%s]".formatted(INITIATIVE_ID), error.getMessage());
   }
 
   @Test
   void getRefunds_genericServiceException() throws Exception {
     //given
-    doThrow(new ServiceException("DUMMY_EXCEPTION_CODE", "DUMMY_EXCEPTION_MESSAGE"))
+    doThrow(new ServiceException("DUMMY_EXCEPTION_CODE", "DUMMY_EXCEPTION_MESSAGE", null))
             .when(timelineServiceMock)
             .getRefunds(INITIATIVE_ID, USER_ID);
 
