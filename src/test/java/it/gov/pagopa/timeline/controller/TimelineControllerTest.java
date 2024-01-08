@@ -230,7 +230,7 @@ class TimelineControllerTest {
 
     ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
-    assertEquals(HttpStatus.BAD_REQUEST.value(), error.getCode());
+    assertEquals(TimelineConstants.ExceptionCode.TIMELINE_INVALID_REQUEST, error.getCode());
     assertTrue(error.getMessage().equals("Parameter [page] must be more than or equal to 0"));
   }
 
