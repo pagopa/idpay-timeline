@@ -61,7 +61,7 @@ microservice-chart:
     DELETE_DELAY_TIME: "1000"
     APPLICATIONINSIGHTS_PREVIEW_PROFILER_ENABLED: "false"
 
-  envConfigMapExternals:
+  externalConfigMapValues:
     idpay-common:
       TZ: TZ
     idpay-eventhub-00:
@@ -85,3 +85,9 @@ microservice-chart:
   # tolerations: []
 
   # affinity: {}
+
+  externalConfigMapFiles:
+    create: true
+    configMaps:
+      - name: appinsights-config
+        key: applicationinsights.json
