@@ -33,7 +33,7 @@ public interface TimelineController {
       @PathVariable("userId") String userId,
       @RequestParam(required = false) String operationType,
       @RequestParam(defaultValue = "0") @Min(value = 0, message = "Parameter [page] must be more than or equal to {value}") Integer page,
-      @RequestParam(defaultValue = "3") @Min(value = 0, message = "Parameter [size] must be more than or equal to {value}") @Max(value = 10, message = "Parameter [size] must be less than or equal to {value}") Integer size,
+      @RequestParam(defaultValue = "3") @Min(value = 1, message = "Parameter [size] must be more than or equal to {value}") @Max(value = 10, message = "Parameter [size] must be less than or equal to {value}") Integer size,
       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
       LocalDateTime dateFrom,
       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTo);
