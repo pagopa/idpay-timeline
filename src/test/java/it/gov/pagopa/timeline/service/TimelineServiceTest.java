@@ -186,7 +186,7 @@ class TimelineServiceTest {
           USER_ID);
       Assertions.fail();
     } catch (TimelineDetailNotFoundException e) {
-      assertEquals(TimelineConstants.TIMELINE_DETAIL_NOT_FOUND, e.getCode());
+      assertEquals(TimelineConstants.ExceptionCode.TIMELINE_DETAIL_NOT_FOUND, e.getCode());
       assertEquals("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID), e.getMessage());
     }
   }
@@ -228,7 +228,7 @@ class TimelineServiceTest {
     try {
       timelineService.getTimeline(INITIATIVE_ID, USER_ID, OPERATION_TYPE, 1, 3,null,null);
     }catch (UserNotFoundException e){
-      assertEquals(TimelineConstants.TIMELINE_USER_NOT_FOUND, e.getCode());
+      assertEquals(TimelineConstants.ExceptionCode.TIMELINE_USER_NOT_FOUND, e.getCode());
       assertEquals("Timeline for the current user and initiative [%s] was not found".formatted(INITIATIVE_ID), e.getMessage());
     }
   }
@@ -291,7 +291,7 @@ class TimelineServiceTest {
     try {
       timelineService.getRefunds(INITIATIVE_ID, USER_ID);
     } catch (RefundsNotFoundException e) {
-      assertEquals(TimelineConstants.TIMELINE_REFUNDS_NOT_FOUND, e.getCode());
+      assertEquals(TimelineConstants.ExceptionCode.TIMELINE_REFUNDS_NOT_FOUND, e.getCode());
       assertEquals("No refunds have been rewarded for the current user and initiative [%s]".formatted(INITIATIVE_ID), e.getMessage());
     }
   }

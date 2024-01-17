@@ -27,7 +27,7 @@ public class ControllerExceptionHandler {
     );
     String message = String.join(" - ", errors);
     return new ResponseEntity<>(
-        new ErrorDTO(TimelineConstants.TIMELINE_INVALID_REQUEST, message),
+        new ErrorDTO(TimelineConstants.ExceptionCode.TIMELINE_INVALID_REQUEST, message),
         HttpStatus.BAD_REQUEST);
   }
 
