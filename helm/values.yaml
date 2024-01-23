@@ -64,20 +64,18 @@ microservice-chart:
   externalConfigMapValues:
     idpay-common:
       TZ: TZ
-    idpay-eventhub-00:
-      KAFKA_BINDER_BROKER_ENDPOINT_LIST: kafka_broker
-      KAFKA_TIMELINE_SASL_MECHANISM: kafka_sasl_mechanism
-      KAFKA_TIMELINE_SECURITY_PROTOCOL: kafka_security_protocol
-      KAFKA_TOPIC_TIMELINE: idpay_timeline_topic
-      KAFKA_GROUP_IN: idpay-timeline-consumer-group
-      #KAFKA_TOPIC_COMMANDS: idpay-commands
     idpay-eventhub-01:
       KAFKA_BINDER_BROKER_ENDPOINT_LIST_01: kafka_broker
+      KAFKA_TIMELINE_SASL_MECHANISM: kafka_sasl_mechanism
+      KAFKA_TIMELINE_SECURITY_PROTOCOL: kafka_security_protocol
+      KAFKA_TOPIC_COMMANDS: idpay_commands_topic
+      KAFKA_TOPIC_TIMELINE: idpay_timeline_topic
+      KAFKA_GROUP_IN: idpay-timeline-consumer-group
 
   envSecret:
     MONGODB_URI: mongodb-connection-string
-    KAFKA_TIMELINE_OUT_SASL_JAAS_CONFIG: evh-idpay-timeline-idpay-timeline-producer-jaas-config-idpay-00
-    KAFKA_TIMELINE_IN_SASL_JAAS_CONFIG: evh-idpay-timeline-idpay-timeline-consumer-jaas-config-idpay-00
+    KAFKA_TIMELINE_OUT_SASL_JAAS_CONFIG: evh-idpay-timeline-idpay-timeline-producer-jaas-config-idpay-01
+    KAFKA_TIMELINE_IN_SASL_JAAS_CONFIG: evh-idpay-timeline-idpay-timeline-consumer-jaas-config-idpay-01
     KAFKA_COMMANDS_IN_SASL_JAAS_CONFIG: evh-idpay-commands-idpay-commands-consumer-jaas-config-idpay-01
 
   # nodeSelector: {}
