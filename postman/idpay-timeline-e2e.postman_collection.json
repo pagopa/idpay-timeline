@@ -97,7 +97,7 @@
                               "pm.collectionVariables.set('description', pm.variables.replaceIn('{{$randomLoremSentence}}'));\r",
                               "\r",
                               "pm.collectionVariables.set('channel_type', 'web');\r",
-                              "pm.collectionVariables.set('channel_contact', pm.variables.replaceIn('{{$randomUrl}}'));"
+                              "pm.collectionVariables.set('channel_contact', 'https://www.google.it');"
                             ],
                             "type": "text/javascript"
                           }
@@ -3143,7 +3143,7 @@
                               "pm.collectionVariables.set('description', pm.variables.replaceIn('{{$randomLoremSentence}}'));\r",
                               "\r",
                               "pm.collectionVariables.set('channel_type', 'web');\r",
-                              "pm.collectionVariables.set('channel_contact', pm.variables.replaceIn('{{$randomUrl}}'));"
+                              "pm.collectionVariables.set('channel_contact', 'https://www.google.it');"
                             ],
                             "type": "text/javascript"
                           }
@@ -6927,7 +6927,7 @@
                           "pm.collectionVariables.set('description', pm.variables.replaceIn('{{$randomLoremSentence}}'));\r",
                           "\r",
                           "pm.collectionVariables.set('channel_type', 'web');\r",
-                          "pm.collectionVariables.set('channel_contact', pm.variables.replaceIn('{{$randomUrl}}'));"
+                          "pm.collectionVariables.set('channel_contact', 'https://www.google.it');"
                         ],
                         "type": "text/javascript"
                       }
@@ -10045,7 +10045,7 @@
                               "pm.collectionVariables.set('description', pm.variables.replaceIn('{{$randomLoremSentence}}'));\r",
                               "\r",
                               "pm.collectionVariables.set('channel_type', 'web');\r",
-                              "pm.collectionVariables.set('channel_contact', pm.variables.replaceIn('{{$randomUrl}}'));"
+                              "pm.collectionVariables.set('channel_contact', 'https://www.google.it');"
                             ],
                             "type": "text/javascript"
                           }
@@ -10964,7 +10964,7 @@
                       }
                     ],
                     "url": {
-                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_2}}",
+                      "raw": "{{baseUrl}}/rtd/mock-io/login?fiscalCode={{CF_fake}}",
                       "host": [
                         "{{baseUrl}}"
                       ],
@@ -10976,7 +10976,7 @@
                       "query": [
                         {
                           "key": "fiscalCode",
-                          "value": "{{CF_2}}"
+                          "value": "{{CF_fake}}"
                         }
                       ]
                     }
