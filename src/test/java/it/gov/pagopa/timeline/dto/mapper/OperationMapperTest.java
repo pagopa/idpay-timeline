@@ -1,19 +1,19 @@
 package it.gov.pagopa.timeline.dto.mapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.OperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.model.Operation;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = OperationMapper.class)
@@ -39,7 +39,7 @@ class OperationMapperTest {
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(
       USER_ID, INITIATIVE_ID, OPERATION_TYPE, null, EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
           INSTRUMENT_ID, null, null, null, INSTRUMENT_TYPE, CRO, null, OPERATION_DATE,
-          new BigDecimal("0.00"), new BigDecimal("0.00"), new BigDecimal("0.00"), null, null,
+          0L, 0L, 0L, null, null,
           STATUS, REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
 
   private static final Operation OPERATION = new Operation();
@@ -54,9 +54,9 @@ class OperationMapperTest {
     OPERATION.setOperationType(OPERATION_TYPE);
     OPERATION.setEventId(EVENT_ID);
     OPERATION.setOperationDate(OPERATION_DATE);
-    OPERATION.setAmount(new BigDecimal("0.00"));
-    OPERATION.setEffectiveAmount(new BigDecimal("0.00"));
-    OPERATION.setAccrued(new BigDecimal("0.00"));
+    OPERATION.setAmountCents(0L);
+    OPERATION.setEffectiveAmountCents(0L);
+    OPERATION.setAccruedCents(0L);
     OPERATION.setInstrumentId(INSTRUMENT_ID);
     OPERATION.setMaskedPan(MASKED_PAN);
     OPERATION.setBrandLogo(BRAND_LOGO);
@@ -75,8 +75,8 @@ class OperationMapperTest {
     OPERATION_DTO.setOperationType(OPERATION_TYPE);
     OPERATION_DTO.setEventId(EVENT_ID);
     OPERATION_DTO.setOperationDate(OPERATION_DATE);
-    OPERATION_DTO.setAmount(new BigDecimal("0.00"));
-    OPERATION_DTO.setAccrued(new BigDecimal("0.00"));
+    OPERATION_DTO.setAmountCents(0L);
+    OPERATION_DTO.setAccruedCents(0L);
     OPERATION_DTO.setMaskedPan(MASKED_PAN);
     OPERATION_DTO.setBrandLogo(BRAND_LOGO);
     OPERATION_DTO.setBrand(BRAND_LOGO);
@@ -88,8 +88,8 @@ class OperationMapperTest {
     DETAIL_OPERATION_DTO.setOperationType(OPERATION_TYPE);
     DETAIL_OPERATION_DTO.setEventId(EVENT_ID);
     DETAIL_OPERATION_DTO.setOperationDate(OPERATION_DATE);
-    DETAIL_OPERATION_DTO.setAmount(new BigDecimal("0.00"));
-    DETAIL_OPERATION_DTO.setAccrued(new BigDecimal("0.00"));
+    DETAIL_OPERATION_DTO.setAmountCents(0L);
+    DETAIL_OPERATION_DTO.setAccruedCents(0L);
     DETAIL_OPERATION_DTO.setMaskedPan(MASKED_PAN);
     DETAIL_OPERATION_DTO.setBrandLogo(BRAND_LOGO);
     DETAIL_OPERATION_DTO.setBrand(BRAND_LOGO);

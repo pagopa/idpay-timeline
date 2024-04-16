@@ -26,7 +26,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static com.mongodb.assertions.Assertions.assertTrue;
@@ -65,12 +64,12 @@ class TimelineControllerTest {
   private static final QueueOperationDTO PUT_OPERATION_DTO = new QueueOperationDTO(
           USER_ID, INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
           INSTRUMENT_ID, "", "", "", "", "", null, null,
-          new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS,
+          0L, 0L, 0L, "", "", STATUS,
           REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
   private static final QueueOperationDTO PUT_OPERATION_DTO_EMPTY = new QueueOperationDTO(
           "", INITIATIVE_ID, OPERATION_TYPE, "", EVENT_ID, BRAND_LOGO, BRAND_LOGO, MASKED_PAN,
           INSTRUMENT_ID, "", "", "", "", "", null, null,
-          new BigDecimal(0), new BigDecimal(0), new BigDecimal(0), "", "", STATUS,
+          0L, 0L, 0L, "", "", STATUS,
           REFUND_TYPE, START_DATE, END_DATE, TRANSFER_DATE, NOTIFICATION_DATE, BUSINESS_NAME);
 
 

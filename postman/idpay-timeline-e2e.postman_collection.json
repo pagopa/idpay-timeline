@@ -190,12 +190,12 @@
                               "pm.collectionVariables.set('...', _.random(0, 180));\r",
                               "*/\r",
                               "//_.floor(_.random(1.0, 100000.0, true),2)\r",
-                              "pm.collectionVariables.set('budget', 500);\r",
+                              "pm.collectionVariables.set('budgetCents', 500);\r",
                               "pm.collectionVariables.set('beneficiaryType', 'PF');\r",
                               "//pm.collectionVariables.set('beneficiaryKnown', pm.variables.replaceIn('{{$randomBoolean}}'));\r",
                               "pm.collectionVariables.set('beneficiaryKnown', false);\r",
                               "pm.collectionVariables.set('rankingEnabled', false);\r",
-                              "pm.collectionVariables.set('beneficiaryBudget', 100);//default max 1000\r",
+                              "pm.collectionVariables.set('beneficiaryBudgetCents', 100);//default max 1000\r",
                               "pm.collectionVariables.set('rankingStartDate', today);\r",
                               "pm.collectionVariables.set('rankingEndDate', todayP1);\r",
                               "pm.collectionVariables.set('startDate', today);\r",
@@ -240,7 +240,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n    \"budget\": {{budget}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudget\": {{beneficiaryBudget}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
+                          "raw": "{\n    \"budgetCents\": {{budgetCents}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudgetCents\": {{beneficiaryBudgetCents}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
                           "options": {
                             "raw": {
                               "language": "json"
@@ -3236,12 +3236,12 @@
                               "pm.collectionVariables.set('...', _.random(0, 180));\r",
                               "*/\r",
                               "//_.floor(_.random(1.0, 100000.0, true),2)\r",
-                              "pm.collectionVariables.set('budget', 500);\r",
+                              "pm.collectionVariables.set('budgetCents', 500);\r",
                               "pm.collectionVariables.set('beneficiaryType', 'PF');\r",
                               "//pm.collectionVariables.set('beneficiaryKnown', pm.variables.replaceIn('{{$randomBoolean}}'));\r",
                               "pm.collectionVariables.set('beneficiaryKnown', false);\r",
                               "pm.collectionVariables.set('rankingEnabled', false);\r",
-                              "pm.collectionVariables.set('beneficiaryBudget', 100);//default max 1000\r",
+                              "pm.collectionVariables.set('beneficiaryBudgetCents', 100);//default max 1000\r",
                               "pm.collectionVariables.set('rankingStartDate', today);\r",
                               "pm.collectionVariables.set('rankingEndDate', todayP1);\r",
                               "pm.collectionVariables.set('startDate', today);\r",
@@ -3286,7 +3286,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n    \"budget\": {{budget}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudget\": {{beneficiaryBudget}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
+                          "raw": "{\n    \"budgetCents\": {{budgetCents}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudgetCents\": {{beneficiaryBudgetCents}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
                           "options": {
                             "raw": {
                               "language": "json"
@@ -4514,10 +4514,8 @@
                           "    });\r",
                           "\r",
                           "    pm.test(\"Payment - Happy case: [IO] Pre-Authorize transaction [QR-CODE] - Verify response status is IDENTIFIED and residualBudget is: (initiativeBudget-totalReward+reward)\", function () {\r",
-                          "        let initiativeBudgetEuro= jsonResponse.counters.initiativeBudget*100;\r",
-                          "        let totalRewardEuro= jsonResponse.counters.totalReward*100;\r",
                           "        pm.expect(jsonResponse.status).to.eql(\"IDENTIFIED\");\r",
-                          "        pm.expect(jsonResponse.residualBudget).to.eql(initiativeBudgetEuro-totalRewardEuro+jsonResponse.reward);\r",
+                          "        pm.expect(jsonResponse.residualBudgetCents).to.eql(jsonResponse.counters.initiativeBudgetCents-jsonResponse.counters.totalRewardCents+jsonResponse.rewardCents);\r",
                           "    });\r",
                           "}"
                         ],
@@ -4588,13 +4586,11 @@
                           "\r",
                           "    pm.test(\"Payment - Happy case: [IO] Authorize transaction [QR-CODE] - Verify response status is AUTHORIZED and residualBudget is: initiativeBudget subtract totalReward\", function () {\r",
                           "        pm.expect(jsonResponse.status).to.eql(\"AUTHORIZED\");\r",
-                          "        let initiativeBudgetEuro = jsonResponse.counters.initiativeBudget * 100;\r",
-                          "        let totalRewardEuro = jsonResponse.counters.totalReward * 100;\r",
-                          "        pm.expect(jsonResponse.residualBudget).to.eql(initiativeBudgetEuro-totalRewardEuro);\r",
+                          "        pm.expect(jsonResponse.residualBudgetCents).to.eql(jsonResponse.counters.initiativeBudgetCents-jsonResponse.counters.totalRewardCents);\r",
                           "    });\r",
                           "\r",
-                          "    pm.collectionVariables.set(\"effectiveAmount\", pm.response.json().amountCents);\r",
-                          "    pm.collectionVariables.set(\"rewardAmount\", pm.response.json().reward);\r",
+                          "    pm.collectionVariables.set(\"effectiveAmountCents\", pm.response.json().amountCents);\r",
+                          "    pm.collectionVariables.set(\"rewardAmountCents\", pm.response.json().rewardCents);\r",
                           "}"
                         ],
                         "type": "text/javascript"
@@ -4659,13 +4655,13 @@
                           "        pm.response.to.have.status(200);\r",
                           "    });\r",
                           "\r",
-                          "    pm.test(\"Payment - Happy case - Get merchant transactions list - checking effectiveAmount,rewardAmount,qrcodePngUrl and qrcodeTxtUrl values\", function () {\r",
+                          "    pm.test(\"Payment - Happy case - Get merchant transactions list - checking effectiveAmountCents,rewardAmountCents,qrcodePngUrl and qrcodeTxtUrl values\", function () {\r",
                           "        let jsonResponse = pm.response.json()\r",
-                          "        const effectiveAmount = pm.collectionVariables.get(\"effectiveAmount\");\r",
-                          "        const rewardAmount = pm.collectionVariables.get(\"rewardAmount\");\r",
+                          "        const effectiveAmountCents = pm.collectionVariables.get(\"effectiveAmountCents\");\r",
+                          "        const rewardAmountCents = pm.collectionVariables.get(\"rewardAmountCents\");\r",
                           "        let trxCode = jsonResponse.content[0].trxCode;\r",
-                          "        pm.expect(jsonResponse.content[0].effectiveAmount).equals(parseInt(`${effectiveAmount}`));\r",
-                          "        pm.expect(jsonResponse.content[0].rewardAmount).equals(parseInt(`${rewardAmount}`));\r",
+                          "        pm.expect(jsonResponse.content[0].effectiveAmountCents).equals(parseInt(`${effectiveAmountCents}`));\r",
+                          "        pm.expect(jsonResponse.content[0].rewardAmountCents).equals(parseInt(`${rewardAmountCents}`));\r",
                           "        pm.expect(jsonResponse.content[0].qrcodePngUrl).equals(`https://continua.io.pagopa.it/qrcode.png?feat=idpay&trxcode=${trxCode}`);\r",
                           "        pm.expect(jsonResponse.content[0].qrcodeTxtUrl).equals(`https://continua.io.pagopa.it/idpay/auth/${trxCode}`);\r",
                           "    });\r",
@@ -5042,10 +5038,8 @@
                           "    });\r",
                           "\r",
                           "    pm.test(\"Payment - Happy case: [IO] Pre-Authorize transaction [QR-CODE] - Verify response status is IDENTIFIED and residualBudget is: (initiativeBudget-totalReward+reward)\", function () {\r",
-                          "        let initiativeBudgetEuro= jsonResponse.counters.initiativeBudget*100;\r",
-                          "        let totalRewardEuro= jsonResponse.counters.totalReward*100;\r",
                           "        pm.expect(jsonResponse.status).to.eql(\"IDENTIFIED\");\r",
-                          "        pm.expect(jsonResponse.residualBudget).to.eql(initiativeBudgetEuro-totalRewardEuro+jsonResponse.reward);\r",
+                          "        pm.expect(jsonResponse.residualBudgetCents).to.eql(jsonResponse.counters.initiativeBudgetCents-jsonResponse.counters.totalRewardCents+jsonResponse.rewardCents);\r",
                           "    });\r",
                           "}"
                         ],
@@ -5117,13 +5111,11 @@
                           "    pm.test(\"Payment - Happy case: [IO] Authorize transaction [QR-CODE] - Verify response status is AUTHORIZED and residualBudget is: initiativeBudget subtract totalReward\", function () {\r",
                           "        let jsonResponse = pm.response.json();\r",
                           "        pm.expect(jsonResponse.status).to.eql(\"AUTHORIZED\");\r",
-                          "        let initiativeBudgetEuro = jsonResponse.counters.initiativeBudget * 100;\r",
-                          "        let totalRewardEuro = jsonResponse.counters.totalReward * 100;\r",
-                          "        pm.expect(jsonResponse.residualBudget).to.eql(initiativeBudgetEuro-totalRewardEuro);\r",
+                          "        pm.expect(jsonResponse.residualBudgetCents).to.eql(jsonResponse.counters.initiativeBudgetCents-jsonResponse.counters.totalRewardCents);\r",
                           "    });\r",
                           "\r",
-                          "    pm.collectionVariables.set(\"effectiveAmount\", pm.response.json().amountCents);\r",
-                          "    pm.collectionVariables.set(\"rewardAmount\", pm.response.json().reward);\r",
+                          "    pm.collectionVariables.set(\"effectiveAmountCents\", pm.response.json().amountCents);\r",
+                          "    pm.collectionVariables.set(\"rewardAmountCents\", pm.response.json().rewardCents);\r",
                           "}"
                         ],
                         "type": "text/javascript"
@@ -7020,12 +7012,12 @@
                           "pm.collectionVariables.set('...', _.random(0, 180));\r",
                           "*/\r",
                           "//_.floor(_.random(1.0, 100000.0, true),2)\r",
-                          "pm.collectionVariables.set('budget', 500);\r",
+                          "pm.collectionVariables.set('budgetCents', 500);\r",
                           "pm.collectionVariables.set('beneficiaryType', 'PF');\r",
                           "//pm.collectionVariables.set('beneficiaryKnown', pm.variables.replaceIn('{{$randomBoolean}}'));\r",
                           "pm.collectionVariables.set('beneficiaryKnown', false);\r",
                           "pm.collectionVariables.set('rankingEnabled', false);\r",
-                          "pm.collectionVariables.set('beneficiaryBudget', 100);//default max 1000\r",
+                          "pm.collectionVariables.set('beneficiaryBudgetCents', 100);//default max 1000\r",
                           "pm.collectionVariables.set('rankingStartDate', today);\r",
                           "pm.collectionVariables.set('rankingEndDate', todayP1);\r",
                           "pm.collectionVariables.set('startDate', today);\r",
@@ -7070,7 +7062,7 @@
                     ],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n    \"budget\": {{budget}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudget\": {{beneficiaryBudget}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
+                      "raw": "{\n    \"budgetCents\": {{budgetCents}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudgetCents\": {{beneficiaryBudgetCents}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -8226,13 +8218,11 @@
                           "\r",
                           "    pm.test(\"Payment - Happy case: [IO] Authorize transaction [BARCODE] - Verify response status is AUTHORIZED and residualBudget is: initiativeBudget subtract totalReward\", function () {\r",
                           "        pm.expect(jsonResponse.status).to.eql(\"AUTHORIZED\");\r",
-                          "        let initiativeBudgetEuro = jsonResponse.counters.initiativeBudget * 100;\r",
-                          "        let totalRewardEuro = jsonResponse.counters.totalReward * 100;\r",
-                          "        pm.expect(jsonResponse.residualBudget).to.eql(initiativeBudgetEuro-totalRewardEuro);\r",
+                          "        pm.expect(jsonResponse.residualBudgetCents).to.eql(jsonResponse.counters.initiativeBudgetCents-jsonResponse.counters.totalRewardCents);\r",
                           "    });\r",
                           "\r",
-                          "    pm.collectionVariables.set(\"effectiveAmount\", pm.response.json().amountCents);\r",
-                          "    pm.collectionVariables.set(\"rewardAmount\", pm.response.json().reward);\r",
+                          "    pm.collectionVariables.set(\"effectiveAmountCents\", pm.response.json().amountCents);\r",
+                          "    pm.collectionVariables.set(\"rewardAmountCents\", pm.response.json().rewardCents);\r",
                           "    pm.collectionVariables.set(\"transactionId\", pm.response.json().id);\r",
                           "}"
                         ],
@@ -8311,12 +8301,12 @@
                           "        pm.response.to.have.status(200);\r",
                           "    });\r",
                           "\r",
-                          "    pm.test(\"Payment - Happy case - Get merchant transactions list - checking effectiveAmount, rewardAmount and status values\", function () {\r",
-                          "        const effectiveAmount = pm.collectionVariables.get(\"effectiveAmount\");\r",
-                          "        const rewardAmount = pm.collectionVariables.get(\"rewardAmount\");\r",
+                          "    pm.test(\"Payment - Happy case - Get merchant transactions list - checking effectiveAmountCents, rewardAmountCents and status values\", function () {\r",
+                          "        const effectiveAmountCents = pm.collectionVariables.get(\"effectiveAmountCents\");\r",
+                          "        const rewardAmountCents = pm.collectionVariables.get(\"rewardAmountCents\");\r",
                           "        let trxCode = jsonResponse.content[0].trxCode;\r",
-                          "        pm.expect(jsonResponse.content[0].effectiveAmount).equals(parseInt(`${effectiveAmount}`));\r",
-                          "        pm.expect(jsonResponse.content[0].rewardAmount).equals(parseInt(`${rewardAmount}`));\r",
+                          "        pm.expect(jsonResponse.content[0].effectiveAmountCents).equals(parseInt(`${effectiveAmountCents}`));\r",
+                          "        pm.expect(jsonResponse.content[0].rewardAmountCents).equals(parseInt(`${rewardAmountCents}`));\r",
                           "        pm.expect(jsonResponse.content[0].status).equals(\"AUTHORIZED\");\r",
                           "});\r",
                           "}"
@@ -10138,12 +10128,12 @@
                               "pm.collectionVariables.set('...', _.random(0, 180));\r",
                               "*/\r",
                               "//_.floor(_.random(1.0, 100000.0, true),2)\r",
-                              "pm.collectionVariables.set('budget', 500);\r",
+                              "pm.collectionVariables.set('budgetCents', 500);\r",
                               "pm.collectionVariables.set('beneficiaryType', 'PF');\r",
                               "//pm.collectionVariables.set('beneficiaryKnown', pm.variables.replaceIn('{{$randomBoolean}}'));\r",
                               "pm.collectionVariables.set('beneficiaryKnown', false);\r",
                               "pm.collectionVariables.set('rankingEnabled', false);\r",
-                              "pm.collectionVariables.set('beneficiaryBudget', 100);//default max 1000\r",
+                              "pm.collectionVariables.set('beneficiaryBudgetCents', 100);//default max 1000\r",
                               "pm.collectionVariables.set('rankingStartDate', today);\r",
                               "pm.collectionVariables.set('rankingEndDate', todayP1);\r",
                               "pm.collectionVariables.set('startDate', today);\r",
@@ -10188,7 +10178,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n    \"budget\": {{budget}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudget\": {{beneficiaryBudget}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
+                          "raw": "{\n    \"budgetCents\": {{budgetCents}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudgetCents\": {{beneficiaryBudgetCents}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
                           "options": {
                             "raw": {
                               "language": "json"
@@ -13525,7 +13515,7 @@
       "value": ""
     },
     {
-      "key": "budget",
+      "key": "budgetCents",
       "value": ""
     },
     {
@@ -13541,7 +13531,7 @@
       "value": ""
     },
     {
-      "key": "beneficiaryBudget",
+      "key": "beneficiaryBudgetCents",
       "value": ""
     },
     {
@@ -13633,11 +13623,11 @@
       "value": ""
     },
     {
-      "key": "effectiveAmount",
+      "key": "effectiveAmountCents",
       "value": ""
     },
     {
-      "key": "rewardAmount",
+      "key": "rewardAmountCents",
       "value": ""
     },
     {

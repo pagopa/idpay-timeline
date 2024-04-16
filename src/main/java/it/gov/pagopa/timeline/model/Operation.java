@@ -1,13 +1,13 @@
 package it.gov.pagopa.timeline.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @FieldNameConstants
@@ -50,11 +50,11 @@ public class Operation {
 
   private LocalDateTime operationDate;
 
-  private BigDecimal amount;
+  private Long amountCents;
 
-  private BigDecimal effectiveAmount;
+  private Long effectiveAmountCents;
 
-  private BigDecimal accrued;
+  private Long accruedCents;
 
   private String idTrxIssuer;
 
