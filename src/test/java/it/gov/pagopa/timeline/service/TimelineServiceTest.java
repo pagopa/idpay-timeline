@@ -71,7 +71,7 @@ class TimelineServiceTest {
   private static final String IBAN = "TEST_IBAN";
   private static final String CIRCUIT_TYPE = "00";
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
-  private static final Long AMOUNT = 5000L;
+  private static final Long AMOUNT_CENTS = 5000L;
   private static final Operation OPERATION = new Operation();
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final String OPERATION_TYPE_DELETE_INITIATIVE = "DELETE_INITIATIVE";
@@ -110,7 +110,7 @@ class TimelineServiceTest {
     OPERATION.setInstrumentId(INSTRUMENT_ID);
     OPERATION.setIban(IBAN);
     OPERATION.setOperationDate(OPERATION_DATE);
-    OPERATION.setAmountCents(AMOUNT);
+    OPERATION.setAmountCents(AMOUNT_CENTS);
     OPERATION.setCircuitType(CIRCUIT_TYPE);
     OPERATION.setChannel(CHANNEL);
     OPERATION.setStatus(STATUS);
@@ -128,7 +128,7 @@ class TimelineServiceTest {
     OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
     OPERATION_DTO.setIban(IBAN);
     OPERATION_DTO.setOperationDate(OPERATION_DATE);
-    OPERATION_DTO.setAmountCents(AMOUNT);
+    OPERATION_DTO.setAmountCents(AMOUNT_CENTS);
     OPERATION_DTO.setCircuitType(CIRCUIT_TYPE);
     OPERATION_DTO.setChannel(CHANNEL);
     OPERATION_DTO.setStatus(STATUS);
