@@ -190,12 +190,12 @@
                               "pm.collectionVariables.set('...', _.random(0, 180));\r",
                               "*/\r",
                               "//_.floor(_.random(1.0, 100000.0, true),2)\r",
-                              "pm.collectionVariables.set('budgetCents', 500);\r",
+                              "pm.collectionVariables.set('budget', 500);\r",
                               "pm.collectionVariables.set('beneficiaryType', 'PF');\r",
                               "//pm.collectionVariables.set('beneficiaryKnown', pm.variables.replaceIn('{{$randomBoolean}}'));\r",
                               "pm.collectionVariables.set('beneficiaryKnown', false);\r",
                               "pm.collectionVariables.set('rankingEnabled', false);\r",
-                              "pm.collectionVariables.set('beneficiaryBudgetCents', 100);//default max 1000\r",
+                              "pm.collectionVariables.set('beneficiaryBudget', 100);//default max 1000\r",
                               "pm.collectionVariables.set('rankingStartDate', today);\r",
                               "pm.collectionVariables.set('rankingEndDate', todayP1);\r",
                               "pm.collectionVariables.set('startDate', today);\r",
@@ -240,7 +240,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n    \"budgetCents\": {{budgetCents}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudgetCents\": {{beneficiaryBudgetCents}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
+                          "raw": "{\n    \"budget\": {{budget}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudget\": {{beneficiaryBudget}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
                           "options": {
                             "raw": {
                               "language": "json"
@@ -3236,12 +3236,12 @@
                               "pm.collectionVariables.set('...', _.random(0, 180));\r",
                               "*/\r",
                               "//_.floor(_.random(1.0, 100000.0, true),2)\r",
-                              "pm.collectionVariables.set('budgetCents', 500);\r",
+                              "pm.collectionVariables.set('budget', 500);\r",
                               "pm.collectionVariables.set('beneficiaryType', 'PF');\r",
                               "//pm.collectionVariables.set('beneficiaryKnown', pm.variables.replaceIn('{{$randomBoolean}}'));\r",
                               "pm.collectionVariables.set('beneficiaryKnown', false);\r",
                               "pm.collectionVariables.set('rankingEnabled', false);\r",
-                              "pm.collectionVariables.set('beneficiaryBudgetCents', 100);//default max 1000\r",
+                              "pm.collectionVariables.set('beneficiaryBudget', 100);//default max 1000\r",
                               "pm.collectionVariables.set('rankingStartDate', today);\r",
                               "pm.collectionVariables.set('rankingEndDate', todayP1);\r",
                               "pm.collectionVariables.set('startDate', today);\r",
@@ -3286,7 +3286,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n    \"budgetCents\": {{budgetCents}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudgetCents\": {{beneficiaryBudgetCents}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
+                          "raw": "{\n    \"budget\": {{budget}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudget\": {{beneficiaryBudget}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
                           "options": {
                             "raw": {
                               "language": "json"
@@ -7012,12 +7012,12 @@
                           "pm.collectionVariables.set('...', _.random(0, 180));\r",
                           "*/\r",
                           "//_.floor(_.random(1.0, 100000.0, true),2)\r",
-                          "pm.collectionVariables.set('budgetCents', 500);\r",
+                          "pm.collectionVariables.set('budget', 500);\r",
                           "pm.collectionVariables.set('beneficiaryType', 'PF');\r",
                           "//pm.collectionVariables.set('beneficiaryKnown', pm.variables.replaceIn('{{$randomBoolean}}'));\r",
                           "pm.collectionVariables.set('beneficiaryKnown', false);\r",
                           "pm.collectionVariables.set('rankingEnabled', false);\r",
-                          "pm.collectionVariables.set('beneficiaryBudgetCents', 100);//default max 1000\r",
+                          "pm.collectionVariables.set('beneficiaryBudget', 100);//default max 1000\r",
                           "pm.collectionVariables.set('rankingStartDate', today);\r",
                           "pm.collectionVariables.set('rankingEndDate', todayP1);\r",
                           "pm.collectionVariables.set('startDate', today);\r",
@@ -7062,7 +7062,7 @@
                     ],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n    \"budgetCents\": {{budgetCents}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudgetCents\": {{beneficiaryBudgetCents}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
+                      "raw": "{\n    \"budget\": {{budget}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudget\": {{beneficiaryBudget}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -10128,12 +10128,12 @@
                               "pm.collectionVariables.set('...', _.random(0, 180));\r",
                               "*/\r",
                               "//_.floor(_.random(1.0, 100000.0, true),2)\r",
-                              "pm.collectionVariables.set('budgetCents', 500);\r",
+                              "pm.collectionVariables.set('budget', 500);\r",
                               "pm.collectionVariables.set('beneficiaryType', 'PF');\r",
                               "//pm.collectionVariables.set('beneficiaryKnown', pm.variables.replaceIn('{{$randomBoolean}}'));\r",
                               "pm.collectionVariables.set('beneficiaryKnown', false);\r",
                               "pm.collectionVariables.set('rankingEnabled', false);\r",
-                              "pm.collectionVariables.set('beneficiaryBudgetCents', 100);//default max 1000\r",
+                              "pm.collectionVariables.set('beneficiaryBudget', 100);//default max 1000\r",
                               "pm.collectionVariables.set('rankingStartDate', today);\r",
                               "pm.collectionVariables.set('rankingEndDate', todayP1);\r",
                               "pm.collectionVariables.set('startDate', today);\r",
@@ -10178,7 +10178,7 @@
                         ],
                         "body": {
                           "mode": "raw",
-                          "raw": "{\n    \"budgetCents\": {{budgetCents}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudgetCents\": {{beneficiaryBudgetCents}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
+                          "raw": "{\n    \"budget\": {{budget}},\n    \"beneficiaryType\": \"{{beneficiaryType}}\",\n    \"beneficiaryKnown\": {{beneficiaryKnown}},\n    \"rankingEnabled\": {{rankingEnabled}},\n    \"beneficiaryBudget\": {{beneficiaryBudget}},\n    \"startDate\": \"{{startDate}}\",\n    \"endDate\": \"{{endDate}}\",\n    \"descriptionMap\": {\n        \"it\": \"it\"\n    }\n}",
                           "options": {
                             "raw": {
                               "language": "json"
@@ -13443,7 +13443,7 @@
   "variable": [
     {
       "key": "tokenIO",
-      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0X3VzZXIiLCJpYXQiOjE2NTc4MDUyNjYsImV4cCI6MTY1NzgwODg2Nn0.5TdayX1X9lrIJVJ5p3DHqt4hBd2zVyuYCtPG-Kwffds"
+      "value": ""
     },
     {
       "key": "Ocp-Apim-Trace",
