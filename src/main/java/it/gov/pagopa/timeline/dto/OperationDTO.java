@@ -1,7 +1,7 @@
 package it.gov.pagopa.timeline.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import java.math.BigDecimal;
+
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
@@ -35,9 +35,9 @@ public class OperationDTO {
 
   private LocalDateTime operationDate;
 
-  private BigDecimal amount;
+  private Long amountCents;
 
-  private BigDecimal accrued;
+  private Long accruedCents;
 
   private String businessName;
 

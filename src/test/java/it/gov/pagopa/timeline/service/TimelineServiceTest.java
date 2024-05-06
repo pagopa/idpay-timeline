@@ -28,7 +28,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -72,7 +71,7 @@ class TimelineServiceTest {
   private static final String IBAN = "TEST_IBAN";
   private static final String CIRCUIT_TYPE = "00";
   private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
-  private static final BigDecimal AMOUNT = new BigDecimal("50.00");
+  private static final Long AMOUNT_CENTS = 5000L;
   private static final Operation OPERATION = new Operation();
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final String OPERATION_TYPE_DELETE_INITIATIVE = "DELETE_INITIATIVE";
@@ -111,7 +110,7 @@ class TimelineServiceTest {
     OPERATION.setInstrumentId(INSTRUMENT_ID);
     OPERATION.setIban(IBAN);
     OPERATION.setOperationDate(OPERATION_DATE);
-    OPERATION.setAmount(AMOUNT);
+    OPERATION.setAmountCents(AMOUNT_CENTS);
     OPERATION.setCircuitType(CIRCUIT_TYPE);
     OPERATION.setChannel(CHANNEL);
     OPERATION.setStatus(STATUS);
@@ -129,7 +128,7 @@ class TimelineServiceTest {
     OPERATION_DTO.setInstrumentId(INSTRUMENT_ID);
     OPERATION_DTO.setIban(IBAN);
     OPERATION_DTO.setOperationDate(OPERATION_DATE);
-    OPERATION_DTO.setAmount(AMOUNT);
+    OPERATION_DTO.setAmountCents(AMOUNT_CENTS);
     OPERATION_DTO.setCircuitType(CIRCUIT_TYPE);
     OPERATION_DTO.setChannel(CHANNEL);
     OPERATION_DTO.setStatus(STATUS);
@@ -137,8 +136,8 @@ class TimelineServiceTest {
     DETAIL_OPERATION_DTO.setOperationType(OPERATION_TYPE);
     DETAIL_OPERATION_DTO.setEventId(EVENT_ID);
     DETAIL_OPERATION_DTO.setOperationDate(OPERATION_DATE);
-    DETAIL_OPERATION_DTO.setAmount(new BigDecimal("0.00"));
-    DETAIL_OPERATION_DTO.setAccrued(new BigDecimal("0.00"));
+    DETAIL_OPERATION_DTO.setAmountCents(0L);
+    DETAIL_OPERATION_DTO.setAccruedCents(0L);
     DETAIL_OPERATION_DTO.setMaskedPan(MASKED_PAN);
     DETAIL_OPERATION_DTO.setBrandLogo(BRAND_LOGO);
     DETAIL_OPERATION_DTO.setBrand(BRAND_LOGO);
@@ -215,7 +214,7 @@ class TimelineServiceTest {
     assertEquals(OPERATION.getIban(), res.getIban());
     assertEquals(OPERATION.getCircuitType(), res.getCircuitType());
     assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
-    assertEquals(OPERATION.getAmount(), res.getAmount());
+    assertEquals(OPERATION.getAmountCents(), res.getAmountCents());
     assertEquals(OPERATION.getStatus(), res.getStatus());
   }
 
@@ -278,7 +277,7 @@ class TimelineServiceTest {
     assertEquals(OPERATION.getIban(), res.getIban());
     assertEquals(OPERATION.getCircuitType(), res.getCircuitType());
     assertEquals(OPERATION.getOperationDate(), res.getOperationDate());
-    assertEquals(OPERATION.getAmount(), res.getAmount());
+    assertEquals(OPERATION.getAmountCents(), res.getAmountCents());
     assertEquals(OPERATION.getStatus(), res.getStatus());
   }
 

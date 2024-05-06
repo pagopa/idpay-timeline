@@ -27,9 +27,9 @@ public class OperationMapper {
         operation.setCro(queueOperationDTO.getCro());
         operation.setRewardFeedbackProgressive(queueOperationDTO.getRewardFeedbackProgressive());
         operation.setOperationDate(queueOperationDTO.getOperationDate());
-        operation.setAmount(queueOperationDTO.getAmount());
-        operation.setEffectiveAmount(queueOperationDTO.getEffectiveAmount());
-        operation.setAccrued(queueOperationDTO.getAccrued());
+        operation.setAmountCents(queueOperationDTO.getAmountCents());
+        operation.setEffectiveAmountCents(queueOperationDTO.getEffectiveAmountCents());
+        operation.setAccruedCents(queueOperationDTO.getAccruedCents());
         operation.setIdTrxIssuer(queueOperationDTO.getIdTrxIssuer());
         operation.setIdTrxAcquirer(queueOperationDTO.getIdTrxAcquirer());
         operation.setStatus(queueOperationDTO.getStatus());
@@ -48,8 +48,8 @@ public class OperationMapper {
                 .operationType(operation.getOperationType())
                 .eventId(operation.getEventId())
                 .operationDate(operation.getOperationDate())
-                .amount(operation.getEffectiveAmount())
-                .accrued(operation.getAccrued())
+                .amountCents(operation.getEffectiveAmountCents())
+                .accruedCents(operation.getAccruedCents())
                 .channel(operation.getChannel())
                 .circuitType(operation.getCircuitType())
                 .maskedPan(operation.getMaskedPan())
@@ -69,8 +69,8 @@ public class OperationMapper {
                 .operationType(operation.getOperationType())
                 .eventId(operation.getEventId())
                 .operationDate(operation.getOperationDate())
-                .amount(operation.getEffectiveAmount())
-                .accrued(operation.getAccrued())
+                .amountCents(operation.getEffectiveAmountCents())
+                .accruedCents(operation.getAccruedCents())
                 .channel(operation.getChannel())
                 .circuitType(operation.getCircuitType())
                 .maskedPan(operation.getMaskedPan())
