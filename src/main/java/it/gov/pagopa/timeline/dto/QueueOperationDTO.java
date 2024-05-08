@@ -2,7 +2,7 @@ package it.gov.pagopa.timeline.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotBlank;
@@ -52,11 +52,11 @@ public class QueueOperationDTO {
 
   private LocalDateTime operationDate;
 
-  private BigDecimal amount;
+  private Long amountCents;
 
-  private BigDecimal effectiveAmount;
+  private Long effectiveAmountCents;
 
-  private BigDecimal accrued;
+  private Long accruedCents;
 
   private String idTrxIssuer;
 
