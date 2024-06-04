@@ -32,10 +32,10 @@ channels:
   command-operation:
     subscribe:
       message:
-        $ref: '#/components/messages/QueueCommandOperationDTO'
+        $ref: '#/components/messages/DeleteInitiative'
       bindings:
         kafka:
-          topic: idpay-timeline
+          topic: idpay-commands
       tags:
         - name: "commandOperation"
 components:
@@ -54,15 +54,15 @@ components:
       summary: Informs applications of new events
       payload:
         oneOf:
-          - $ref: "https://raw.githubusercontent.com/pagopa/idpay-wallet/release-dev/specs/asyncapi.yml#/components/schemas/QueueOperationDTO"
+          - $ref: "https://raw.githubusercontent.com/pagopa/idpay-wallet/main/specs/asyncapi.yml#/components/schemas/QueueOperationDTO"
           - $ref: "#/components/schemas/TimelineEvent"
-    QueueCommandOperationDTO:
+    DeleteInitiative:
       contentType: application/json
       description: >-
         Event consumed from application when a delete initiative command has published
       summary: Delete documents of the initiative
-      payload: #TODO update link
-        $ref: "https://raw.githubusercontent.com/pagopa/idpay-portal-welfare-backend-initiative/IDP-2524-censimento-async-idpay-portal-welfare-backend-initiative/specs/asyncapi.yml#/components/schemas/QueueCommandOperationDTO"
+      payload:
+        $ref: "https://raw.githubusercontent.com/pagopa/idpay-portal-welfare-backend-initiative/main/specs/asyncapi.yml#/components/schemas/QueueCommandOperationDTO"
 
   schemas:
     TimelineEvent:
