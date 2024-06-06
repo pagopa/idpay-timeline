@@ -1,0 +1,191 @@
+asyncapi: 2.0.0
+info:
+  title: Timeline Service
+  version: 1.0.0
+  description: >-
+    Its purpose is to notify and handle timeline events
+tags:
+  - name: "sendTimelineEvent"
+    description: "Send new timeline event"
+  - name: "handleTimelineEvent"
+    description: "Handle timeline event"
+  - name: "commandOperation"
+    description: "Cancel initiative event"
+channels:
+  timeline-event:
+    publish:
+      message:
+        $ref: '#/components/messages/TimelineEvent'
+      bindings:
+        kafka:
+          topic: idpay-timeline
+      tags:
+        - name: "sendTimelineEvent"
+    subscribe:
+      message:
+        $ref: '#/components/messages/HandleTimelineEvent'
+      bindings:
+        kafka:
+          topic: idpay-timeline
+      tags:
+        - name: "handleTimelineEvent"
+  command-operation:
+    subscribe:
+      message:
+        $ref: '#/components/messages/DeleteInitiative'
+      bindings:
+        kafka:
+          topic: idpay-commands
+      tags:
+        - name: "commandOperation"
+components:
+  messages:
+    TimelineEvent:
+      contentType: application/json
+      description: >-
+        Create timeline events describing the citizen's onboarding status, mangement payment instruments and the trasactions performed by the beneficiary
+      summary: Informs applications of new events
+      payload:
+        $ref: "#/components/schemas/TimelineEvent"
+    HandleTimelineEvent:
+      contentType: application/json
+      description: >-
+        Handle timeline events describing the citizen's onboarding status, mangement payment instruments and the trasactions performed by the beneficiary
+      summary: Informs applications of new events
+      payload:
+        oneOf:
+          - $ref: "https://raw.githubusercontent.com/pagopa/idpay-wallet/main/specs/asyncapi.yml#/components/schemas/QueueOperationDTO"
+          - $ref: "#/components/schemas/TimelineEvent"
+    DeleteInitiative:
+      contentType: application/json
+      description: >-
+        Event consumed from application when a delete initiative command has published
+      summary: Delete documents of the initiative
+      payload:
+        $ref: "https://raw.githubusercontent.com/pagopa/idpay-portal-welfare-backend-initiative/main/specs/asyncapi.yml#/components/schemas/QueueCommandOperationDTO"
+
+  schemas:
+    TimelineEvent:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: "ID of the user"
+          example: "bcf3651c-d2d3-4998-81a9-5f24302ab674"
+        initiativeId:
+          type: string
+          description: "ID of the initiative"
+          example: "661626073785876cb5aa7601"
+        operationType:
+          type: string
+          description: "Operation type"
+          example: "SUSPENDED"
+        rewardNotificationId:
+          type: string
+          description: "ID of the reward notification"
+          example: "ad300230-3f80-41f5-a5fc-70b1d47312d4_1712727698644"
+        eventId:
+          type: string
+          description: "ID of the event"
+          example: "EVT1234567890"
+        brandLogo:
+          type: string
+          description: "Card's brand logo URL"
+          example: "https://example.com/logo.png"
+        brand:
+          type: string
+          description: "Card's brand"
+          example: "mastercard"
+        maskedPan:
+          type: string
+          description: "Masked PAN (Primary Account Number)"
+          example: "1234********5678"
+        instrumentId:
+          type: string
+          description: "ID of the instrument"
+          example: "INSTR1234567890"
+        circuitType:
+          type: string
+          description: "Circuit type"
+          example: "mastercard"
+        iban:
+          type: string
+          description: "IBAN (International Bank Account Number)"
+          example: "IT60X0542811101000000123456"
+        channel:
+          type: string
+          description: "ID of the user associated"
+          example: "ad300230-3f80-41f5-a5fc-70b1d47312d4_1712727698644"
+        instrumentType:
+          type: string
+          description: "Instrument type"
+          example: "ad300230-3f80-41f5-a5fc-70b1d47312d4_1712727698644"
+        cro:
+          type: string
+          description: "Code that identifies a bank transaction/credit transfer"
+          example: "CRO1234567890"
+        rewardFeedbackProgressive:
+          type: integer
+          format: int64
+          description: "Reward feedback progressive number"
+          example: 5
+        operationDate:
+          type: string
+          format: date-time
+          description: "Operation date"
+          example: "2024-04-10T07:41:38.644+02:00"
+        amountCents:
+          type: integer
+          format: int64
+          description: "Amount in cents"
+          example: 30000
+        effectiveAmountCents:
+          type: integer
+          format: int64
+          description: "Effective amount in cents"
+          example: 30000
+        accruedCents:
+          type: integer
+          format: int64
+          description: "Accrued amount in cents"
+          example: 30000
+        idTrxIssuer:
+          type: string
+          description: "ID of the transaction issuer"
+          example: "APIMREQUESTID"
+        idTrxAcquirer:
+          type: string
+          description: "ID of the transaction acquirer"
+          example: "198937549309371755007410777179935955803"
+        status:
+          type: string
+          description: "Operation status"
+          example: "PENDING"
+        refundType:
+          type: string
+          description: "Refund type"
+          example: "FULL"
+        startDate:
+          type: string
+          format: date
+          description: "Start date"
+          example: "2024-04-10"
+        endDate:
+          type: string
+          format: date
+          description: "End date"
+          example: "2024-04-10"
+        transferDate:
+          type: string
+          format: date
+          description: "Transfer date"
+          example: "2024-04-10"
+        userNotificationDate:
+          type: string
+          format: date
+          description: "User notification date"
+          example: "2024-04-10"
+        businessName:
+          type: string
+          description: "Business name"
+          example: "Merchant"
