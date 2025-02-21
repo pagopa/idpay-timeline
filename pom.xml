@@ -77,6 +77,37 @@
             <version>2.2</version>
         </dependency>
 
+        <!-- Fix per GHSA-gvpg-vgmx-xg6w (nimbus-jose-jwt) -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <!-- Forced to > 9.37 due to https://github.com/advisories/GHSA-gvpg-vgmx-xg6w -->
+            <version>9.37.3</version>
+        </dependency>
+
+        <!-- Fix per GHSA-5jpm-x58v-624v (netty-codec-http) -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec-http</artifactId>
+            <!-- Forced to >= 4.1.108.Final due to https://github.com/advisories/GHSA-5jpm-x58v-624v -->
+            <version>4.1.108.Final</version>
+        </dependency>
+
+        <!-- Fix per CVE-2023-35116 (jackson-databind) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <!-- Forced to >= 2.15.3 due to https://nvd.nist.gov/vuln/detail/CVE-2023-35116 -->
+            <version>2.15.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <!-- Forced to > 2.15.3 due to https://nvd.nist.gov/vuln/detail/CVE-2023-35116 -->
+            <version>2.16.0</version>
+        </dependency>
+
 
         <!--TEST-->
         <dependency>
