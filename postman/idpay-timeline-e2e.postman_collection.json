@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "8737441b-1a7d-470a-a5ca-56213193cbcd",
+		"_postman_id": "1e36c342-c8fb-4b09-8a3a-e0971f1685eb",
 		"name": "Timeline - e2e",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "16161662"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "37939936"
 	},
 	"item": [
 		{
@@ -70,17 +70,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -130,13 +120,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "POST",
 												"header": [
@@ -158,16 +144,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/info",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"info"
-													]
-												},
+												"url": "{{baseUrlIdPay}}/initiative/info",
 												"description": "Save initiative and first subset of data 'general info'"
 											},
 											"response": []
@@ -225,13 +202,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -293,13 +266,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [],
@@ -312,17 +281,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"beneficiary"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary"
 											},
 											"response": []
 										},
@@ -383,13 +342,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -460,13 +415,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -567,17 +518,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -610,13 +551,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalTokenPagopa}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalTokenPagopa}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -629,17 +566,7 @@
 														"value": "application/json"
 													}
 												],
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/approved",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"approved"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/approved"
 											},
 											"response": []
 										}
@@ -702,17 +629,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -749,27 +666,13 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [],
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/published",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"published"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/published"
 											},
 											"response": []
 										}
@@ -830,17 +733,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -870,13 +763,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [],
@@ -966,27 +855,13 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
-												"url": {
-													"raw": "{{baseUrlIdPay}}merchant/initiative/{{initiativeId}}/merchants",
-													"host": [
-														"{{baseUrlIdPay}}merchant"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"merchants"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/merchant/initiative/{{initiativeId}}/merchants"
 											},
 											"response": []
 										}
@@ -1096,13 +971,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -1126,15 +997,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}onboarding/",
-											"host": [
-												"{{baseUrlIdPay}}onboarding"
-											],
-											"path": [
-												""
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/"
 									},
 									"response": []
 								},
@@ -1157,13 +1020,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -1187,15 +1046,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}onboarding/initiative",
-											"host": [
-												"{{baseUrlIdPay}}onboarding"
-											],
-											"path": [
-												"initiative"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/initiative"
 									},
 									"response": []
 								},
@@ -1218,13 +1069,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -1237,15 +1084,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}onboarding/consent",
-											"host": [
-												"{{baseUrlIdPay}}onboarding"
-											],
-											"path": [
-												"consent"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/consent"
 									},
 									"response": []
 								}
@@ -1350,13 +1189,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "POST",
 										"header": [],
@@ -1369,16 +1204,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}wallet/code/generate",
-											"host": [
-												"{{baseUrlIdPay}}wallet"
-											],
-											"path": [
-												"code",
-												"generate"
-											]
-										}
+										"url": "{{baseUrlIdPay}}wallet/code/generate"
 									},
 									"response": []
 								},
@@ -1416,13 +1242,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -1435,17 +1257,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}wallet/{{initiativeId}}/code/instruments",
-											"host": [
-												"{{baseUrlIdPay}}wallet"
-											],
-											"path": [
-												"{{initiativeId}}",
-												"code",
-												"instruments"
-											]
-										}
+										"url": "{{baseUrlIdPay}}wallet/{{initiativeId}}/code/instruments"
 									},
 									"response": []
 								},
@@ -1499,13 +1311,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -1534,16 +1342,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}wallet/{{initiativeId}}/instruments",
-											"host": [
-												"{{baseUrlIdPay}}wallet"
-											],
-											"path": [
-												"{{initiativeId}}",
-												"instruments"
-											]
-										}
+										"url": "{{baseUrlIdPay}}wallet/{{initiativeId}}/instruments"
 									},
 									"response": []
 								}
@@ -1587,13 +1386,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -1603,18 +1398,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/suspend",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"beneficiary",
-												"suspend"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/suspend"
 									},
 									"response": []
 								}
@@ -1658,13 +1442,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -1674,18 +1454,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/readmit",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"beneficiary",
-												"readmit"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/readmit"
 									},
 									"response": []
 								}
@@ -1731,13 +1500,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "DELETE",
 										"header": [
@@ -1761,17 +1526,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/unsubscribe",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}",
-												"unsubscribe"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/unsubscribe"
 									},
 									"response": []
 								}
@@ -1824,13 +1579,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -1895,13 +1646,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -1972,13 +1719,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2040,13 +1783,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2117,13 +1856,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2184,13 +1919,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2262,13 +1993,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2329,13 +2056,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2406,13 +2129,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2473,13 +2192,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2551,13 +2266,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2631,13 +2342,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2716,13 +2423,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2794,13 +2497,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -2943,13 +2642,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
@@ -3021,26 +2716,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/{{initiativeId_discount}}/{{operationId}}",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"{{initiativeId_discount}}",
-												"{{operationId}}"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/{{initiativeId_discount}}/{{operationId}}"
 									},
 									"response": []
 								}
@@ -3066,17 +2748,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}",
-							"host": [
-								"{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative"
-							],
-							"path": [
-								"idpay",
-								"initiative",
-								"{{initiativeId}}"
-							]
-						}
+						"url": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}"
 					},
 					"response": []
 				}
@@ -3146,17 +2818,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -3206,13 +2868,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "POST",
 												"header": [
@@ -3234,16 +2892,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/info",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"info"
-													]
-												},
+												"url": "{{baseUrlIdPay}}/initiative/info",
 												"description": "Save initiative and first subset of data 'general info'"
 											},
 											"response": []
@@ -3301,13 +2950,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -3330,11 +2975,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{baseUrlIdPay}}/:initiativeId/general",
+													"raw": "{{baseUrlIdPay}}/initiative/:initiativeId/general",
 													"host": [
 														"{{baseUrlIdPay}}"
 													],
 													"path": [
+														"initiative",
 														":initiativeId",
 														"general"
 													],
@@ -3368,13 +3014,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [],
@@ -3387,17 +3029,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"beneficiary"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary"
 											},
 											"response": []
 										},
@@ -3458,13 +3090,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -3487,11 +3115,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{baseUrlIdPay}}/:initiativeId/reward",
+													"raw": "{{baseUrlIdPay}}/initiative/:initiativeId/reward",
 													"host": [
 														"{{baseUrlIdPay}}"
 													],
 													"path": [
+														"initiative",
 														":initiativeId",
 														"reward"
 													],
@@ -3534,13 +3163,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -3563,11 +3188,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{baseUrlIdPay}}/:initiativeId/refund",
+													"raw": "{{baseUrlIdPay}}/initiative/:initiativeId/refund",
 													"host": [
 														"{{baseUrlIdPay}}"
 													],
 													"path": [
+														"initiative",
 														":initiativeId",
 														"refund"
 													],
@@ -3640,17 +3266,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -3683,13 +3299,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalTokenPagopa}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalTokenPagopa}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -3702,17 +3314,7 @@
 														"value": "application/json"
 													}
 												],
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/approved",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"approved"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/approved"
 											},
 											"response": []
 										}
@@ -3775,17 +3377,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -3822,27 +3414,13 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [],
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/published",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"published"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/published"
 											},
 											"response": []
 										}
@@ -3903,17 +3481,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -3943,13 +3511,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [],
@@ -4039,27 +3603,13 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
-												"url": {
-													"raw": "{{baseUrlIdPay}}merchant/initiative/{{initiativeId}}/merchants",
-													"host": [
-														"{{baseUrlIdPay}}merchant"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"merchants"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/merchant/initiative/{{initiativeId}}/merchants"
 											},
 											"response": []
 										}
@@ -4175,13 +3725,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -4205,15 +3751,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}onboarding/",
-											"host": [
-												"{{baseUrlIdPay}}onboarding"
-											],
-											"path": [
-												""
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/"
 									},
 									"response": []
 								},
@@ -4236,13 +3774,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -4266,15 +3800,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}onboarding/initiative",
-											"host": [
-												"{{baseUrlIdPay}}onboarding"
-											],
-											"path": [
-												"initiative"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/initiative"
 									},
 									"response": []
 								},
@@ -4297,13 +3823,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -4316,15 +3838,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}onboarding/consent",
-											"host": [
-												"{{baseUrlIdPay}}onboarding"
-											],
-											"path": [
-												"consent"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/consent"
 									},
 									"response": []
 								}
@@ -4366,13 +3880,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{merchantPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{merchantPortalToken}}"
+											}
 										},
 										"method": "POST",
 										"header": [],
@@ -4385,16 +3895,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/token/test",
-											"host": [
-												"{{baseUrlIdPay}}merchant"
-											],
-											"path": [
-												"token",
-												"test"
-											]
-										}
+										"url": "{{baseUrlIdPay}}merchant/token/test"
 									},
 									"response": []
 								},
@@ -4447,13 +3948,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{merchantPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{merchantPortalToken}}"
+											}
 										},
 										"method": "POST",
 										"header": [
@@ -4477,16 +3974,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/portal/transactions",
-											"host": [
-												"{{baseUrlIdPay}}merchant"
-											],
-											"path": [
-												"portal",
-												"transactions"
-											]
-										}
+										"url": "{{baseUrlIdPay}}merchant/portal/transactions"
 									},
 									"response": []
 								},
@@ -4597,22 +4085,19 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrlIdPay}}payment/qr-code/:trxCode/relate-user",
+											"raw": "{{baseUrlIdPay}}/payment/qr-code/:trxCode/relate-user",
 											"host": [
-												"{{baseUrlIdPay}}payment"
+												"{{baseUrlIdPay}}"
 											],
 											"path": [
+												"payment",
 												"qr-code",
 												":trxCode",
 												"relate-user"
@@ -4671,13 +4156,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -4745,13 +4226,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{merchantPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{merchantPortalToken}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -4762,18 +4239,7 @@
 												"disabled": true
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/portal/initiatives/{{initiativeId}}/transactions",
-											"host": [
-												"{{baseUrlIdPay}}merchant"
-											],
-											"path": [
-												"portal",
-												"initiatives",
-												"{{initiativeId}}",
-												"transactions"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/merchant/portal/initiatives/{{initiativeId}}/transactions"
 									},
 									"response": []
 								},
@@ -4807,13 +4273,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{merchantPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{merchantPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -4828,16 +4290,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}payment/{{transactionId}}/confirm",
-											"host": [
-												"{{baseUrlIdPay}}payment"
-											],
-											"path": [
-												"{{transactionId}}",
-												"confirm"
-											]
-										}
+										"url": "{{baseUrlIdPay}}payment/{{transactionId}}/confirm"
 									},
 									"response": []
 								}
@@ -4894,16 +4347,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/token/test",
-											"host": [
-												"{{baseUrlIdPay}}merchant"
-											],
-											"path": [
-												"token",
-												"test"
-											]
-										}
+										"url": "{{baseUrlIdPay}}merchant/token/test"
 									},
 									"response": []
 								},
@@ -4959,13 +4403,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{merchantPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{merchantPortalToken}}"
+											}
 										},
 										"method": "POST",
 										"header": [
@@ -4995,16 +4435,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/portal/transactions",
-											"host": [
-												"{{baseUrlIdPay}}merchant"
-											],
-											"path": [
-												"portal",
-												"transactions"
-											]
-										}
+										"url": "{{baseUrlIdPay}}merchant/portal/transactions"
 									},
 									"response": []
 								},
@@ -5116,13 +4547,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -5191,13 +4618,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -5254,13 +4677,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{merchantPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{merchantPortalToken}}"
+											}
 										},
 										"method": "DELETE",
 										"header": [
@@ -5336,13 +4755,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{merchantPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{merchantPortalToken}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -5353,18 +4768,7 @@
 												"disabled": true
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/portal/initiatives/{{initiativeId}}/transactions",
-											"host": [
-												"{{baseUrlIdPay}}merchant"
-											],
-											"path": [
-												"portal",
-												"initiatives",
-												"{{initiativeId}}",
-												"transactions"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/merchant/portal/initiatives/{{initiativeId}}/transactions"
 									},
 									"response": []
 								}
@@ -5408,13 +4812,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -5424,18 +4824,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/suspend",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"beneficiary",
-												"suspend"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/suspend"
 									},
 									"response": []
 								}
@@ -5479,13 +4868,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -5495,18 +4880,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/readmit",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"beneficiary",
-												"readmit"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/readmit"
 									},
 									"response": []
 								}
@@ -5552,13 +4926,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "DELETE",
 										"header": [
@@ -5582,16 +4952,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}wallet/{{initiativeId}}/unsubscribe",
-											"host": [
-												"{{baseUrlIdPay}}wallet"
-											],
-											"path": [
-												"{{initiativeId}}",
-												"unsubscribe"
-											]
-										}
+										"url": "{{baseUrlIdPay}}wallet/{{initiativeId}}/unsubscribe"
 									},
 									"response": []
 								}
@@ -5645,13 +5006,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -5716,13 +5073,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -5793,26 +5146,13 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
-												"url": {
-													"raw": "{{baseUrlIdPay}}/{{initiativeId}}/{{operationId}}",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"{{initiativeId}}",
-														"{{operationId}}"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/{{initiativeId}}/{{operationId}}"
 											},
 											"response": []
 										}
@@ -5854,13 +5194,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -5933,13 +5269,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6000,13 +5332,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6077,13 +5405,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6144,13 +5468,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6221,13 +5541,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6288,13 +5604,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6365,13 +5677,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6445,13 +5753,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6530,13 +5834,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6607,13 +5907,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -6756,13 +6052,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
@@ -6834,26 +6126,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/{{initiativeId_discount}}/{{operationId}}",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"{{initiativeId_discount}}",
-												"{{operationId}}"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/{{initiativeId_discount}}/{{operationId}}"
 									},
 									"response": []
 								}
@@ -6879,17 +6158,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}",
-							"host": [
-								"{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative"
-							],
-							"path": [
-								"idpay",
-								"initiative",
-								"{{initiativeId}}"
-							]
-						}
+						"url": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}"
 					},
 					"response": []
 				}
@@ -6956,17 +6225,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/welfare/token/test",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"welfare",
-												"token",
-												"test"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/welfare/token/test"
 									},
 									"response": []
 								},
@@ -7016,13 +6275,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "POST",
 										"header": [
@@ -7044,16 +6299,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/info",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"info"
-											]
-										},
+										"url": "{{baseUrlIdPay}}/initiative/info",
 										"description": "Save initiative and first subset of data 'general info'"
 									},
 									"response": []
@@ -7111,13 +6357,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -7140,11 +6382,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrlIdPay}}/:initiativeId/general",
+											"raw": "{{baseUrlIdPay}}/initiative/:initiativeId/general",
 											"host": [
 												"{{baseUrlIdPay}}"
 											],
 											"path": [
+												"initiative",
 												":initiativeId",
 												"general"
 											],
@@ -7178,13 +6421,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -7197,17 +6436,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"beneficiary"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary"
 									},
 									"response": []
 								},
@@ -7268,13 +6497,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -7297,11 +6522,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrlIdPay}}/:initiativeId/reward",
+											"raw": "{{baseUrlIdPay}}/initiative/:initiativeId/reward",
 											"host": [
 												"{{baseUrlIdPay}}"
 											],
 											"path": [
+												"initiative",
 												":initiativeId",
 												"reward"
 											],
@@ -7344,13 +6570,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -7373,11 +6595,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrlIdPay}}/:initiativeId/refund",
+											"raw": "{{baseUrlIdPay}}/initiative/:initiativeId/refund",
 											"host": [
 												"{{baseUrlIdPay}}"
 											],
 											"path": [
+												"initiative",
 												":initiativeId",
 												"refund"
 											],
@@ -7450,17 +6673,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/welfare/token/test",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"welfare",
-												"token",
-												"test"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/welfare/token/test"
 									},
 									"response": []
 								},
@@ -7493,13 +6706,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalTokenPagopa}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalTokenPagopa}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -7512,17 +6721,7 @@
 												"value": "application/json"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/approved",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"approved"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/approved"
 									},
 									"response": []
 								}
@@ -7585,17 +6784,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/welfare/token/test",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"welfare",
-												"token",
-												"test"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/welfare/token/test"
 									},
 									"response": []
 								},
@@ -7632,27 +6821,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/published",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"published"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/published"
 									},
 									"response": []
 								}
@@ -7713,17 +6888,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/welfare/token/test",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"welfare",
-												"token",
-												"test"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/welfare/token/test"
 									},
 									"response": []
 								},
@@ -7753,13 +6918,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -7849,27 +7010,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/initiative/{{initiativeId}}/merchants",
-											"host": [
-												"{{baseUrlIdPay}}merchant"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"merchants"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/merchant/initiative/{{initiativeId}}/merchants"
 									},
 									"response": []
 								}
@@ -7984,13 +7131,9 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{tokenIO}}",
-											"type": "string"
-										}
-									]
+									"bearer": {
+										"token": "{{tokenIO}}"
+									}
 								},
 								"method": "PUT",
 								"header": [
@@ -8014,15 +7157,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrlIdPay}}onboarding/",
-									"host": [
-										"{{baseUrlIdPay}}onboarding"
-									],
-									"path": [
-										""
-									]
-								}
+								"url": "{{baseUrlIdPay}}/onboarding/"
 							},
 							"response": []
 						},
@@ -8045,13 +7180,9 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{tokenIO}}",
-											"type": "string"
-										}
-									]
+									"bearer": {
+										"token": "{{tokenIO}}"
+									}
 								},
 								"method": "PUT",
 								"header": [
@@ -8075,15 +7206,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrlIdPay}}onboarding/initiative",
-									"host": [
-										"{{baseUrlIdPay}}onboarding"
-									],
-									"path": [
-										"initiative"
-									]
-								}
+								"url": "{{baseUrlIdPay}}/onboarding/initiative"
 							},
 							"response": []
 						},
@@ -8106,13 +7229,9 @@
 							"request": {
 								"auth": {
 									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{tokenIO}}",
-											"type": "string"
-										}
-									]
+									"bearer": {
+										"token": "{{tokenIO}}"
+									}
 								},
 								"method": "PUT",
 								"header": [],
@@ -8125,15 +7244,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrlIdPay}}onboarding/consent",
-									"host": [
-										"{{baseUrlIdPay}}onboarding"
-									],
-									"path": [
-										"consent"
-									]
-								}
+								"url": "{{baseUrlIdPay}}/onboarding/consent"
 							},
 							"response": []
 						}
@@ -8194,13 +7305,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "POST",
 										"header": [
@@ -8219,15 +7326,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}payment/bar-code",
-											"host": [
-												"{{baseUrlIdPay}}payment"
-											],
-											"path": [
-												"bar-code"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/payment/bar-code"
 									},
 									"response": []
 								},
@@ -8278,17 +7377,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/merchant/token/test",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"merchant",
-												"token",
-												"test"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/merchant/token/test"
 									},
 									"response": []
 								},
@@ -8337,13 +7426,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{merchantPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{merchantPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -8357,11 +7442,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/portal/transactions/bar-code/:trxCode/authorize",
+											"raw": "{{baseUrlIdPay}}/merchant/portal/transactions/bar-code/:trxCode/authorize",
 											"host": [
-												"{{baseUrlIdPay}}merchant"
+												"{{baseUrlIdPay}}"
 											],
 											"path": [
+												"merchant",
 												"portal",
 												"transactions",
 												"bar-code",
@@ -8422,13 +7508,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{merchantPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{merchantPortalToken}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -8438,18 +7520,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/portal/initiatives/{{initiativeId}}/transactions",
-											"host": [
-												"{{baseUrlIdPay}}merchant"
-											],
-											"path": [
-												"portal",
-												"initiatives",
-												"{{initiativeId}}",
-												"transactions"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/merchant/portal/initiatives/{{initiativeId}}/transactions"
 									},
 									"response": []
 								},
@@ -8495,18 +7566,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{paymentServerUrl}}/idpay/payment/{{transactionId}}/confirm",
-											"host": [
-												"{{paymentServerUrl}}"
-											],
-											"path": [
-												"idpay",
-												"payment",
-												"{{transactionId}}",
-												"confirm"
-											]
-										}
+										"url": "{{paymentServerUrl}}/idpay/payment/{{transactionId}}/confirm"
 									},
 									"response": []
 								}
@@ -8550,13 +7610,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -8566,18 +7622,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/suspend",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"beneficiary",
-												"suspend"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/suspend"
 									},
 									"response": []
 								}
@@ -8621,13 +7666,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{identityPortalToken}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{identityPortalToken}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -8637,18 +7678,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/readmit",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"initiative",
-												"{{initiativeId}}",
-												"beneficiary",
-												"readmit"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary/readmit"
 									},
 									"response": []
 								}
@@ -8694,13 +7724,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "DELETE",
 										"header": [
@@ -8724,16 +7750,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}wallet/{{initiativeId}}/unsubscribe",
-											"host": [
-												"{{baseUrlIdPay}}wallet"
-											],
-											"path": [
-												"{{initiativeId}}",
-												"unsubscribe"
-											]
-										}
+										"url": "{{baseUrlIdPay}}wallet/{{initiativeId}}/unsubscribe"
 									},
 									"response": []
 								}
@@ -8787,13 +7804,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -8858,13 +7871,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -8935,26 +7944,13 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
-												"url": {
-													"raw": "{{baseUrlIdPay}}/{{initiativeId}}/{{operationId}}",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"{{initiativeId}}",
-														"{{operationId}}"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/{{initiativeId}}/{{operationId}}"
 											},
 											"response": []
 										}
@@ -8996,13 +7992,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9075,13 +8067,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9142,13 +8130,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9219,13 +8203,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9286,13 +8266,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9363,13 +8339,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9430,13 +8402,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9507,13 +8475,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9587,13 +8551,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9672,13 +8632,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9749,13 +8705,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -9898,13 +8850,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
@@ -9977,27 +8925,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/timeline/{{initiativeId_discount}}/{{operationId}}",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"timeline",
-												"{{initiativeId_discount}}",
-												"{{operationId}}"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/timeline/{{initiativeId_discount}}/{{operationId}}"
 									},
 									"response": []
 								}
@@ -10023,17 +8957,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}",
-							"host": [
-								"{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative"
-							],
-							"path": [
-								"idpay",
-								"initiative",
-								"{{initiativeId}}"
-							]
-						}
+						"url": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}"
 					},
 					"response": []
 				}
@@ -10103,17 +9027,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -10163,13 +9077,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "POST",
 												"header": [
@@ -10191,16 +9101,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/info",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"info"
-													]
-												},
+												"url": "{{baseUrlIdPay}}/initiative/info",
 												"description": "Save initiative and first subset of data 'general info'"
 											},
 											"response": []
@@ -10258,13 +9159,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -10326,13 +9223,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [],
@@ -10345,18 +9238,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "initiative.{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary",
-													"host": [
-														"initiative",
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"beneficiary"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/beneficiary"
 											},
 											"response": []
 										},
@@ -10417,13 +9299,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -10494,13 +9372,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -10601,17 +9475,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -10644,13 +9508,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalTokenPagopa}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalTokenPagopa}}"
+													}
 												},
 												"method": "PUT",
 												"header": [
@@ -10663,17 +9523,7 @@
 														"value": "application/json"
 													}
 												],
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/approved",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"approved"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/approved"
 											},
 											"response": []
 										}
@@ -10736,17 +9586,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -10783,27 +9623,13 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [],
-												"url": {
-													"raw": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/published",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"initiative",
-														"{{initiativeId}}",
-														"published"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/initiative/{{initiativeId}}/published"
 											},
 											"response": []
 										}
@@ -10864,17 +9690,7 @@
 														}
 													}
 												},
-												"url": {
-													"raw": "{{baseUrlIdPay}}/welfare/token/test",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"welfare",
-														"token",
-														"test"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/welfare/token/test"
 											},
 											"response": []
 										},
@@ -10904,13 +9720,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "PUT",
 												"header": [],
@@ -11000,28 +9812,13 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{identityPortalToken}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{identityPortalToken}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
-												"url": {
-													"raw": "{{baseUrlIdPay}}/merchant/initiative/{{initiativeId}}/merchants",
-													"host": [
-														"{{baseUrlIdPay}}"
-													],
-													"path": [
-														"merchant",
-														"initiative",
-														"{{initiativeId}}",
-														"merchants"
-													]
-												}
+												"url": "{{baseUrlIdPay}}/merchant/initiative/{{initiativeId}}/merchants"
 											},
 											"response": []
 										}
@@ -11136,13 +9933,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -11166,16 +9959,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/onboarding/",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"onboarding",
-												""
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/"
 									},
 									"response": []
 								},
@@ -11198,13 +9982,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -11228,16 +10008,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/onboarding/initiative",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"onboarding",
-												"initiative"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/initiative"
 									},
 									"response": []
 								},
@@ -11260,13 +10031,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [],
@@ -11279,16 +10046,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/onboarding/consent",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"onboarding",
-												"consent"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/consent"
 									},
 									"response": []
 								}
@@ -11331,13 +10089,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -11352,18 +10106,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/instruments/{{idWallet_1}}",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}",
-												"instruments",
-												"{{idWallet_1}}"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/instruments/{{idWallet_1}}"
 									},
 									"response": []
 								},
@@ -11406,13 +10149,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -11427,17 +10166,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/status",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}",
-												"status"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/status"
 									},
 									"response": []
 								},
@@ -11466,13 +10195,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -11487,16 +10212,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}"
 									},
 									"response": []
 								}
@@ -11529,13 +10245,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "PUT",
 										"header": [
@@ -11559,17 +10271,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/iban",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}",
-												"iban"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/iban"
 									},
 									"response": []
 								},
@@ -11602,13 +10304,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -11623,17 +10321,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/status",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}",
-												"status"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/status"
 									},
 									"response": []
 								},
@@ -11661,13 +10349,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -11682,16 +10366,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}"
 									},
 									"response": []
 								},
@@ -11720,13 +10395,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -11741,16 +10412,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}"
 									},
 									"response": []
 								},
@@ -11780,13 +10442,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
@@ -11799,15 +10457,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/iban",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"iban"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/iban"
 									},
 									"response": []
 								}
@@ -11866,13 +10516,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -11901,17 +10547,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/instruments",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}",
-												"instruments"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/instruments"
 									},
 									"response": []
 								},
@@ -11938,13 +10574,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "DELETE",
 										"header": [
@@ -11959,18 +10591,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/instruments/{{instrumentId}}",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}",
-												"instruments",
-												"{{instrumentId}}"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/instruments/{{instrumentId}}"
 									},
 									"response": []
 								}
@@ -12016,13 +10637,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "DELETE",
 										"header": [
@@ -12046,17 +10663,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/unsubscribe",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}",
-												"unsubscribe"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/unsubscribe"
 									},
 									"response": []
 								},
@@ -12100,13 +10707,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [
@@ -12121,17 +10724,7 @@
 												"type": "text"
 											}
 										],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/status",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"wallet",
-												"{{initiativeId}}",
-												"status"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/status"
 									},
 									"response": []
 								},
@@ -12177,27 +10770,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/onboarding/{{initiativeId}}/status",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"onboarding",
-												"{{initiativeId}}",
-												"status"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/onboarding/{{initiativeId}}/status"
 									},
 									"response": []
 								}
@@ -12250,13 +10829,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12322,13 +10897,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12400,13 +10971,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12468,13 +11035,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12546,13 +11109,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12615,13 +11174,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12694,13 +11249,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12773,13 +11324,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12852,13 +11399,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12920,13 +11463,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -12999,13 +11538,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -13080,13 +11615,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -13166,13 +11697,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -13245,13 +11772,9 @@
 											"request": {
 												"auth": {
 													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{tokenIO}}",
-															"type": "string"
-														}
-													]
+													"bearer": {
+														"token": "{{tokenIO}}"
+													}
 												},
 												"method": "GET",
 												"header": [],
@@ -13395,13 +11918,9 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
@@ -13474,27 +11993,13 @@
 									"request": {
 										"auth": {
 											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{tokenIO}}",
-													"type": "string"
-												}
-											]
+											"bearer": {
+												"token": "{{tokenIO}}"
+											}
 										},
 										"method": "GET",
 										"header": [],
-										"url": {
-											"raw": "{{baseUrlIdPay}}/timeline/{{initiativeId_discount}}/{{operationId}}",
-											"host": [
-												"{{baseUrlIdPay}}"
-											],
-											"path": [
-												"timeline",
-												"{{initiativeId_discount}}",
-												"{{operationId}}"
-											]
-										}
+										"url": "{{baseUrlIdPay}}/timeline/{{initiativeId_discount}}/{{operationId}}"
 									},
 									"response": []
 								}
@@ -13520,17 +12025,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}",
-							"host": [
-								"{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative"
-							],
-							"path": [
-								"idpay",
-								"initiative",
-								"{{initiativeId}}"
-							]
-						}
+						"url": "{{AKSAPIServerUrlGeneric}}idpayportalwelfarebackendinitiative/idpay/initiative/{{initiativeId}}"
 					},
 					"response": []
 				}
@@ -13539,13 +12034,9 @@
 	],
 	"auth": {
 		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "{{tokenIO}}",
-				"type": "string"
-			}
-		]
+		"bearer": {
+			"token": "{{tokenIO}}"
+		}
 	},
 	"event": [
 		{
