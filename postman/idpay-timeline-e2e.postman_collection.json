@@ -1204,7 +1204,7 @@
 												}
 											}
 										},
-										"url": "{{baseUrlIdPay}}wallet/code/generate"
+										"url": "{{baseUrlIdPay}}/wallet/code/generate"
 									},
 									"response": []
 								},
@@ -1257,7 +1257,7 @@
 												}
 											}
 										},
-										"url": "{{baseUrlIdPay}}wallet/{{initiativeId}}/code/instruments"
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/code/instruments"
 									},
 									"response": []
 								},
@@ -1342,7 +1342,7 @@
 												}
 											}
 										},
-										"url": "{{baseUrlIdPay}}wallet/{{initiativeId}}/instruments"
+										"url": "{{baseUrlIdPay}}/wallet/{{initiativeId}}/instruments"
 									},
 									"response": []
 								}
@@ -3895,7 +3895,7 @@
 												}
 											}
 										},
-										"url": "{{baseUrlIdPay}}merchant/token/test"
+										"url": "{{baseUrlIdPay}}/merchant/token/test"
 									},
 									"response": []
 								},
@@ -3974,7 +3974,7 @@
 												}
 											}
 										},
-										"url": "{{baseUrlIdPay}}merchant/portal/transactions"
+										"url": "{{baseUrlIdPay}}/merchant/portal/transactions"
 									},
 									"response": []
 								},
@@ -4163,11 +4163,12 @@
 										"method": "PUT",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrlIdPay}}payment/qr-code/:trxCode/authorize",
+											"raw": "{{baseUrlIdPay}}/payment/qr-code/:trxCode/authorize",
 											"host": [
-												"{{baseUrlIdPay}}payment"
+												"{{baseUrlIdPay}}"
 											],
 											"path": [
+												"payment",
 												"qr-code",
 												":trxCode",
 												"authorize"
@@ -4290,7 +4291,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{baseUrlIdPay}}payment/{{transactionId}}/confirm"
+										"url": "{{baseUrlIdPay}}/payment/{{transactionId}}/confirm"
 									},
 									"response": []
 								}
@@ -4347,7 +4348,7 @@
 												}
 											}
 										},
-										"url": "{{baseUrlIdPay}}merchant/token/test"
+										"url": "{{baseUrlIdPay}}/merchant/token/test"
 									},
 									"response": []
 								},
@@ -4435,7 +4436,7 @@
 												}
 											}
 										},
-										"url": "{{baseUrlIdPay}}merchant/portal/transactions"
+										"url": "{{baseUrlIdPay}}/merchant/portal/transactions"
 									},
 									"response": []
 								},
@@ -4554,11 +4555,12 @@
 										"method": "PUT",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrlIdPay}}payment/qr-code/:trxCode/relate-user",
+											"raw": "{{baseUrlIdPay}}/payment/qr-code/:trxCode/relate-user",
 											"host": [
-												"{{baseUrlIdPay}}payment"
+												"{{baseUrlIdPay}}"
 											],
 											"path": [
+												"payment",
 												"qr-code",
 												":trxCode",
 												"relate-user"
@@ -4625,11 +4627,12 @@
 										"method": "PUT",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrlIdPay}}payment/qr-code/:trxCode/authorize",
+											"raw": "{{baseUrlIdPay}}/payment/qr-code/:trxCode/authorize",
 											"host": [
-												"{{baseUrlIdPay}}payment"
+												"{{baseUrlIdPay}}"
 											],
 											"path": [
+												"payment",
 												"qr-code",
 												":trxCode",
 												"authorize"
@@ -4697,11 +4700,12 @@
 											}
 										],
 										"url": {
-											"raw": "{{baseUrlIdPay}}merchant/portal/transactions/:transactionId",
+											"raw": "{{baseUrlIdPay}}/merchant/portal/transactions/:transactionId",
 											"host": [
-												"{{baseUrlIdPay}}merchant"
+												"{{baseUrlIdPay}}"
 											],
 											"path": [
+												"merchant",
 												"portal",
 												"transactions",
 												":transactionId"
@@ -9788,6 +9792,9 @@
 															"        pm.expect(response).have.property(\"merchantStatus\");\r",
 															"        pm.expect(response).have.property(\"updateStatusDate\");\r",
 															"\r",
+															"        console.log(\"Merchant ID:\", response.merchantId);\r",
+															"        pm.logger.info(\"Merchant ID: \" + response.merchantId);\r",
+															"        \r",
 															"        pm.collectionVariables.set(\"merchantId\", response.merchantId);\r",
 															"        pm.collectionVariables.set(\"merchantFiscalCode\", response.fiscalCode);\r",
 															"});\r",
