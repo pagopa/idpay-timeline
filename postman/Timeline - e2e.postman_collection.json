@@ -775,7 +775,7 @@
 														{
 															"key": "file",
 															"type": "file",
-															"src": "/C:/Progetti/PagoPa/IdPay/idpay-timeline/postman/example_merchant_valid.csv"
+															"src": "./postman/example_merchant_valid.csv"
 														}
 													]
 												},
@@ -3523,7 +3523,7 @@
 														{
 															"key": "file",
 															"type": "file",
-															"src": "/C:/Progetti/PagoPa/IdPay/idpay-timeline/postman/example_merchant_valid.csv"
+															"src": "./postman/example_merchant_valid.csv"
 														}
 													]
 												},
@@ -6934,7 +6934,7 @@
 												{
 													"key": "file",
 													"type": "file",
-													"src": "/C:/Progetti/PagoPa/IdPay/idpay-timeline/postman/example_merchant_valid.csv"
+													"src": "./postman/example_merchant_valid.csv"
 												}
 											]
 										},
@@ -9737,7 +9737,7 @@
 														{
 															"key": "file",
 															"type": "file",
-															"src": "/C:/Progetti/PagoPa/IdPay/idpay-timeline/postman/example_merchant_valid.csv"
+															"src": "./postman/example_merchant_valid.csv"
 														}
 													]
 												},
