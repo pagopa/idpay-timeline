@@ -775,7 +775,7 @@
 														{
 															"key": "file",
 															"type": "file",
-															"src": "./postman/example_merchant_valid.csv"
+															"src": "/C:/Progetti/PagoPa/IdPay/idpay-timeline/postman/example_merchant_valid.csv"
 														}
 													]
 												},
@@ -4291,7 +4291,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{baseUrlIdPay}}/payment/{{transactionId}}/confirm"
+										"url": "{{AKSAPIServerUrlGeneric}}idpaypayment/idpay/payment/{{transactionId}}/confirm"
 									},
 									"response": []
 								}
@@ -6934,7 +6934,7 @@
 												{
 													"key": "file",
 													"type": "file",
-													"src": "./postman/example_merchant_valid.csv"
+													"src": "/C:/Progetti/PagoPa/IdPay/idpay-timeline/postman/example_merchant_valid.csv"
 												}
 											]
 										},
@@ -7549,7 +7549,8 @@
 													"    });\r",
 													"}"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -7570,7 +7571,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{paymentServerUrl}}/idpay/payment/{{transactionId}}/confirm"
+										"url": "{{AKSAPIServerUrlGeneric}}idpaypayment/idpay/payment/{{transactionId}}/confirm"
 									},
 									"response": []
 								}
@@ -9736,7 +9737,7 @@
 														{
 															"key": "file",
 															"type": "file",
-															"src": "./postman/example_merchant_valid.csv"
+															"src": "/C:/Progetti/PagoPa/IdPay/idpay-timeline/postman/example_merchant_valid.csv"
 														}
 													]
 												},
