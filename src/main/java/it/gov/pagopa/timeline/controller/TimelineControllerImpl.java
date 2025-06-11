@@ -37,7 +37,9 @@ public class TimelineControllerImpl implements TimelineController {
 
   @Override
   public ResponseEntity<Void> addOperation(QueueOperationDTO body) {
+
     timelineService.sendToQueue(body);
+
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
