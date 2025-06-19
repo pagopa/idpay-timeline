@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "1e36c342-c8fb-4b09-8a3a-e0971f1685eb",
 		"name": "Timeline - e2e",
+		"description": "Description TBD",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "37939936"
 	},
