@@ -776,7 +776,7 @@
 														{
 															"key": "file",
 															"type": "file",
-															"src": "./postman/example_merchant_valid.csv"
+															"src": "{{basePath}}/example_merchant_valid.csv"
 														}
 													]
 												},
@@ -3524,7 +3524,7 @@
 														{
 															"key": "file",
 															"type": "file",
-															"src": "./postman/example_merchant_valid.csv"
+															"src": "{{basePath}}/example_merchant_valid.csv"
 														}
 													]
 												},
@@ -6935,7 +6935,7 @@
 												{
 													"key": "file",
 													"type": "file",
-													"src": "./postman/example_merchant_valid.csv"
+													"src": "{{basePath}}/example_merchant_valid.csv"
 												}
 											]
 										},
@@ -9738,7 +9738,7 @@
 														{
 															"key": "file",
 															"type": "file",
-															"src": "./postman/example_merchant_valid.csv"
+															"src": "{{basePath}}/example_merchant_valid.csv"
 														}
 													]
 												},
@@ -12341,6 +12341,10 @@
 		{
 			"key": "beneficiaryBudget",
 			"value": ""
+		},
+		{
+			"key": "basePath",
+			"value": "."
 		}
 	]
 }
