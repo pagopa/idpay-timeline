@@ -37,7 +37,9 @@ public class TimelineControllerImpl implements TimelineController {
 
   @Override
   public ResponseEntity<Void> addOperation(QueueOperationDTO body) {
+
     timelineService.sendToQueue(body);
+
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
@@ -46,5 +48,4 @@ public class TimelineControllerImpl implements TimelineController {
     TimelineDTO timelineDTO = timelineService.getRefunds(initiativeId, userId);
     return new ResponseEntity<>(timelineDTO, HttpStatus.OK);
   }
-
 }
