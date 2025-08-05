@@ -112,7 +112,7 @@
                 <groupId>com.nimbusds</groupId>
                 <artifactId>nimbus-jose-jwt</artifactId>
                 <!-- Forced to > 9.37 due to https://github.com/advisories/GHSA-gvpg-vgmx-xg6w -->
-                <version>9.37.3</version>
+                <version>10.0.2</version>
             </dependency>
 
             <!-- Fix per GHSA-5jpm-x58v-624v (netty-codec-http) -->
