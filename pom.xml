@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
+        <version>3.5.6</version>
     </parent>
 
     <groupId>it.gov.pagopa.timeline</groupId>
@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>21</java.version>
+        <argLine>-Duser.timezone=Europe/Rome</argLine> <!-- placeholder to make works both the remote pipeline with sonar cloud and locally -->
     </properties>
 
     <dependencies>
@@ -54,28 +55,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.janino</groupId>
             <artifactId>janino</artifactId>
-            <version>3.1.11</version>
         </dependency>
 
-        <!-- Security fixes -->
-        <dependency>
-            <groupId>org.xerial.snappy</groupId>
-            <artifactId>snappy-java</artifactId>
-            <!-- Forced to > 1.1.10.3 due to https://nvd.nist.gov/vuln/detail/CVE-2023-34453 -->
-            <version>1.1.10.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <!-- Forced to > 2.0 due to https://nvd.nist.gov/vuln/detail/CVE-2022-1471 -->
-            <version>2.2</version>
-        </dependency>
 
         <!--TEST-->
         <dependency>
@@ -102,7 +87,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2023.0.2</version>
+                <version>2025.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -115,28 +100,6 @@
                 <version>9.37.3</version>
             </dependency>
 
-            <!-- Fix per GHSA-5jpm-x58v-624v (netty-codec-http) -->
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-codec-http</artifactId>
-                <!-- Forced to >= 4.1.108.Final due to https://github.com/advisories/GHSA-5jpm-x58v-624v -->
-                <version>4.1.115.Final</version>
-            </dependency>
-
-            <!-- Fix per CVE-2023-35116 (jackson-databind) -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <!-- Forced to > 2.15.3 due to https://nvd.nist.gov/vuln/detail/CVE-2023-35116 -->
-                <version>2.18.2</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-core</artifactId>
-                <version>10.1.36</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -145,7 +108,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.3</version>
                 <configuration>
                     <argLine>@{argLine} -Duser.timezone=Europe/Rome</argLine>
                 </configuration>
