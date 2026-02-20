@@ -134,6 +134,7 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     Operation operation = operationMapper.toOperation(queueOperationDTO);
+    operation.setCreatedAt(LocalDateTime.now());
     timelineRepository.save(operation);
 
     performanceLog(startTime, "SAVE_OPERATION");
