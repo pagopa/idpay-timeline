@@ -22,6 +22,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -134,7 +135,7 @@ public class TimelineServiceImpl implements TimelineService {
     }
 
     Operation operation = operationMapper.toOperation(queueOperationDTO);
-    operation.setCreatedAt(LocalDateTime.now());
+    operation.setCreatedAt(LocalDate.now());
     timelineRepository.save(operation);
 
     performanceLog(startTime, "SAVE_OPERATION");
