@@ -21,11 +21,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
@@ -50,18 +50,18 @@ import static org.mockito.Mockito.when;
         })
 class TimelineServiceTest {
 
-  @MockBean
+  @MockitoBean
   TimelineRepository timelineRepositoryMock;
 
-  @MockBean
+  @MockitoBean
   OperationMapper operationMapper;
 
   @Autowired
   TimelineService timelineService;
 
-  @MockBean
+  @MockitoBean
   TimelineProducer timelineProducer;
-  @MockBean
+  @MockitoBean
   AuditUtilities auditUtilities;
 
   private static final String USER_ID = "TEST_USER_ID";
