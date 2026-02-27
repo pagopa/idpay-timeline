@@ -1,7 +1,11 @@
 package it.gov.pagopa.timeline.service;
 
 import it.gov.pagopa.timeline.constants.TimelineConstants;
-import it.gov.pagopa.timeline.dto.*;
+import it.gov.pagopa.timeline.dto.OperationDTO;
+import it.gov.pagopa.timeline.dto.TimelineDTO;
+import it.gov.pagopa.timeline.dto.QueueOperationDTO;
+import it.gov.pagopa.timeline.dto.DetailOperationDTO;
+import it.gov.pagopa.timeline.dto.QueueCommandOperationDTO;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
 import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.custom.RefundsNotFoundException;
@@ -169,7 +173,7 @@ class TimelineServiceTest {
       DetailOperationDTO actual = timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
       assertEquals(DETAIL_OPERATION_DTO, actual);
-    } catch (TimelineDetailNotFoundException e) {
+    } catch (TimelineDetailNotFoundException timelineDetailNotFoundException) {
       Assertions.fail();
     }
   }
@@ -184,9 +188,9 @@ class TimelineServiceTest {
       timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
       Assertions.fail();
-    } catch (TimelineDetailNotFoundException e) {
-      assertEquals(TimelineConstants.ExceptionCode.TIMELINE_DETAIL_NOT_FOUND, e.getCode());
-      assertEquals("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID), e.getMessage());
+    } catch (TimelineDetailNotFoundException timelineDetailNotFoundException) {
+      assertEquals(TimelineConstants.ExceptionCode.TIMELINE_DETAIL_NOT_FOUND, timelineDetailNotFoundException.getCode());
+      assertEquals("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID), timelineDetailNotFoundException.getMessage());
     }
   }
 

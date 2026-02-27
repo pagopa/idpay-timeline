@@ -1,7 +1,6 @@
 package it.gov.pagopa.common.mongo.repository;
 
 import it.gov.pagopa.common.mongo.MongoTestIntegrated;
-import it.gov.pagopa.common.mongo.singleinstance.AutoConfigureSingleInstanceMongodb;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
