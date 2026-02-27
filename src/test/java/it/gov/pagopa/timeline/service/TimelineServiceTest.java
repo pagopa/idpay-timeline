@@ -173,7 +173,7 @@ class TimelineServiceTest {
       DetailOperationDTO actual = timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
       assertEquals(DETAIL_OPERATION_DTO, actual);
-    } catch (TimelineDetailNotFoundException timelineDetailNotFoundException) {
+    } catch (TimelineDetailNotFoundException _) {
       Assertions.fail();
     }
   }
