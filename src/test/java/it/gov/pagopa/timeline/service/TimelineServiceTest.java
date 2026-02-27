@@ -1,7 +1,11 @@
 package it.gov.pagopa.timeline.service;
 
 import it.gov.pagopa.timeline.constants.TimelineConstants;
-import it.gov.pagopa.timeline.dto.*;
+import it.gov.pagopa.timeline.dto.OperationDTO;
+import it.gov.pagopa.timeline.dto.TimelineDTO;
+import it.gov.pagopa.timeline.dto.QueueOperationDTO;
+import it.gov.pagopa.timeline.dto.DetailOperationDTO;
+import it.gov.pagopa.timeline.dto.QueueCommandOperationDTO;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
 import it.gov.pagopa.timeline.event.producer.TimelineProducer;
 import it.gov.pagopa.timeline.exception.custom.RefundsNotFoundException;
@@ -21,11 +25,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
@@ -50,18 +54,18 @@ import static org.mockito.Mockito.when;
         })
 class TimelineServiceTest {
 
-  @MockBean
+  @MockitoBean
   TimelineRepository timelineRepositoryMock;
 
-  @MockBean
+  @MockitoBean
   OperationMapper operationMapper;
 
   @Autowired
   TimelineService timelineService;
 
-  @MockBean
+  @MockitoBean
   TimelineProducer timelineProducer;
-  @MockBean
+  @MockitoBean
   AuditUtilities auditUtilities;
 
   private static final String USER_ID = "TEST_USER_ID";
@@ -169,7 +173,7 @@ class TimelineServiceTest {
       DetailOperationDTO actual = timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
       assertEquals(DETAIL_OPERATION_DTO, actual);
-    } catch (TimelineDetailNotFoundException e) {
+    } catch (TimelineDetailNotFoundException _) {
       Assertions.fail();
     }
   }
@@ -184,9 +188,9 @@ class TimelineServiceTest {
       timelineService.getTimelineDetail(INITIATIVE_ID, OPERATION_ID,
           USER_ID);
       Assertions.fail();
-    } catch (TimelineDetailNotFoundException e) {
-      assertEquals(TimelineConstants.ExceptionCode.TIMELINE_DETAIL_NOT_FOUND, e.getCode());
-      assertEquals("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID), e.getMessage());
+    } catch (TimelineDetailNotFoundException timelineDetailNotFoundException) {
+      assertEquals(TimelineConstants.ExceptionCode.TIMELINE_DETAIL_NOT_FOUND, timelineDetailNotFoundException.getCode());
+      assertEquals("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID), timelineDetailNotFoundException.getMessage());
     }
   }
 
