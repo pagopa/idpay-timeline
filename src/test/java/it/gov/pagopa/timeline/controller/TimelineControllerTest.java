@@ -1,6 +1,6 @@
 package it.gov.pagopa.timeline.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import it.gov.pagopa.common.web.dto.ErrorDTO;
 import it.gov.pagopa.common.web.exception.ServiceException;
 import it.gov.pagopa.timeline.configuration.ServiceExceptionConfig;
@@ -83,7 +83,7 @@ class TimelineControllerTest {
   protected MockMvc mvc;
 
   @Autowired
-  ObjectMapper objectMapper;
+  JsonMapper jsonMapper;
 
   @Test
   void getTimelineDetail_ok() throws Exception {
@@ -116,7 +116,7 @@ class TimelineControllerTest {
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andReturn();
 
-    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+    ErrorDTO error = jsonMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
     assertEquals(TimelineConstants.ExceptionCode.TIMELINE_DETAIL_NOT_FOUND, error.getCode());
     assertEquals("Cannot find the detail of timeline on initiative [%s]".formatted(INITIATIVE_ID), error.getMessage());
@@ -129,7 +129,7 @@ class TimelineControllerTest {
 
     mvc.perform(
                     MockMvcRequestBuilders.put(BASE_URL)
-                            .content(objectMapper.writeValueAsString(PUT_OPERATION_DTO))
+                            .content(jsonMapper.writeValueAsString(PUT_OPERATION_DTO))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(MockMvcResultMatchers.status().isOk())
@@ -141,13 +141,13 @@ class TimelineControllerTest {
 
     MvcResult res = mvc.perform(
                     MockMvcRequestBuilders.put(BASE_URL)
-                            .content(objectMapper.writeValueAsString(PUT_OPERATION_DTO_EMPTY))
+                            .content(jsonMapper.writeValueAsString(PUT_OPERATION_DTO_EMPTY))
                             .contentType(MediaType.APPLICATION_JSON_VALUE)
                             .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(MockMvcResultMatchers.status().isBadRequest())
             .andReturn();
 
-    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+    ErrorDTO error = jsonMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
     assertEquals(TimelineConstants.ExceptionCode.TIMELINE_INVALID_REQUEST, error.getCode());
     assertTrue(error.getMessage().contains(TimelineConstants.ERROR_MANDATORY_FIELD));
@@ -187,7 +187,7 @@ class TimelineControllerTest {
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andReturn();
 
-    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+    ErrorDTO error = jsonMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
     assertEquals(TimelineConstants.ExceptionCode.TIMELINE_USER_NOT_FOUND, error.getCode());
     assertEquals("Timeline for the current user and initiative [%s] was not found".formatted(INITIATIVE_ID), error.getMessage());
@@ -208,7 +208,7 @@ class TimelineControllerTest {
                     .andExpect(MockMvcResultMatchers.status().isBadRequest())
                     .andReturn();
 
-    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+    ErrorDTO error = jsonMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
     assertEquals(TimelineConstants.ExceptionCode.TIMELINE_INVALID_REQUEST, error.getCode());
     assertTrue(error.getMessage().equals("Parameter [size] must be less than or equal to 10"));
@@ -229,7 +229,7 @@ class TimelineControllerTest {
             .andExpect(MockMvcResultMatchers.status().isBadRequest())
             .andReturn();
 
-    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+    ErrorDTO error = jsonMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
     assertEquals(TimelineConstants.ExceptionCode.TIMELINE_INVALID_REQUEST, error.getCode());
     assertTrue(error.getMessage().equals("Parameter [page] must be more than or equal to 0"));
@@ -263,7 +263,7 @@ class TimelineControllerTest {
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andReturn();
 
-    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+    ErrorDTO error = jsonMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
 
     assertEquals(TimelineConstants.ExceptionCode.TIMELINE_REFUNDS_NOT_FOUND, error.getCode());
     assertEquals("No refunds have been rewarded for the current user and initiative [%s]".formatted(INITIATIVE_ID), error.getMessage());
@@ -285,7 +285,7 @@ class TimelineControllerTest {
             .andReturn();
 
     //then
-    ErrorDTO error = objectMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
+    ErrorDTO error = jsonMapper.readValue(res.getResponse().getContentAsString(), ErrorDTO.class);
     assertEquals("DUMMY_EXCEPTION_CODE", error.getCode());
     assertEquals("DUMMY_EXCEPTION_MESSAGE", error.getMessage());
 
