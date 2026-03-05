@@ -112,7 +112,7 @@ class OperationMapperTest {
   @Test
   void toOperation() {
     Operation actual = operationMapper.toOperation(QUEUE_OPERATION_DTO);
-
+    OPERATION.setCreatedAt(actual.getCreatedAt());
     assertEquals(OPERATION, actual);
   }
 

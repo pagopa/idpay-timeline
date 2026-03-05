@@ -74,4 +74,5 @@ public class Operation {
 
   private String businessName;
 
+  private LocalDateTime createdAt;
 }
