@@ -53,7 +53,7 @@ import org.springframework.web.bind.annotation.RestController;
         MongoRequestRateTooLargeRetryIntegrationTest.TestRepository.class,
         MongoRequestRateTooLargeRetryIntegrationTest.TestConfig.class
 })
-@WebMvcTest(excludeAutoConfiguration = { UserDetailsServiceAutoConfiguration.class , SecurityAutoConfiguration.class})
+@WebMvcTest(excludeAutoConfiguration = { UserDetailsServiceAutoConfiguration.class , SecurityAutoConfiguration.class,})
 @AutoConfigureMockMvc(addFilters = false)
 @AutoConfigureSingleInstanceMongodb
 class MongoRequestRateTooLargeRetryIntegrationTest {
