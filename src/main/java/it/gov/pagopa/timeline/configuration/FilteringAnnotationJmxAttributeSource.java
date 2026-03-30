@@ -8,8 +8,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.config.EmbeddedValueResolver;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
-import org.springframework.integration.monitor.IntegrationJmxAttributeSource;
-import org.springframework.integration.support.management.IntegrationManagedResource;
+import org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.jmx.export.metadata.InvalidMetadataException;
 import org.springframework.util.StringValueResolver;
 
@@ -17,7 +17,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilteringIntegrationJmxAttributeSource extends IntegrationJmxAttributeSource {
+public class FilteringAnnotationJmxAttributeSource extends AnnotationJmxAttributeSource {
 
   private StringValueResolver valueResolver;
 
@@ -32,9 +32,9 @@ public class FilteringIntegrationJmxAttributeSource extends IntegrationJmxAttrib
   @Override
   public org.springframework.jmx.export.metadata.ManagedResource getManagedResource(Class<?> beanClass)
       throws InvalidMetadataException {
-    MergedAnnotation<IntegrationManagedResource> annotation = MergedAnnotations
+    MergedAnnotation<ManagedResource> annotation = MergedAnnotations
         .from(beanClass, MergedAnnotations.SearchStrategy.TYPE_HIERARCHY)
-        .get(IntegrationManagedResource.class)
+        .get(ManagedResource.class)
         .withNonMergedAttributes();
     if (!annotation.isPresent()) {
       return null;
