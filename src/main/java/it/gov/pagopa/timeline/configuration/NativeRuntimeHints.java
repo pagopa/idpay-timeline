@@ -15,8 +15,6 @@ import org.springframework.jmx.export.metadata.ManagedResource;
 
 import javax.security.auth.Subject;
 import java.lang.reflect.Method;
-import java.security.AccessControlContext;
-import java.security.AccessController;
 
 public class NativeRuntimeHints implements RuntimeHintsRegistrar {
 
@@ -47,18 +45,7 @@ public class NativeRuntimeHints implements RuntimeHintsRegistrar {
   }
 
   private static void registerKafkaSaslCompatibilityHints(RuntimeHints hints) {
-    hints.reflection().registerType(AccessController.class);
-    hints.reflection().registerType(AccessControlContext.class);
     hints.reflection().registerType(Subject.class);
-
-    hints.reflection().registerMethod(
-        method(AccessController.class, "doPrivileged", java.security.PrivilegedAction.class),
-        ExecutableMode.INVOKE);
-    hints.reflection().registerMethod(method(AccessController.class, "getContext"), ExecutableMode.INVOKE);
-    hints.reflection().registerMethod(method(Subject.class, "getSubject", AccessControlContext.class), ExecutableMode.INVOKE);
-    hints.reflection().registerMethod(
-        method(Subject.class, "doAs", Subject.class, java.security.PrivilegedExceptionAction.class),
-        ExecutableMode.INVOKE);
     hints.reflection().registerMethod(method(Subject.class, "current"), ExecutableMode.INVOKE);
     hints.reflection().registerMethod(
         method(Subject.class, "callAs", Subject.class, java.util.concurrent.Callable.class),

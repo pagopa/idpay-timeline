@@ -9,8 +9,6 @@ import org.springframework.jmx.export.metadata.ManagedOperationParameter;
 import org.springframework.jmx.export.metadata.ManagedResource;
 
 import javax.security.auth.Subject;
-import java.security.AccessControlContext;
-import java.security.AccessController;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,11 +28,11 @@ class NativeRuntimeHintsTest {
         .accepts(hints);
     assertThat(RuntimeHintsPredicates.reflection().onType(ManagedOperationParameter.class))
         .accepts(hints);
-    assertThat(RuntimeHintsPredicates.reflection().onType(AccessController.class))
-        .accepts(hints);
-    assertThat(RuntimeHintsPredicates.reflection().onType(AccessControlContext.class))
-        .accepts(hints);
     assertThat(RuntimeHintsPredicates.reflection().onType(Subject.class))
+        .accepts(hints);
+    assertThat(RuntimeHintsPredicates.reflection().onMethodInvocation(Subject.class, "current"))
+        .accepts(hints);
+    assertThat(RuntimeHintsPredicates.reflection().onMethodInvocation(Subject.class, "callAs"))
         .accepts(hints);
     assertThat(RuntimeHintsPredicates.resource().forResource("org/joda/time/tz/data/ZoneInfoMap"))
         .accepts(hints);
