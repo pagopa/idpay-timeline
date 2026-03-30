@@ -21,14 +21,7 @@ public class NativeRuntimeHints implements RuntimeHintsRegistrar {
         MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
         MemberCategory.INVOKE_PUBLIC_METHODS);
     hints.reflection().registerType(
-        NativeIntegrationMBeanExporter.class,
-        MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS);
-    hints.reflection().registerType(
-        NativeAnnotationMBeanExporter.class,
-        MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS);
-    hints.reflection().registerType(
         AbstractJmxAttribute.class,
-        MemberCategory.INTROSPECT_PUBLIC_METHODS,
         MemberCategory.INVOKE_PUBLIC_METHODS);
     registerJmxMetadataType(hints, ManagedResource.class);
     registerJmxMetadataType(hints, ManagedAttribute.class);
@@ -42,9 +35,7 @@ public class NativeRuntimeHints implements RuntimeHintsRegistrar {
   private static void registerJmxMetadataType(RuntimeHints hints, Class<?> type) {
     hints.reflection().registerType(
         type,
-        MemberCategory.INTROSPECT_PUBLIC_CONSTRUCTORS,
         MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
-        MemberCategory.INTROSPECT_PUBLIC_METHODS,
         MemberCategory.INVOKE_PUBLIC_METHODS);
   }
 }
