@@ -35,4 +35,30 @@ class IgnoreCasePropertyEqualityConditionTest {
 
     Assertions.assertFalse(condition.evaluate());
   }
+
+  @Test
+  void shouldNotStartWithoutKey() {
+    ContextBase context = new ContextBase();
+    IgnoreCasePropertyEqualityCondition condition = new IgnoreCasePropertyEqualityCondition();
+    condition.setContext(context);
+    condition.setLocalPropertyContainer(context);
+    condition.setValue("true");
+
+    condition.start();
+
+    Assertions.assertFalse(condition.isStarted());
+  }
+
+  @Test
+  void shouldNotStartWithoutValue() {
+    ContextBase context = new ContextBase();
+    IgnoreCasePropertyEqualityCondition condition = new IgnoreCasePropertyEqualityCondition();
+    condition.setContext(context);
+    condition.setLocalPropertyContainer(context);
+    condition.setKey("ENABLE_FILE_APPENDER_VALUE");
+
+    condition.start();
+
+    Assertions.assertFalse(condition.isStarted());
+  }
 }
