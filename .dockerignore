@@ -7,5 +7,6 @@
 !.git/**
 !src/
 !src/**
+!Dockerfile.old
 !Dockerfile
 !Dockerfile.native

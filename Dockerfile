@@ -1,30 +1,28 @@
 #
-# Build
+# Native build
 #
-FROM maven:3.9.12-amazoncorretto-25-alpine@sha256:0437187207c8466d4efb733230acc67b7de72f702dbcd89500c843018d887072 AS buildtime
+FROM ghcr.io/graalvm/native-image-community:25 AS buildtime
 
 WORKDIR /build
-COPY . .
+COPY mvnw pom.xml ./
+COPY .mvn .mvn
+COPY .git .git
+COPY src src
 
-RUN mvn clean package -DskipTests
+RUN chmod +x ./mvnw \
+ && ./mvnw -Pnative -DskipTests package
+
+RUN ./mvnw -Pnative -DskipTests native:compile
 
 #
-# Docker RUNTIME
+# Native runtime
 #
-FROM amazoncorretto:25-alpine3.22@sha256:3ffb0afccd262c33a0ae14f2fdde129eb44d18de9c4288379f9c3eeb701af5a8 AS runtime
+FROM gcr.io/distroless/base-debian12:nonroot AS runtime
 
-RUN apk --no-cache add shadow \
-&& useradd --uid 10000 runner
-
-VOLUME /tmp
 WORKDIR /app
+COPY --from=buildtime /build/target/idpay-timeline /app/idpay-timeline
 
-COPY --from=buildtime /build/target/*.jar /app/app.jar
-# The agent is enabled at runtime via JAVA_TOOL_OPTIONS.
-ADD https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.7.7/applicationinsights-agent-3.7.7.jar /app/applicationinsights-agent.jar
+EXPOSE 8080
 
-RUN chown -R runner:runner /app
-
-USER 10000
-
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+# GraalVM native images cannot attach JVM agents such as Application Insights.
+ENTRYPOINT ["/app/idpay-timeline"]
