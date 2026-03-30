@@ -1,7 +1,9 @@
 package it.gov.pagopa.common.logback;
 
 import ch.qos.logback.core.boolex.PropertyConditionBase;
+import lombok.Setter;
 
+@Setter
 public class IgnoreCasePropertyEqualityCondition extends PropertyConditionBase {
 
   private String key;
@@ -29,11 +31,4 @@ public class IgnoreCasePropertyEqualityCondition extends PropertyConditionBase {
     return propertyValue != null && propertyValue.equalsIgnoreCase(value);
   }
 
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
-  }
 }
