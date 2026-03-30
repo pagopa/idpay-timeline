@@ -9,10 +9,7 @@ COPY .mvn .mvn
 COPY .git .git
 COPY src src
 
-RUN chmod +x ./mvnw \
- && ./mvnw -Pnative -DskipTests package
-
-RUN ./mvnw -Pnative -DskipTests native:compile
+RUN chmod +x ./mvnw && ./mvnw -Pnative -DskipTests native:compile
 
 #
 # Native runtime
