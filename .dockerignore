@@ -1,0 +1,11 @@
+*
+!pom.xml
+!mvnw
+!.mvn/
+!.mvn/**
+!.git/
+!.git/**
+!src/
+!src/**
+!Dockerfile
+!Dockerfile.native
