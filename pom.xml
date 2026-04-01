@@ -17,7 +17,9 @@
     <properties>
         <java.version>25</java.version>
         <argLine>-Duser.timezone=Europe/Rome</argLine> <!-- placeholder to make works both the remote pipeline with sonar cloud and locally -->
-        <native.image.optimizeArg>-Ob</native.image.optimizeArg>
+        <native.image.optimizeArg>-O2</native.image.optimizeArg>
+        <native.image.buildReportArg>--emit=build-report</native.image.buildReportArg>
+        <native.image.sbomArg>--enable-sbom=export,cyclonedx</native.image.sbomArg>
         <opentelemetry.instrumentation.version>2.26.1</opentelemetry.instrumentation.version>
         <azure.monitor.opentelemetry.version>1.4.0</azure.monitor.opentelemetry.version>
     </properties>
@@ -180,6 +182,8 @@
                         <buildArg>--initialize-at-build-time=com.fasterxml.jackson.core</buildArg>
                         <buildArg>--initialize-at-build-time=org.slf4j.helpers</buildArg>
                         <buildArg>--initialize-at-build-time=ch.qos.logback</buildArg>
+                        <buildArg>${native.image.buildReportArg}</buildArg>
+                        <buildArg>${native.image.sbomArg}</buildArg>
                     </buildArgs>
                 </configuration>
             </plugin>
