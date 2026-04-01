@@ -1,0 +1,15 @@
+{
+  "reflection": [
+    {
+      "type": "org.springframework.kafka.config.AbstractKafkaListenerContainerFactory",
+      "fields": [
+        {
+          "name": "batchInterceptor"
+        },
+        {
+          "name": "recordInterceptor"
+        }
+      ]
+    }
+  ]
+}

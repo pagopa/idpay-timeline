@@ -7,7 +7,6 @@ import org.springframework.aot.hint.predicate.RuntimeHintsPredicates;
 import org.springframework.jmx.export.metadata.AbstractJmxAttribute;
 import org.springframework.jmx.export.metadata.ManagedOperationParameter;
 import org.springframework.jmx.export.metadata.ManagedResource;
-import org.springframework.kafka.config.AbstractKafkaListenerContainerFactory;
 
 import javax.security.auth.Subject;
 
@@ -34,14 +33,6 @@ class NativeRuntimeHintsTest {
     assertThat(RuntimeHintsPredicates.reflection().onMethodInvocation(Subject.class, "current"))
         .accepts(hints);
     assertThat(RuntimeHintsPredicates.reflection().onMethodInvocation(Subject.class, "callAs"))
-        .accepts(hints);
-    assertThat(RuntimeHintsPredicates.reflection().onField(AbstractKafkaListenerContainerFactory.class, "batchInterceptor"))
-        .accepts(hints);
-    assertThat(RuntimeHintsPredicates.reflection().onFieldAccess(AbstractKafkaListenerContainerFactory.class, "batchInterceptor"))
-        .accepts(hints);
-    assertThat(RuntimeHintsPredicates.reflection().onField(AbstractKafkaListenerContainerFactory.class, "recordInterceptor"))
-        .accepts(hints);
-    assertThat(RuntimeHintsPredicates.reflection().onFieldAccess(AbstractKafkaListenerContainerFactory.class, "recordInterceptor"))
         .accepts(hints);
     assertThat(RuntimeHintsPredicates.resource().forResource("org/joda/time/tz/data/ZoneInfoMap"))
         .accepts(hints);
