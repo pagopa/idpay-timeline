@@ -15,6 +15,9 @@ spring:
     version: "@project.version@"
   jmx.enabled: true
   cloud:
+    azure:
+      monitor:
+        connection-string: ${APPLICATIONINSIGHTS_CONNECTION_STRING:}
     function:
       definition: consumerTimeline; consumerCommands
     stream:
@@ -129,6 +132,19 @@ management:
       exposure.include: "*"
     web:
       exposure.include: info, health
+
+otel:
+  resource:
+    attributes: service.name=${spring.application.name},service.version=${spring.application.version}
+  traces:
+    exporter: ${OTEL_TRACES_EXPORTER:azure_monitor}
+  metrics:
+    exporter: ${OTEL_METRICS_EXPORTER:azure_monitor}
+  logs:
+    exporter: ${OTEL_LOGS_EXPORTER:azure_monitor}
+  instrumentation:
+    micrometer:
+      enabled: ${OTEL_INSTRUMENTATION_MICROMETER_ENABLED:true}
 
 logging:
   level:

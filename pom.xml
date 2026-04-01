@@ -17,9 +17,9 @@
     <properties>
         <java.version>25</java.version>
         <argLine>-Duser.timezone=Europe/Rome</argLine> <!-- placeholder to make works both the remote pipeline with sonar cloud and locally -->
-<!--        <native.image.jvmArg>-J-Xmx5g</native.image.jvmArg>-->
-        <native.image.threadsArg>--parallelism=4</native.image.threadsArg>
         <native.image.optimizeArg>-Ob</native.image.optimizeArg>
+        <opentelemetry.instrumentation.version>2.26.1</opentelemetry.instrumentation.version>
+        <azure.monitor.opentelemetry.version>1.4.0</azure.monitor.opentelemetry.version>
     </properties>
 
     <dependencies>
@@ -40,6 +40,15 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-monitor-opentelemetry-autoconfigure</artifactId>
+            <version>${azure.monitor.opentelemetry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -106,6 +115,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>io.opentelemetry.instrumentation</groupId>
+                <artifactId>opentelemetry-instrumentation-bom</artifactId>
+                <version>${opentelemetry.instrumentation.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- Fix per GHSA-gvpg-vgmx-xg6w (nimbus-jose-jwt) -->
             <dependency>
@@ -160,9 +176,10 @@
                 <version>0.11.5</version>
                 <configuration>
                     <buildArgs>
-<!--                        <buildArg>${native.image.jvmArg}</buildArg>-->
-                        <buildArg>${native.image.threadsArg}</buildArg>
                         <buildArg>${native.image.optimizeArg}</buildArg>
+                        <buildArg>--initialize-at-build-time=com.fasterxml.jackson.core</buildArg>
+                        <buildArg>--initialize-at-build-time=org.slf4j.helpers</buildArg>
+                        <buildArg>--initialize-at-build-time=ch.qos.logback</buildArg>
                     </buildArgs>
                 </configuration>
             </plugin>
