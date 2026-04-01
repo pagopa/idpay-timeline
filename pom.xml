@@ -17,6 +17,9 @@
     <properties>
         <java.version>25</java.version>
         <argLine>-Duser.timezone=Europe/Rome</argLine> <!-- placeholder to make works both the remote pipeline with sonar cloud and locally -->
+<!--        <native.image.jvmArg>-J-Xmx5g</native.image.jvmArg>-->
+        <native.image.threadsArg>--parallelism=4</native.image.threadsArg>
+        <native.image.optimizeArg>-Ob</native.image.optimizeArg>
     </properties>
 
     <dependencies>
@@ -49,7 +52,20 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-stream-kafka</artifactId>
-            <version>5.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-reflect</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jetbrains.kotlinx</groupId>
+                    <artifactId>kotlinx-coroutines-reactor</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-restclient</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--3rd party library-->
@@ -57,12 +73,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.janino</groupId>
-            <artifactId>janino</artifactId>
-        </dependency>
-
-
         <!--TEST-->
         <dependency>
             <groupId>de.flapdoodle.embed</groupId>
@@ -143,6 +153,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>0.11.5</version>
+                <configuration>
+                    <buildArgs>
+<!--                        <buildArg>${native.image.jvmArg}</buildArg>-->
+                        <buildArg>${native.image.threadsArg}</buildArg>
+                        <buildArg>${native.image.optimizeArg}</buildArg>
+                    </buildArgs>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>

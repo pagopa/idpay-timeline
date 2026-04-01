@@ -19,21 +19,21 @@ spring:
       definition: consumerTimeline; consumerCommands
     stream:
       binders:
-        kafka-in:
+        kafkaIn:
           type: kafka
           environment:
             spring.cloud.stream.kafka.binder:
               brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST_01:}
               configuration:
                 sasl.jaas.config: ${KAFKA_TIMELINE_IN_SASL_JAAS_CONFIG:}
-        kafka-out:
+        kafkaOut:
           type: kafka
           environment:
             spring.cloud.stream.kafka.binder:
               brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST_01:}
               configuration:
                 sasl.jaas.config: ${KAFKA_TIMELINE_OUT_SASL_JAAS_CONFIG:}
-        kafka-commands:
+        kafkaCommands:
           type: kafka
           environment:
             spring.cloud.stream.kafka.binder:
@@ -42,16 +42,16 @@ spring:
                 sasl.jaas.config: ${KAFKA_COMMANDS_IN_SASL_JAAS_CONFIG:}
       bindings:
         consumerTimeline-in-0:
-          binder: kafka-in
+          binder: kafkaIn
           content-type: ${KAFKA_CONTENT_TYPE:application/json}
           destination: ${KAFKA_TOPIC_TIMELINE:}
           group: ${KAFKA_GROUP_IN:}
         consumerTimeline-out-0:
-          binder: kafka-out
+          binder: kafkaOut
           content-type: ${KAFKA_CONTENT_TYPE:application/json}
           destination: ${KAFKA_TOPIC_TIMELINE:}
         consumerCommands-in-0:
-          binder: kafka-commands
+          binder: kafkaCommands
           content-type: ${KAFKA_CONTENT_TYPE:application/json}
           destination: ${KAFKA_TOPIC_COMMANDS:idpay-commands}
           group: ${KAFKA_COMMANDS_GROUP_IN:idpay-commands-timeline-consumer-group}
