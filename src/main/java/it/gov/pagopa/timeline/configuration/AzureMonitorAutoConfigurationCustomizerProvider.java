@@ -7,7 +7,6 @@ import io.opentelemetry.sdk.autoconfigure.spi.ConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,7 +25,6 @@ public final class AzureMonitorAutoConfigurationCustomizerProvider
   private static final String OTEL_METRICS_EXPORTER = "otel.metrics.exporter";
   private static final String OTEL_LOGS_EXPORTER = "otel.logs.exporter";
   private static final String OTEL_SDK_DISABLED = "otel.sdk.disabled";
-  private static final String TRUE_VALUE = "true";
 
   @Override
   public int order() {
@@ -60,15 +58,19 @@ public final class AzureMonitorAutoConfigurationCustomizerProvider
     String tracesExporter = withoutAzureMonitor(configProperties.getString(OTEL_TRACES_EXPORTER));
     String metricsExporter = withoutAzureMonitor(configProperties.getString(OTEL_METRICS_EXPORTER));
     String logsExporter = withoutAzureMonitor(configProperties.getString(OTEL_LOGS_EXPORTER));
-
-    Map<String, String> overrides = new LinkedHashMap<>();
-    overrides.put(OTEL_TRACES_EXPORTER, tracesExporter);
-    overrides.put(OTEL_METRICS_EXPORTER, metricsExporter);
-    overrides.put(OTEL_LOGS_EXPORTER, logsExporter);
-    if (shouldDisableSdk(tracesExporter, metricsExporter, logsExporter)) {
-      overrides.put(OTEL_SDK_DISABLED, TRUE_VALUE);
+    if (NONE_EXPORTER.equals(tracesExporter)
+        && NONE_EXPORTER.equals(metricsExporter)
+        && NONE_EXPORTER.equals(logsExporter)) {
+      return Map.of(
+          OTEL_TRACES_EXPORTER, tracesExporter,
+          OTEL_METRICS_EXPORTER, metricsExporter,
+          OTEL_LOGS_EXPORTER, logsExporter,
+          OTEL_SDK_DISABLED, "true");
     }
-    return overrides;
+    return Map.of(
+        OTEL_TRACES_EXPORTER, tracesExporter,
+        OTEL_METRICS_EXPORTER, metricsExporter,
+        OTEL_LOGS_EXPORTER, logsExporter);
   }
 
   private static boolean hasText(String value) {
@@ -85,13 +87,6 @@ public final class AzureMonitorAutoConfigurationCustomizerProvider
     return Arrays.stream((exporters == null ? "" : exporters).split(","))
         .map(String::trim)
         .anyMatch(AZURE_MONITOR_EXPORTER::equals);
-  }
-
-  private static boolean shouldDisableSdk(
-      String tracesExporter, String metricsExporter, String logsExporter) {
-    return NONE_EXPORTER.equals(tracesExporter)
-        && NONE_EXPORTER.equals(metricsExporter)
-        && NONE_EXPORTER.equals(logsExporter);
   }
 
   private static String withoutAzureMonitor(String exporters) {
