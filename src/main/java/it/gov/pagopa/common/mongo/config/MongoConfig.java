@@ -43,7 +43,7 @@ public class MongoConfig {
 
     }
 
-    @Bean
+    @Bean("mongoClientSettingsBuilderCustomizer")
     public MongoClientSettingsBuilderCustomizer customizer(MongoDbCustomProperties mongoDbCustomProperties) {
         return builder -> builder.applyToConnectionPoolSettings(
                 connectionPool -> {
@@ -84,4 +84,3 @@ public class MongoConfig {
 
     }
 }
-
