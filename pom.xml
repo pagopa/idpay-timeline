@@ -17,7 +17,6 @@
     <properties>
         <java.version>25</java.version>
         <argLine>-Duser.timezone=Europe/Rome</argLine> <!-- placeholder to make works both the remote pipeline with sonar cloud and locally -->
-<!--        <native.image.jvmArg>-J-Xmx5g</native.image.jvmArg>-->
         <native.image.threadsArg>--parallelism=4</native.image.threadsArg>
         <native.image.optimizeArg>-Ob</native.image.optimizeArg>
     </properties>
@@ -160,7 +159,6 @@
                 <version>0.11.5</version>
                 <configuration>
                     <buildArgs>
-<!--                        <buildArg>${native.image.jvmArg}</buildArg>-->
                         <buildArg>${native.image.threadsArg}</buildArg>
                         <buildArg>${native.image.optimizeArg}</buildArg>
                     </buildArgs>
