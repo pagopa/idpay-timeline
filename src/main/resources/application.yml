@@ -147,6 +147,8 @@ otel:
       enabled: ${OTEL_INSTRUMENTATION_RUNTIME_TELEMETRY_ENABLED:false}
 
 applicationinsights:
+  configuration:
+    file: ${APPLICATIONINSIGHTS_CONFIGURATION_FILE:}
   live:
     metrics:
       enabled: ${APPLICATIONINSIGHTS_LIVE_METRICS_ENABLED:false}
