@@ -1,6 +1,7 @@
 package it.gov.pagopa.timeline.configuration;
 
 import com.azure.monitor.opentelemetry.autoconfigure.AzureMonitorAutoConfigure;
+import com.azure.monitor.opentelemetry.autoconfigure.AzureMonitorAutoConfigureOptions;
 import io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizer;
 import io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizerProvider;
 import io.opentelemetry.sdk.autoconfigure.spi.ConfigProperties;
@@ -33,7 +34,16 @@ public final class AzureMonitorAutoConfigurationCustomizerProvider
 
   @Override
   public void customize(AutoConfigurationCustomizer autoConfigurationCustomizer) {
-    AzureMonitorAutoConfigure.customize(autoConfigurationCustomizer);
+    AzureMonitorAutoConfigureOptions azureMonitorAutoConfigureOptions =
+        new AzureMonitorAutoConfigureOptions();
+    AzureMonitorAutoConfigure.customize(
+        autoConfigurationCustomizer, azureMonitorAutoConfigureOptions);
+    autoConfigurationCustomizer.addResourceCustomizer(
+        (resource, configProperties) -> {
+          configureAzureMonitorConnectionString(
+              azureMonitorAutoConfigureOptions, configProperties);
+          return resource;
+        });
     autoConfigurationCustomizer.addPropertiesCustomizer(
         AzureMonitorAutoConfigurationCustomizerProvider::customizeAzureMonitorProperties);
   }
@@ -73,8 +83,31 @@ public final class AzureMonitorAutoConfigurationCustomizerProvider
         OTEL_LOGS_EXPORTER, logsExporter);
   }
 
+  static void configureAzureMonitorConnectionString(
+      AzureMonitorAutoConfigureOptions azureMonitorAutoConfigureOptions,
+      ConfigProperties configProperties) {
+    String connectionString = resolveConnectionString(configProperties);
+    if (hasText(connectionString)) {
+      azureMonitorAutoConfigureOptions.connectionString(connectionString);
+    }
+  }
+
   private static boolean hasText(String value) {
     return value != null && !value.isBlank();
+  }
+
+  private static String resolveConnectionString(ConfigProperties configProperties) {
+    String applicationInsightsConnectionString =
+        configProperties.getString(APPLICATIONINSIGHTS_CONNECTION_STRING);
+    if (hasText(applicationInsightsConnectionString)) {
+      return applicationInsightsConnectionString;
+    }
+    String springAzureConnectionString =
+        configProperties.getString(SPRING_AZURE_MONITOR_CONNECTION_STRING);
+    if (hasText(springAzureConnectionString)) {
+      return springAzureConnectionString;
+    }
+    return null;
   }
 
   private static boolean requiresAzureMonitor(ConfigProperties configProperties) {
