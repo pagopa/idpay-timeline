@@ -2,6 +2,7 @@ package it.gov.pagopa.timeline.configuration;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 import io.opentelemetry.sdk.autoconfigure.spi.ConfigProperties;
 import it.gov.pagopa.common.utils.MemoryAppender;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,6 +20,8 @@ class AzureMonitorAutoConfigurationCustomizerProviderTest {
 
   private static final String MISSING_CONNECTION_STRING_WARNING =
       "Application Insights connection string is not configured";
+  private static final String LOCALHOST_CONNECTION_STRING =
+      "InstrumentationKey=00000000-0000-0000-0000-000000000000;IngestionEndpoint=http://localhost/";
   private static MemoryAppender memoryAppender;
 
   @BeforeAll
@@ -99,6 +102,46 @@ class AzureMonitorAutoConfigurationCustomizerProviderTest {
   void shouldRunAfterOtherAutoConfigurationProviders() {
     assertThat(new AzureMonitorAutoConfigurationCustomizerProvider().order())
         .isEqualTo(Integer.MAX_VALUE);
+  }
+
+  @Test
+  void shouldBuildAutoConfiguredSdkWhenApplicationInsightsConnectionStringIsPresent() {
+    AutoConfiguredOpenTelemetrySdk autoConfiguredOpenTelemetrySdk =
+        AutoConfiguredOpenTelemetrySdk.builder()
+            .disableShutdownHook()
+            .addPropertiesSupplier(
+                () -> Map.of(
+                    "applicationinsights.connection.string", LOCALHOST_CONNECTION_STRING,
+                    "otel.traces.exporter", "azure_monitor",
+                    "otel.metrics.exporter", "azure_monitor",
+                    "otel.logs.exporter", "azure_monitor"))
+            .build();
+
+    try {
+      assertThat(autoConfiguredOpenTelemetrySdk.getOpenTelemetrySdk()).isNotNull();
+    } finally {
+      autoConfiguredOpenTelemetrySdk.getOpenTelemetrySdk().close();
+    }
+  }
+
+  @Test
+  void shouldBuildAutoConfiguredSdkWhenSpringAzureConnectionStringIsPresent() {
+    AutoConfiguredOpenTelemetrySdk autoConfiguredOpenTelemetrySdk =
+        AutoConfiguredOpenTelemetrySdk.builder()
+            .disableShutdownHook()
+            .addPropertiesSupplier(
+                () -> Map.of(
+                    "spring.cloud.azure.monitor.connection-string", LOCALHOST_CONNECTION_STRING,
+                    "otel.traces.exporter", "azure_monitor",
+                    "otel.metrics.exporter", "azure_monitor",
+                    "otel.logs.exporter", "azure_monitor"))
+            .build();
+
+    try {
+      assertThat(autoConfiguredOpenTelemetrySdk.getOpenTelemetrySdk()).isNotNull();
+    } finally {
+      autoConfiguredOpenTelemetrySdk.getOpenTelemetrySdk().close();
+    }
   }
 
   private record TestConfigProperties(Map<String, String> values) implements ConfigProperties {
