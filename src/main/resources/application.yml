@@ -119,7 +119,7 @@ app:
 
 management:
   health:
-    mongo.enabled: false
+    mongo.enabled: ${HEALTH_MONGO_ENABLED:true}
   endpoint:
     health:
       probes.enabled: true
