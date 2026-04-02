@@ -13,7 +13,7 @@ spring:
   application:
     name: "@project.artifactId@"
     version: "@project.version@"
-  jmx.enabled: true
+  jmx.enabled: false
   cloud:
     azure:
       monitor:
@@ -125,11 +125,9 @@ management:
       probes.enabled: true
       group:
         readiness.include: "*"
-        liveness.include: livenessState,diskSpace,ping,binders,streams
+        liveness.include: livenessState,diskSpace,ping
       logging.slow-indicator-threshold: ${HEALTH_ACTUATOR_LOGGER_TIMEOUT_DURATION:PT1S}
   endpoints:
-    jmx:
-      exposure.include: "*"
     web:
       exposure.include: info, health
 
@@ -145,6 +143,15 @@ otel:
   instrumentation:
     micrometer:
       enabled: ${OTEL_INSTRUMENTATION_MICROMETER_ENABLED:true}
+    runtime-telemetry:
+      enabled: ${OTEL_INSTRUMENTATION_RUNTIME_TELEMETRY_ENABLED:false}
+
+applicationinsights:
+  configuration:
+    file: ${APPLICATIONINSIGHTS_CONFIGURATION_FILE:}
+  live:
+    metrics:
+      enabled: ${APPLICATIONINSIGHTS_LIVE_METRICS_ENABLED:false}
 
 logging:
   level:
