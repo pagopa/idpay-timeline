@@ -52,11 +52,6 @@
             <version>${opentelemetry.instrumentation.alpha.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-spring-kafka-2.7</artifactId>
-            <version>${opentelemetry.instrumentation.alpha.version}</version>
-        </dependency>
-        <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-otel</artifactId>
         </dependency>
