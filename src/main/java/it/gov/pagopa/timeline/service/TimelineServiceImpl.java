@@ -1,5 +1,7 @@
 package it.gov.pagopa.timeline.service;
 
+import io.opentelemetry.api.trace.SpanKind;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 import it.gov.pagopa.timeline.dto.*;
 import it.gov.pagopa.timeline.dto.mapper.OperationMapper;
@@ -109,6 +111,7 @@ public class TimelineServiceImpl implements TimelineService {
   }
 
   @Override
+  @WithSpan(value = "consumerTimeline process", kind = SpanKind.CONSUMER)
   public void saveOperation(QueueOperationDTO queueOperationDTO) {
     long startTime = System.currentTimeMillis();
 
@@ -160,6 +163,7 @@ public class TimelineServiceImpl implements TimelineService {
   }
 
   @Override
+  @WithSpan(value = "consumerCommands process", kind = SpanKind.CONSUMER)
   public void processOperation(QueueCommandOperationDTO queueCommandOperationDTO) {
     if (TimelineConstants.OPERATION_TYPE_DELETE_INITIATIVE.equals(queueCommandOperationDTO.getOperationType())) {
       long startTime = System.currentTimeMillis();

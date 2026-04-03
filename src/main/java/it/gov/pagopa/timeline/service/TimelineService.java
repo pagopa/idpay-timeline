@@ -1,5 +1,7 @@
 package it.gov.pagopa.timeline.service;
 
+import io.opentelemetry.api.trace.SpanKind;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueCommandOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
@@ -15,9 +17,11 @@ public interface TimelineService {
 
   void sendToQueue(QueueOperationDTO queueOperationDTO);
 
+  @WithSpan(value = "consumerTimeline process", kind = SpanKind.CONSUMER)
   void saveOperation(QueueOperationDTO queueOperationDTO);
 
   TimelineDTO getRefunds(String initiativeId, String userId);
 
+  @WithSpan(value = "consumerCommands process", kind = SpanKind.CONSUMER)
   void processOperation(QueueCommandOperationDTO queueDeleteOperationDTO);
 }
