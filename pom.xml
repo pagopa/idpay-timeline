@@ -21,6 +21,7 @@
         <native.image.buildReportArg>--emit=build-report</native.image.buildReportArg>
         <native.image.sbomArg>--enable-sbom=export,cyclonedx</native.image.sbomArg>
         <opentelemetry.instrumentation.version>2.26.1</opentelemetry.instrumentation.version>
+        <opentelemetry.instrumentation.alpha.version>2.26.1-alpha</opentelemetry.instrumentation.alpha.version>
         <azure.monitor.opentelemetry.version>1.4.0</azure.monitor.opentelemetry.version>
     </properties>
 
@@ -46,6 +47,15 @@
         <dependency>
             <groupId>io.opentelemetry.instrumentation</groupId>
             <artifactId>opentelemetry-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-kafka-clients-2.6</artifactId>
+            <version>${opentelemetry.instrumentation.alpha.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-otel</artifactId>
         </dependency>
         <dependency>
             <groupId>com.azure</groupId>
