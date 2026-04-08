@@ -22,7 +22,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.*;
 
 @Slf4j
@@ -68,7 +68,7 @@ public class TimelineServiceImpl implements TimelineService {
 
   @Override
   public TimelineDTO getTimeline(String initiativeId, String userId, String operationType, int page,
-      int size, LocalDateTime startDate, LocalDateTime endDate) {
+      int size, Instant startDate, Instant endDate) {
 
     long startTime = System.currentTimeMillis();
 
@@ -89,7 +89,7 @@ public class TimelineServiceImpl implements TimelineService {
     for (Operation operation : operationList) {
       operationListDTO.add(operationMapper.toOperationDTO(operation));
     }
-    LocalDateTime lastUpdate =
+    Instant lastUpdate =
         !operationList.isEmpty() ? operationList.get(0).getOperationDate() : null;
     if (page != 0) {
       Operation first = timelineRepository.findFirstByInitiativeIdAndUserIdOrderByOperationDateDesc(

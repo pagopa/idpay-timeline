@@ -4,14 +4,14 @@ import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueCommandOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public interface TimelineService {
 
   DetailOperationDTO getTimelineDetail(String initiativeId, String operationId, String userId);
 
   TimelineDTO getTimeline(String initiativeId, String userId, String operationType, int page,
-      int size, LocalDateTime startDate, LocalDateTime endDate);
+      int size, Instant startDate, Instant endDate);
 
   void sendToQueue(QueueOperationDTO queueOperationDTO);
 

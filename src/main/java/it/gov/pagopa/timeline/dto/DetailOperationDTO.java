@@ -2,8 +2,7 @@ package it.gov.pagopa.timeline.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import lombok.Builder;
 import lombok.Data;
 
@@ -34,7 +33,7 @@ public class DetailOperationDTO {
 
   private String channel;
 
-  private LocalDateTime operationDate;
+  private Instant operationDate;
 
   private Long amountCents;
 
@@ -48,13 +47,13 @@ public class DetailOperationDTO {
 
   private String refundType;
 
-  private LocalDate startDate;
+  private Instant startDate;
 
-  private LocalDate endDate;
+  private Instant endDate;
 
-  private LocalDate transferDate;
+  private Instant transferDate;
 
-  private LocalDate userNotificationDate;
+  private Instant userNotificationDate;
 
   private String cro;
 

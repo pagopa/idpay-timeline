@@ -6,10 +6,17 @@ import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.model.Operation;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.Clock;
+import java.time.Instant;
 
 @Service
 public class OperationMapper {
+
+    private final Clock clock;
+
+    public OperationMapper(Clock clock) {
+        this.clock = clock;
+    }
 
     public Operation toOperation(QueueOperationDTO queueOperationDTO) {
         Operation operation = new Operation();
@@ -41,7 +48,7 @@ public class OperationMapper {
         operation.setTransferDate(queueOperationDTO.getTransferDate());
         operation.setUserNotificationDate(queueOperationDTO.getUserNotificationDate());
         operation.setBusinessName(queueOperationDTO.getBusinessName());
-        operation.setCreatedAt(LocalDateTime.now());
+        operation.setCreatedAt(Instant.now(clock));
         return operation;
     }
 

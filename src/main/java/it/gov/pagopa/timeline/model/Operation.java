@@ -6,8 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Data
 @FieldNameConstants
@@ -48,7 +47,7 @@ public class Operation {
 
   private Long rewardFeedbackProgressive;
 
-  private LocalDateTime operationDate;
+  private Instant operationDate;
 
   private Long amountCents;
 
@@ -64,15 +63,15 @@ public class Operation {
 
   private String refundType;
 
-  private LocalDate startDate;
+  private Instant startDate;
 
-  private LocalDate endDate;
+  private Instant endDate;
 
-  private LocalDate transferDate;
+  private Instant transferDate;
 
-  private LocalDate userNotificationDate;
+  private Instant userNotificationDate;
 
   private String businessName;
 
-  private LocalDateTime createdAt;
+  private Instant createdAt;
 }

@@ -3,8 +3,7 @@ package it.gov.pagopa.timeline.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import it.gov.pagopa.timeline.constants.TimelineConstants;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,7 +49,7 @@ public class QueueOperationDTO {
 
   private Long rewardFeedbackProgressive;
 
-  private LocalDateTime operationDate;
+  private Instant operationDate;
 
   private Long amountCents;
 
@@ -66,13 +65,13 @@ public class QueueOperationDTO {
 
   private String refundType;
 
-  private LocalDate startDate;
+  private Instant startDate;
 
-  private LocalDate endDate;
+  private Instant endDate;
 
-  private LocalDate transferDate;
+  private Instant transferDate;
 
-  private LocalDate userNotificationDate;
+  private Instant userNotificationDate;
 
   private String businessName;
 

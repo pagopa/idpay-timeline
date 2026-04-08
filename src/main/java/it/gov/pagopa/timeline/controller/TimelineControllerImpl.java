@@ -4,7 +4,7 @@ import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
 import it.gov.pagopa.timeline.service.TimelineService;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class TimelineControllerImpl implements TimelineController {
 
   @Override
   public ResponseEntity<TimelineDTO> getTimeline(String initiativeId, String userId,
-      String operationType, Integer page, Integer size, LocalDateTime dateFrom, LocalDateTime dateTo) {
+      String operationType, Integer page, Integer size, Instant dateFrom, Instant dateTo) {
     TimelineDTO timelineDTO = timelineService.getTimeline(initiativeId, userId, operationType, page,
         size, dateFrom, dateTo);
     return new ResponseEntity<>(timelineDTO, HttpStatus.OK);

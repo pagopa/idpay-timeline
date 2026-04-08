@@ -20,7 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,8 +41,8 @@ class TimelineSpecificRepositoryImplTest {
   private static final String USER_ID = "TEST_USER_ID";
   private static final String INITIATIVE_ID = "TEST_INITIATIVE_ID";
   private static final String OPERATION_TYPE = "TEST_OPERATION_TYPE";
-  private static final LocalDateTime START_DATE = LocalDateTime.now();
-  private static final LocalDateTime END_DATE = LocalDateTime.now();
+  private static final Instant START_DATE = Instant.now();
+  private static final Instant END_DATE = Instant.now();
   private static final String OPERATION_ID = "OPERATION_ID";
 
   @Test
