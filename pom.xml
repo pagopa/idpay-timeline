@@ -17,8 +17,9 @@
     <properties>
         <java.version>25</java.version>
         <argLine>-Duser.timezone=Europe/Rome</argLine> <!-- placeholder to make works both the remote pipeline with sonar cloud and locally -->
-        <native.image.optimizeArg>-Ob</native.image.optimizeArg>
+        <native.image.optimizeArg>-O2</native.image.optimizeArg>
         <opentelemetry.instrumentation.version>2.26.1</opentelemetry.instrumentation.version>
+        <opentelemetry.instrumentation.alpha.version>2.26.1-alpha</opentelemetry.instrumentation.alpha.version>
         <azure.monitor.opentelemetry.version>1.4.0</azure.monitor.opentelemetry.version>
     </properties>
 
@@ -44,6 +45,15 @@
         <dependency>
             <groupId>io.opentelemetry.instrumentation</groupId>
             <artifactId>opentelemetry-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-kafka-clients-2.6</artifactId>
+            <version>${opentelemetry.instrumentation.alpha.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-otel</artifactId>
         </dependency>
         <dependency>
             <groupId>com.azure</groupId>
