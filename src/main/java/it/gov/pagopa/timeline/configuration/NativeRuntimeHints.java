@@ -8,13 +8,6 @@ import org.springframework.aot.hint.ExecutableMode;
 import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
-import org.springframework.jmx.export.metadata.AbstractJmxAttribute;
-import org.springframework.jmx.export.metadata.ManagedAttribute;
-import org.springframework.jmx.export.metadata.ManagedMetric;
-import org.springframework.jmx.export.metadata.ManagedNotification;
-import org.springframework.jmx.export.metadata.ManagedOperation;
-import org.springframework.jmx.export.metadata.ManagedOperationParameter;
-import org.springframework.jmx.export.metadata.ManagedResource;
 
 import javax.security.auth.Subject;
 import java.lang.reflect.Method;
@@ -28,9 +21,6 @@ public class NativeRuntimeHints implements RuntimeHintsRegistrar {
         MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
         MemberCategory.INVOKE_PUBLIC_METHODS);
     hints.reflection().registerType(
-        AbstractJmxAttribute.class,
-        MemberCategory.INVOKE_PUBLIC_METHODS);
-    hints.reflection().registerType(
         AzureMonitorAutoConfigurationCustomizerProvider.class,
         MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS);
     hints.reflection().registerType(
@@ -42,25 +32,12 @@ public class NativeRuntimeHints implements RuntimeHintsRegistrar {
     hints.reflection().registerType(
         AzureMonitorLogRecordExporterProvider.class,
         MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS);
-    registerJmxMetadataType(hints, ManagedResource.class);
-    registerJmxMetadataType(hints, ManagedAttribute.class);
-    registerJmxMetadataType(hints, ManagedMetric.class);
-    registerJmxMetadataType(hints, ManagedOperation.class);
-    registerJmxMetadataType(hints, ManagedNotification.class);
-    registerJmxMetadataType(hints, ManagedOperationParameter.class);
     registerKafkaSaslCompatibilityHints(hints);
     hints.resources().registerPattern("org/joda/time/tz/data/**");
     hints.resources().registerPattern("META-INF/services/io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizerProvider");
     hints.resources().registerPattern("META-INF/services/io.opentelemetry.sdk.autoconfigure.spi.traces.ConfigurableSpanExporterProvider");
     hints.resources().registerPattern("META-INF/services/io.opentelemetry.sdk.autoconfigure.spi.metrics.ConfigurableMetricExporterProvider");
     hints.resources().registerPattern("META-INF/services/io.opentelemetry.sdk.autoconfigure.spi.logs.ConfigurableLogRecordExporterProvider");
-  }
-
-  private static void registerJmxMetadataType(RuntimeHints hints, Class<?> type) {
-    hints.reflection().registerType(
-        type,
-        MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS,
-        MemberCategory.INVOKE_PUBLIC_METHODS);
   }
 
   private static void registerKafkaSaslCompatibilityHints(RuntimeHints hints) {
