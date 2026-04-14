@@ -39,7 +39,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Build the Docker image
-        run: docker build . --file ${{ env.DOCKERFILE }} --tag localbuild/testimage:latest
+        run: docker build --pull . --file ${{ env.DOCKERFILE }} --tag localbuild/testimage:latest
       - name: Run the Anchore Grype scan action
         uses: anchore/scan-action@f6601287cdb1efc985d6b765bbf99cb4c0ac29d8 #v7.0.0
         id: scan
