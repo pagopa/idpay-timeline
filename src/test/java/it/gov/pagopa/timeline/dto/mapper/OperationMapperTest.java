@@ -1,5 +1,6 @@
 package it.gov.pagopa.timeline.dto.mapper;
 
+import it.gov.pagopa.common.config.TimeConfig;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.OperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
@@ -10,30 +11,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = OperationMapper.class)
+@ContextConfiguration(classes = {OperationMapper.class, TimeConfig.class})
 class OperationMapperTest {
 
   private static final String USER_ID = "test_user";
   private static final String INITIATIVE_ID = "test_initiative";
   private static final String OPERATION_TYPE = "PAID_REFUND";
   private static final String EVENT_ID = "EVENT_ID";
-  private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
+  private static final Instant OPERATION_DATE = Instant.now();
   private static final String INSTRUMENT_ID = "INSTRUMENT_ID";
   private static final String MASKED_PAN = "MASKED_PAN";
   private static final String BRAND_LOGO = "BRAND_LOGO";
   private static final String STATUS = "COMPLETED_OK";
   private static final String REFUND_TYPE = "ORDINARY";
   private static final String BUSINESS_NAME = "BUSINESS_NAME";
-  private static final LocalDate START_DATE = LocalDate.now();
-  private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
-  private static final LocalDate TRANSFER_DATE = LocalDate.now();
-  private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
+  private static final Instant START_DATE = Instant.now();
+  private static final Instant END_DATE = Instant.now().plus(2, ChronoUnit.DAYS);
+  private static final Instant TRANSFER_DATE = Instant.now();
+  private static final Instant NOTIFICATION_DATE = Instant.now();
   public static final String INSTRUMENT_TYPE = "INSTRUMENT_TYPE";
   private static final String CRO = "CRO";
   private static final QueueOperationDTO QUEUE_OPERATION_DTO = new QueueOperationDTO(

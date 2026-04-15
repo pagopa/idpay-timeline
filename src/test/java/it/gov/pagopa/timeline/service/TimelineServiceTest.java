@@ -32,8 +32,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +74,7 @@ class TimelineServiceTest {
   private static final String EVENT_ID = "TEST_EVENT_ID";
   private static final String IBAN = "TEST_IBAN";
   private static final String CIRCUIT_TYPE = "00";
-  private static final LocalDateTime OPERATION_DATE = LocalDateTime.now();
+  private static final Instant OPERATION_DATE = Instant.now();
   private static final Long AMOUNT_CENTS = 5000L;
   private static final Operation OPERATION = new Operation();
   private static final String OPERATION_TYPE = "PAID_REFUND";
@@ -87,10 +87,10 @@ class TimelineServiceTest {
   private static final String STATUS = "COMPLETED_OK";
   private static final String REFUND_TYPE = "ORDINARY";
   private static final String BUSINESS_NAME = "BUSINESS_NAME";
-  private static final LocalDate START_DATE = LocalDate.now();
-  private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
-  private static final LocalDate TRANSFER_DATE = LocalDate.now();
-  private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
+  private static final Instant START_DATE = Instant.now();
+  private static final Instant END_DATE = Instant.now().plus(2, ChronoUnit.DAYS);
+  private static final Instant TRANSFER_DATE = Instant.now();
+  private static final Instant NOTIFICATION_DATE = Instant.now();
   private static final String PAGINATION_VALUE = "100";
 
 
@@ -431,7 +431,7 @@ class TimelineServiceTest {
     final QueueCommandOperationDTO queueCommandOperationDTO = QueueCommandOperationDTO.builder()
             .entityId(INITIATIVE_ID)
             .operationType(operationType)
-            .operationTime(LocalDateTime.now().minusMinutes(5))
+            .operationTime(Instant.now().minus(5,ChronoUnit.MINUTES))
             .build();
     Operation operation = new Operation();
     operation.setOperationId(OPERATION_ID);

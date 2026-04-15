@@ -28,7 +28,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import tools.jackson.databind.ObjectMapper;
 
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import static com.mongodb.assertions.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,10 +56,10 @@ class TimelineControllerTest {
   private static final int SIZE_KO = 11;
   private static final String STATUS = "COMPLETED_OK";
   private static final String REFUND_TYPE = "ORDINARY";
-  private static final LocalDate START_DATE = LocalDate.now();
-  private static final LocalDate END_DATE = LocalDate.now().plusDays(2);
-  private static final LocalDate TRANSFER_DATE = LocalDate.now();
-  private static final LocalDate NOTIFICATION_DATE = LocalDate.now();
+  private static final Instant START_DATE = Instant.now();
+  private static final Instant END_DATE = Instant.now().plus(2, ChronoUnit.DAYS);
+  private static final Instant TRANSFER_DATE = Instant.now();
+  private static final Instant NOTIFICATION_DATE = Instant.now();
   private static final String BUSINESS_NAME = "BUSINESS_NAME";
   private static final DetailOperationDTO DETAIL_OPERATION_DTO = DetailOperationDTO.builder()
           .build();

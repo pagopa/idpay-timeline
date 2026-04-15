@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @Slf4j
@@ -60,7 +60,7 @@ public class TimelineSpecificRepositoryImpl implements TimelineSpecificRepositor
   }
 
   public Criteria getCriteria(String initiativeId, String userId, String operationType,
-      LocalDateTime startDate, LocalDateTime endDate) {
+      Instant startDate, Instant endDate) {
 
     Criteria criteria = Criteria.where(Operation.Fields.initiativeId).is(initiativeId);
     criteria.and(Operation.Fields.userId).is(userId);

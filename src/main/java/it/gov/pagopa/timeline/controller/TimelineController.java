@@ -3,7 +3,7 @@ package it.gov.pagopa.timeline.controller;
 import it.gov.pagopa.timeline.dto.DetailOperationDTO;
 import it.gov.pagopa.timeline.dto.QueueOperationDTO;
 import it.gov.pagopa.timeline.dto.TimelineDTO;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -35,8 +35,8 @@ public interface TimelineController {
       @RequestParam(defaultValue = "0") @Min(value = 0, message = "Parameter [page] must be more than or equal to {value}") Integer page,
       @RequestParam(defaultValue = "3") @Min(value = 1, message = "Parameter [size] must be more than or equal to {value}") @Max(value = 10, message = "Parameter [size] must be less than or equal to {value}") Integer size,
       @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-      LocalDateTime dateFrom,
-      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTo);
+      Instant dateFrom,
+      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateTo);
 
   @PutMapping("/")
   ResponseEntity<Void> addOperation(@Valid @RequestBody QueueOperationDTO body);

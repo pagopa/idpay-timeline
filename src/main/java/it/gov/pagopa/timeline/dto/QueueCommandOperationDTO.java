@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Map;
 
 @Data
@@ -13,6 +13,6 @@ import java.util.Map;
 public class QueueCommandOperationDTO {
     private String operationType;
     private String entityId;
-    private LocalDateTime operationTime;
+    private Instant operationTime;
     private Map<String, String> additionalParams;
 }
