@@ -1,0 +1,22 @@
+{
+  "reflection": [
+    {
+      "type": "org.springframework.kafka.config.AbstractKafkaListenerContainerFactory",
+      "fields": [
+        {
+          "name": "batchInterceptor"
+        },
+        {
+          "name": "recordInterceptor"
+        }
+      ]
+    },
+    {
+      "type": {
+        "proxy": [
+          "com.azure.monitor.opentelemetry.autoconfigure.implementation.quickpulse.swagger.LiveMetricsRestAPIsForClientSDKs$LiveMetricsRestAPIsForClientSDKsService"
+        ]
+      }
+    }
+  ]
+}

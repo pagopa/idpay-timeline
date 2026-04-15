@@ -1,6 +1,5 @@
 package it.gov.pagopa.timeline.controller;
 
-import tools.jackson.databind.json.JsonMapper;
 import it.gov.pagopa.common.web.dto.ErrorDTO;
 import it.gov.pagopa.common.web.exception.ServiceException;
 import it.gov.pagopa.timeline.configuration.ServiceExceptionConfig;
@@ -27,6 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import tools.jackson.databind.ObjectMapper;
 
 import java.time.LocalDate;
 
@@ -83,7 +83,7 @@ class TimelineControllerTest {
   protected MockMvc mvc;
 
   @Autowired
-  JsonMapper jsonMapper;
+  ObjectMapper jsonMapper;
 
   @Test
   void getTimelineDetail_ok() throws Exception {

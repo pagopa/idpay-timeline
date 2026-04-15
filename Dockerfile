@@ -1,30 +1,41 @@
 #
-# Build
+# Native build
 #
-FROM maven:3.9.12-amazoncorretto-25-alpine@sha256:0437187207c8466d4efb733230acc67b7de72f702dbcd89500c843018d887072 AS buildtime
+FROM ghcr.io/graalvm/native-image-community:25@sha256:0d936f32bb8acb5bc60c41b33e05f064d7a6aaf36b726538296c54949bd4a3c0 AS buildtime
 
 WORKDIR /build
-COPY . .
+COPY mvnw pom.xml ./
+COPY .mvn .mvn
+COPY .git .git
+COPY src src
 
-RUN mvn clean package -DskipTests
+RUN chmod +x ./mvnw && ./mvnw -Pnative -DskipTests native:compile
 
 #
-# Docker RUNTIME
+# Native runtime dependencies
+# Distroless Debian 13 does not ship zlib, but the GraalVM native executable links to libz.so.1.
 #
-FROM amazoncorretto:25-alpine3.22@sha256:3ffb0afccd262c33a0ae14f2fdde129eb44d18de9c4288379f9c3eeb701af5a8 AS runtime
+FROM debian:trixie-slim@sha256:26f98ccd92fd0a44d6928ce8ff8f4921b4d2f535bfa07555ee5d18f61429cf0c AS runtimelibs
 
-RUN apk --no-cache add shadow \
-&& useradd --uid 10000 runner
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends zlib1g \
+ && rm -rf /var/lib/apt/lists/*
 
-VOLUME /tmp
+RUN libpath="$(find /lib /usr/lib -name 'libz.so.1' | head -n 1)" \
+ && libdir="$(dirname "${libpath}")" \
+ && mkdir -p "/out${libdir}" \
+ && cp -a "${libdir}"/libz.so.1* "/out${libdir}/"
+
+#
+# Native runtime
+#
+FROM gcr.io/distroless/base-debian13:nonroot@sha256:a696c7c8545ba9b2b2807ee60b8538d049622f0addd85aee8cec3ec1910de1f9 AS runtime
+
 WORKDIR /app
+COPY --from=runtimelibs /out/ /
+COPY --from=buildtime /build/target/idpay-timeline /app/idpay-timeline
 
-COPY --from=buildtime /build/target/*.jar /app/app.jar
-# The agent is enabled at runtime via JAVA_TOOL_OPTIONS.
-ADD https://github.com/microsoft/ApplicationInsights-Java/releases/download/3.7.7/applicationinsights-agent-3.7.7.jar /app/applicationinsights-agent.jar
+EXPOSE 8080
 
-RUN chown -R runner:runner /app
-
-USER 10000
-
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+# GraalVM native images cannot attach JVM agents such as Application Insights.
+ENTRYPOINT ["/app/idpay-timeline"]

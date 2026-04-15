@@ -13,27 +13,30 @@ spring:
   application:
     name: "@project.artifactId@"
     version: "@project.version@"
-  jmx.enabled: true
+  jmx.enabled: false
   cloud:
+    azure:
+      monitor:
+        connection-string: ${APPLICATIONINSIGHTS_CONNECTION_STRING:}
     function:
       definition: consumerTimeline; consumerCommands
     stream:
       binders:
-        kafka-in:
+        kafkaIn:
           type: kafka
           environment:
             spring.cloud.stream.kafka.binder:
               brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST_01:}
               configuration:
                 sasl.jaas.config: ${KAFKA_TIMELINE_IN_SASL_JAAS_CONFIG:}
-        kafka-out:
+        kafkaOut:
           type: kafka
           environment:
             spring.cloud.stream.kafka.binder:
               brokers: ${KAFKA_BINDER_BROKER_ENDPOINT_LIST_01:}
               configuration:
                 sasl.jaas.config: ${KAFKA_TIMELINE_OUT_SASL_JAAS_CONFIG:}
-        kafka-commands:
+        kafkaCommands:
           type: kafka
           environment:
             spring.cloud.stream.kafka.binder:
@@ -42,16 +45,16 @@ spring:
                 sasl.jaas.config: ${KAFKA_COMMANDS_IN_SASL_JAAS_CONFIG:}
       bindings:
         consumerTimeline-in-0:
-          binder: kafka-in
+          binder: kafkaIn
           content-type: ${KAFKA_CONTENT_TYPE:application/json}
           destination: ${KAFKA_TOPIC_TIMELINE:}
           group: ${KAFKA_GROUP_IN:}
         consumerTimeline-out-0:
-          binder: kafka-out
+          binder: kafkaOut
           content-type: ${KAFKA_CONTENT_TYPE:application/json}
           destination: ${KAFKA_TOPIC_TIMELINE:}
         consumerCommands-in-0:
-          binder: kafka-commands
+          binder: kafkaCommands
           content-type: ${KAFKA_CONTENT_TYPE:application/json}
           destination: ${KAFKA_TOPIC_COMMANDS:idpay-commands}
           group: ${KAFKA_COMMANDS_GROUP_IN:idpay-commands-timeline-consumer-group}
@@ -122,13 +125,33 @@ management:
       probes.enabled: true
       group:
         readiness.include: "*"
-        liveness.include: livenessState,diskSpace,ping,binders,streams
+        liveness.include: livenessState,diskSpace,ping
       logging.slow-indicator-threshold: ${HEALTH_ACTUATOR_LOGGER_TIMEOUT_DURATION:PT1S}
   endpoints:
-    jmx:
-      exposure.include: "*"
     web:
       exposure.include: info, health
+
+otel:
+  resource:
+    attributes: service.name=${spring.application.name},service.version=${spring.application.version}
+  traces:
+    exporter: ${OTEL_TRACES_EXPORTER:azure_monitor}
+  metrics:
+    exporter: ${OTEL_METRICS_EXPORTER:azure_monitor}
+  logs:
+    exporter: ${OTEL_LOGS_EXPORTER:azure_monitor}
+  instrumentation:
+    micrometer:
+      enabled: ${OTEL_INSTRUMENTATION_MICROMETER_ENABLED:true}
+    runtime-telemetry:
+      enabled: ${OTEL_INSTRUMENTATION_RUNTIME_TELEMETRY_ENABLED:false}
+
+applicationinsights:
+  configuration:
+    file: ${APPLICATIONINSIGHTS_CONFIGURATION_FILE:}
+  live:
+    metrics:
+      enabled: ${APPLICATIONINSIGHTS_LIVE_METRICS_ENABLED:false}
 
 logging:
   level:
